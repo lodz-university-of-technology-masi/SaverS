@@ -1,0 +1,22 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h3, h4, h5 {
+    text-align: center;
+}
+
+.recruiterNick   {
+    text-align: center;
+    color: green;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+img {
+    width: 150px;
+    height: 200px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+}
