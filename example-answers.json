@@ -1,0 +1,28 @@
+{
+  "id": "1",
+  "CandidateID": "2134",
+  "RecruiterID": "125231", 
+  "title": "Przykładowy Test",
+  "lang": "pl",
+  "questions": [
+    {
+      "id": "1",
+      "question": "What is your name and surname?",
+      "answers": ["Jan Kowalski"],
+      "correct": "true"
+    },
+    {
+      "id": "2",
+      "question": "What does Cyclomatic Complexity measure?",
+      "answers": ["complecity of program"],
+      "correct": "true"
+    },
+    {
+      "id": "3",
+      "type": "numeric",
+      "question": "How many principles were in the original Agile Manifesto?",
+      "answers": ["12"],
+      "correct": "true"
+    }
+  ]
+}
