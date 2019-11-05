@@ -1,0 +1,30 @@
+{
+  "id": "1",
+  "title": "Przykładowy Test",
+  "lang": "pl",
+  "questions": [
+    {
+      "id": "1",
+      "type": "open",
+      "question": "What is your name and surname?",
+      "answers": ["|"]
+    },
+    {
+      "id": "2",
+      "type": "choice",
+      "question": "What does Cyclomatic Complexity measure?",
+      "answers": [
+        "complexity of software",
+        "duplication of code",
+        "robustness",
+        "number of lines of code"
+      ]
+    },
+    {
+      "id": "3",
+      "type": "numeric",
+      "question": "How many principles were in the original Agile Manifesto?",
+      "answers": ["|"]
+    }
+  ]
+}
