@@ -82,13 +82,13 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Test Name</span>
               </div>
-              <input type="text" aria-label="First name" class="form-control" />
+              <input type="text" aria-label="First name" class="form-control" id="testNameInput" />
             </div>
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Test Content</span>
               </div>
-              <input type="text" aria-label="First name" class="form-control" />
+              <input type="text" aria-label="First name" class="form-control" id="testContentInput"/>
 
               <div class="custom-file">
                 <input
@@ -107,7 +107,7 @@
             <button type="button" class="btn btn-danger" data-dismiss="modal">
               Close
             </button>
-            <button type="button" class="btn btn-success" id="add_file">
+            <button type="button" class="btn btn-success" id="add_file" onclick="createTest()">
               Add
             </button>
           </div>
@@ -124,56 +124,92 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
     <script>
-      let dat =""
-      function readFile(cb) {
-        let content =""
-        var files = document.getElementById("inputGroupFile01").files;
-        if (!files.length) {
-          alert("Please select a file!");
-          return;
-        }
-        var file = files[0];
-        var reader = new FileReader();
-        // console.log(reader.readAsText(file));
-        reader.onload = function(evt) {
-          // if (evt.target.readyState == FileReader.DONE) {
-            // DONE == 2
-            content = evt.target.result
-            cb(content);
-            //  console.log(evt.target.result);
-            //  evt.target.result;
-          // }
-        };
-        reader.readAsText(file);
+//       let dat =""
+//       function readFile(cb) {
+//         let content =""
+//         var files = document.getElementById("inputGroupFile01").files;
+//         if (!files.length) {
+//           alert("Please select a file!");
+//           return;
+//         }
+//         var file = files[0];
+//         var reader = new FileReader();
+//         // console.log(reader.readAsText(file));
+//         reader.onload = function(evt) {
+//           // if (evt.target.readyState == FileReader.DONE) {
+//             // DONE == 2
+//             content = evt.target.result
+//             cb(content);
+//             //  console.log(evt.target.result);
+//             //  evt.target.result;
+//           // }
+//         };
+//         reader.readAsText(file);
         
       
-      }
+//       }
       
-     function sendData(data)
-     {
-      fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: data,
-    headers: {
-      "Content-type": "multipart/form-data charset=UTF-8"
-    }
-  })
-  .then(response => response.json())
-  .then(json => console.log(json))
-     }
+// function sendData(data)
+// {
+//       fetch('https://jsonplaceholder.typicode.com/posts', {
+//     method: 'POST',
+//     body: data,
+//     headers: {
+//       "Content-type": "multipart/form-data charset=UTF-8"
+//     }
+//   })
+//   .then(response => response.json())
+//   .then(json => console.log(json))
+// }
 
-function Click()
-{
-  readFile(function(content) {
-    dat=content;
-    console.log(dat)
-    sendData(dat);
-})
+// function Click()
+// {
+//   readFile(function(content) {
+//     dat=content;
+//     console.log(dat)
+//     sendData(dat);
+// })
+// }
+//      document
+//         .getElementById("add_file")
+//         .addEventListener("click", Click, false);
+
+
+//sending test from text field section
+
+function sendTest(Test) {
+    $.ajax({
+      type: "POST",
+      url: "https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPI/test",
+      crossDomain: true,
+      data: JSON.stringify(Test),
+      contentType: "application/json",
+      dataType: "json",
+      success: data => {
+        console.log(data);
+      },
+      error: err => {
+        console.log(err.responseJSON);
+      }
+    });
+  };
+
+function createTest() {
+  let inputName = document.getElementById("testNameInput");
+  let inputContent = document.getElementById("testContentInput");
+  
+  let newName = inputName.value;
+  let newQuestions = inputContent.value;
+  let questionsList = newQuestions.split(",");
+
+  let newTest = {
+        name: newName,
+        questions: questionsList
+  };
+
+  console.log(newTest);
+  sendTest(newTest);
 }
-     document
-        .getElementById("add_file")
-        .addEventListener("click", Click, false);
-
 
     </script>
   </body>
