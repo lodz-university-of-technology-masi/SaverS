@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Test</title>
+        <script src="parser_webpack.js"></script>
+    </head>
+
+    <body>
+        <input type="text" id="csv" />
+        <input type="button" onclick="test()" value="Parsuj" />
+        <p id="parsed" />
+    </body>
+
+    <script>
+        function test(){
+            let text = document.getElementById("csv").value;
+            let parsed = document.getElementById("parsed");
+            parsed.innerHTML = JSON.stringify(parser.parse(text));
+        }
+    </script>
+
+</html>
