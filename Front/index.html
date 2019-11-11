@@ -22,8 +22,9 @@
 
     <!-- header section -->
     <header>
-        <h1 class="alert alert-success" role="alert">$aver$ recruitment system</h1>
-        <h3 class="signUpLabel">Sign up as recruiter</h3>
+        <a href = "recruterMain.html" ><h1 class="alert alert-success" role="alert">$aver$ recruitment system</h1></a>
+        <h3 class="signUpLabel">Start by logging in</h3>
+        <div class="d-none alert alert-danger fade show" id="alert-content" role="alert"></div>
     </header>
 
     <!-- sign up form section -->
@@ -33,19 +34,13 @@
             <!-- username span and input -->
             <div class="input-group-prepend">
                 <span class="input-group-text">Username</span>
-                <input type="text" id="inputUsername" class="form-control" />
-            </div>
-
-            <!-- email address span and input -->
-            <div class="input-group-prepend">
-                <span class="input-group-text">Email address</span>
-                <input type="text" id="inputEmailAddress" class="form-control" />
+                <input type="text" id="inputUsername" class="form-control" value="TestRecruiter"/>
             </div>
 
             <!-- password address span and input -->
             <div class="input-group-prepend">
                 <span class="input-group-text">Password</span>
-                <input type="password" id="inputPassword" class="form-control" />
+                <input type="password" id="inputPassword" class="form-control" value="Haslo01!"/>
             </div>
 
         </form>
@@ -55,15 +50,37 @@
         <!-- signing up button 
             TODO: signUpJs() cognito system waititng for implementation,
             of course, now button "signUp" is not working -->
-        <a href="recruterMain.html">
-            <input type="button" class="btn btn-success" value="Sign Up" />
-        </a>
+        <input type="button" class="btn btn-success" onclick="signIn()" value="Sign Up" />
     </section>
 
     <!-- img section -->
     <section>
         <img src="img/rekro2.png" class="rekroImg" alt="recro img" />
     </section>
+    
+    <script 
+        src="https://code.jquery.com/jquery-1.11.3.min.js">
+    </script>
+    
+    <script 
+        src="./js/amazon-cognito-auth.min.js">
+    </script>
+
+    <script 
+        src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+    </script> 
+    
+    <script 
+        src="./js/amazon-cognito-identity.min.js">
+    </script> 
+
+    <script 
+        src="./js/config.js">
+    </script>
+
+    <script
+        src="./js/cognito.js">
+    </script>
 
 </body>
 

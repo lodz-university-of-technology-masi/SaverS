@@ -2,6 +2,37 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-h3, h4, h5 {
+h1, #alert-content, #success-content {
     text-align: center;
+}
+
+.singUpForm {
+    margin: auto;
+    width: 50% !important; 
+}
+
+.input-group-text {
+    width: 100% !important; 
+}
+
+.signUpLabel {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: green;
+}
+
+.signUpButton {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 138px !important; 
+}
+
+img {
+    width: 230px;
+    height: 300px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
 }

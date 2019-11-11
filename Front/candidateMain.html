@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <!-- title section -->
     <title>$aver$ recruitment</title>
 
@@ -15,28 +14,25 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/recruterMainMenuTheme.css" />
+    <link rel="stylesheet" href="./css/candidateMainMenuTheme.css" />
 </head>
 
 <body>
 
     <!-- header section -->
     <header>
-        <h3 class="alert alert-success" role="alert">Recruiter main panel</h3>
-        <h4 class="recruiterNick">Recruiter: Test</h4>
+        <h1 class="alert alert-success" role="alert">$aver$ recruitment system</h1>
+        <h4 class="candidateNick"></h4>
     </header>
 
     <!-- buttons section -->
     <section class="buttonsSection">
         <div class="card" style="width: 50%; margin: auto;">
             <div class="card-body">
-                <a href="manageTests.html">
-                    <button type="button" class="btn btn-outline-success btn-lg btn-block">Manage tests</button>
-                </a>
-                <a href="createCandidatesAccount.html">
-                    <button type="button" class="btn btn-outline-success btn-lg btn-block">Manage candidate accounts</button>
-                </a>
                 <button type="button" class="btn btn-outline-success btn-lg btn-block">Your account settings</button>
+                
+                <button type="button" class="btn btn-outline-success btn-lg btn-block " onclick="logOut()">Log out</button>
+                
             </div>
         </div>
     </section>
@@ -48,8 +44,41 @@
 
     <!-- footer section -->
     <footer class="fixed-bottom">
-        <h4 class="alert alert-success" role="alert">$aver$ recruitment system</h4>
+        <h4 class="alert alert-success" role="alert">Candidate main panel</h4>
     </footer>
+    
+    <script 
+        src="https://code.jquery.com/jquery-1.11.3.min.js">
+    </script>
+    
+    <script 
+        src="./js/amazon-cognito-auth.min.js">
+    </script>
+
+    <script 
+        src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+    </script> 
+    
+    <script 
+        src="./js/amazon-cognito-identity.min.js">
+    </script> 
+    
+    <script 
+        src="./js/config.js">
+    </script>
+    
+    <script 
+        src="./js/config.js">
+    </script>
+
+    <script
+        src="./js/cognito.js">
+    </script>
+
+    <script>
+        window.onload = isUserType(0); //isCandidate()
+    </script>
+
 
 </body>
 

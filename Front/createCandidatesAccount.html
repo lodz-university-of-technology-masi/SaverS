@@ -22,11 +22,88 @@
 
     <!-- header section -->
     <header>
-            <h3 class="alert alert-success" role="alert">Your candidates accounts</h3>
+        <a href = "recruiterMain.html" ><h1 class="alert alert-success" role="alert">$aver$ recruitment system</h1></a>
+        <h3 class="signUpLabel">Create new account</h3>
+        <div class="d-none alert alert-danger fade show" id="alert-content" role="alert"></div>
+        <div class="d-none alert alert-success fade show" id="success-content" role="alert"></div>
     </header>
 
-    <!-- ToDo: gui for adding and editing candidates accounts -->
-    ToDo: gui for adding and editing candidates accounts
+    <!-- sign up form section -->
+    <section class="signUpSection">
+        <form class="singUpForm">
+
+            <!-- username span and input -->
+            <div class="input-group-prepend">
+                <span class="input-group-text">Username</span>
+                <input type="text" id="inputUsername" class="form-control" />
+            </div>
+
+            <!-- email address span and input -->
+            <div class="input-group-prepend">
+                <span class="input-group-text">Email address</span>
+                <input type="email" id="inputEmailAddress" class="form-control" />
+            </div>
+
+            <!-- password span and input -->
+            <div class="input-group-prepend">
+                <span class="input-group-text">Password</span>
+                <input type="password" id="inputPassword" class="form-control" />
+            </div>
+            
+            <!-- password confirm span and input -->
+            <div class="input-group-prepend">
+                <span class="input-group-text">Confrim password</span>
+                <input type="password" id="inputConfirmPassword" class="form-control" />
+            </div>
+            
+            <!-- role span and input -->
+            <div class="input-group-prepend">
+                <span class="input-group-text">Choose Role</span>
+                <select class="form-control" id="userRole">
+                    <option value="0">Candidate</option>
+                    <option value="1">Recruiter</option>
+                </select>
+            </div>
+        </form>
+    </section>
+    
+    <section class="signUpButton">
+        <!-- creating user button -->
+            <input type="button" class="btn btn-success" value="Create" onclick="createUser()" />
+    </section>
+
+    <!-- img section -->
+    <section>
+        <img src="img/rekro2.png" class="rekroImg" alt="recro img" />
+    </section>
+    
+    <script 
+        src="https://code.jquery.com/jquery-1.11.3.min.js">
+    </script>
+    
+    <script 
+        src="./js/amazon-cognito-auth.min.js">
+    </script>
+
+    <script 
+        src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+    </script> 
+    
+    <script 
+        src="./js/amazon-cognito-identity.min.js">
+    </script> 
+
+    <script 
+        src="./js/config.js">
+    </script>
+
+    <script
+        src="./js/cognito.js">
+    </script>
+    
+    <script>
+        window.onload = isUserType(1); //isRecruiter()
+    </script>
 </body>
 
 </html>
