@@ -1,0 +1,13 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.singUpForm {
+    margin: auto;
+    width: 90% !important; 
+}
+
+.input-group-text {
+    width: 100% !important; 
+}

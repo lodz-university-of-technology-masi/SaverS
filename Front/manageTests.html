@@ -47,7 +47,14 @@
             data-toggle="modal"
             data-target="#createTestModal"
           >
-            Add Test
+            Add Test with csv file
+          </button>
+          <button
+          type="button"
+          class="btn btn-outline-success btn-lg btn-block"
+          onclick="loadTestForm()"
+          >
+          Add Test with form
           </button>
         </div>
       </div>
@@ -208,6 +215,10 @@ function createTest() {
 
   console.log(newTest);
   sendTest(newTest);
+}
+
+function loadTestForm() {
+  window.open("createTestForm.html", "_self");
 }
 
     </script>
