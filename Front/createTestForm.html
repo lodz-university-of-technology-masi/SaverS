@@ -33,7 +33,7 @@
 
                     <div class="input-group-prepend">
                         <span class="input-group-text">Test Name</span>
-                        <input type="text" id="inputUsername" class="form-control"
+                        <input type="text" id="testName" class="form-control"
                             placeholder="Enter name of your test" />
                     </div>
                     <br />
@@ -41,8 +41,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Question language</span>
                         <select class="form-control" id="language">
-                            <option value="PL">Polish</option>
-                            <option value="EN">English</option>
+                            <option value="pl">Polish</option>
+                            <option value="en">English</option>
                         </select>
                     </div>
                     <br />
@@ -51,7 +51,7 @@
 
                     <section class="newQuestionButton">
                         <input data-toggle="modal" data-target="#newQuestion" type="button" class="btn btn-success"
-                            value="Add question" />
+                            value="Add question"/>
                     </section>
 
                 </form>
@@ -62,7 +62,7 @@
     <!-- submit test -->
     <section class="submitest">
         <br />
-        <input type="button" class="btn btn-primary btn-lg" value="Submit test" />
+        <input type="button" class="btn btn-primary btn-lg" value="Submit test" onclick="createTest()"/>
     </section>
 
     <!-- Modal -->
@@ -81,9 +81,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Question type</span>
                         <select class="form-control" id="type" name="type">
-                            <option value="open">Open question</option>
-                            <option value="choice">Multiple choice question</option>
-                            <option value="numeric">Number question</option>
+                            <option value="O">Open question</option>
+                            <option value="W">Multiple choice question</option>
+                            <option value="L">Number question</option>
                         </select>
 
                     </div>
@@ -120,6 +120,22 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
 
+    <script 
+        src="./js/amazon-cognito-auth.min.js">
+    </script>
+
+    <script 
+        src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+    </script> 
+    
+    <script 
+        src="./js/amazon-cognito-identity.min.js">
+    </script> 
+
+    <script 
+        src="./js/config.js">
+    </script>
+    <script src="./js/cognito.js"></script>
     <script src="./js/testFormScripts.js"></script>
 
 

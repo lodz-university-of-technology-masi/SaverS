@@ -9,7 +9,7 @@ $("#type").change(function() {
   var el = $(this);
   let answers = document.getElementById("answersPanel");
 
-  if(("choice".localeCompare(el.val().toString())) == 0) {
+  if(("W".localeCompare(el.val().toString())) == 0) {
 
     createAddAnswerButton();
 
@@ -78,7 +78,7 @@ function createQuestion() {
     var type = $("#type");
     let ourAnswers = [];
 
-    if (("choice".localeCompare(type.val().toString())) == 0) {
+    if (("W".localeCompare(type.val().toString())) == 0) {
         var i;
         for (i = 1; i < answerCounter; i++) {
             var ourAnswer = $("#answer" + i);
@@ -92,7 +92,7 @@ function createQuestion() {
     let newQuestionItem = {
         id: questionCounter,
         type: type.val(),
-        question: content.val(),
+        content: content.val(),
         answers: ourAnswers,
     };
 
@@ -156,13 +156,22 @@ function updateTable() {
 
         //add question table cell
         let newTableCellQuestion = document.createElement("td");
-        let newContentQuestion = document.createTextNode(questionList[question].question);
+        let newContentQuestion = document.createTextNode(questionList[question].content);
          newTableCellQuestion.appendChild(newContentQuestion);
         newElement.appendChild(newTableCellQuestion);
 
         //add type table cell
         let newTableCellType = document.createElement("td");
-        let newContentType = document.createTextNode(questionList[question].type);
+        let newContentType;
+        if(("W".localeCompare(questionList[question].type.toString())) == 0) {
+            newContentType = document.createTextNode("Multiple choice");
+        }
+        else if (("O".localeCompare(questionList[question].type.toString())) == 0) {
+            newContentType = document.createTextNode("Open");
+        }
+        else if (("L".localeCompare(questionList[question].type.toString())) == 0) {
+            newContentType = document.createTextNode("Number question");
+        }
         newTableCellType.appendChild(newContentType);
         newElement.appendChild(newTableCellType);
 
@@ -195,3 +204,45 @@ let deleteQuestion = function (index) {
     questionList.splice(index, 1);
     updateTable();
 }
+
+function createTest() {
+    
+    let username = getUserName();
+    let testName = document.getElementById("testName");
+    let language = document.getElementById("language");
+
+    let newTest = {
+        owner: username,
+        name: testName.value,
+        lang: language.value,
+        questions: questionList
+    }
+
+    sendTest(newTest).then(
+        result => {
+            console.log(result)
+            window.open("manageTests.html", "_self");
+        },
+        reject => {
+            console.log(reject)
+        }
+    )
+}
+
+function sendTest(test) {
+    console.log(JSON.stringify(test));
+    return new Promise((resolve, reject) => {
+        $.ajax({
+          type: 'POST',
+          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPI/test',
+          data: JSON.stringify(test),
+          contentType: 'application/json',
+          success: data => {
+            return resolve(data)
+          },
+          error: err => {
+            return reject(err.responseText)
+          }
+        });
+    });
+  };
