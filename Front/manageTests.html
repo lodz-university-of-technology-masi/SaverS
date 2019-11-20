@@ -52,7 +52,7 @@
           <button
           type="button"
           class="btn btn-outline-success btn-lg btn-block"
-          onclick="loadTestForm()"
+          onclick="window.open('createTestForm.html', '_self')"
           >
           Add Test with form
           </button>
@@ -71,10 +71,10 @@
       aria-labelledby="testModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-dialog modal modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="testModalLabel">Test Data</h5>
+            <h5 class="modal-title" id="testModalLabel">Import file</h5>
             <button
               type="button"
               class="close"
@@ -90,24 +90,23 @@
                 <span class="input-group-text">Test Name</span>
               </div>
               <input type="text" aria-label="First name" class="form-control" id="testNameInput" />
+              <div class="invalid-feedback">
+                  Należy podać nazwę testu
+              </div>
             </div>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Test Content</span>
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                id="testFileInput"
+                aria-describedby="inputGroupFileAddon01"
+              />
+              <div class="invalid-feedback">
+                  Należy wybrać plik
               </div>
-              <input type="text" aria-label="First name" class="form-control" id="testContentInput"/>
-
-              <div class="custom-file">
-                <input
-                  type="file"
-                  class="custom-file-input"
-                  id="inputGroupFile01"
-                  aria-describedby="inputGroupFileAddon01"
-                />
-                <label class="custom-file-label" for="inputGroupFile01"
-                  >Choose file</label
-                >
-              </div>
+              <label class="custom-file-label" for="inputGroupFile01">
+                  No file selected
+              </label>
             </div>
           </div>
           <div class="modal-footer">
@@ -123,6 +122,8 @@
     </div>
 
     <!-- script section -->
+
+    <!--libs-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -130,97 +131,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
-    <script>
-       
-// let dat =""
-// function readFile(cb) {
-//   let content =""
-//   var files = document.getElementById("inputGroupFile01").files;
-//   if (!files.length) {
-//     alert("Please select a file!");
-//     return;
-//   }
-//   var file = files[0];
-//   var reader = new FileReader();
-//          // console.log(reader.readAsText(file));
-//          reader.onload = function(evt) {
-//            // if (evt.target.readyState == FileReader.DONE) {
-//              // DONE == 2
-//              content = evt.target.result
-//              cb(content);
-//              //  console.log(evt.target.result);
-//              //  evt.target.result;
-//            // }
-//          };
-//          reader.readAsText(file);      
-// }
-      
-// function sendData(data)
-// {
-//       fetch('https://jsonplaceholder.typicode.com/posts', {
-//     method: 'POST',
-//     body: data,
-//     headers: {
-//       "Content-type": "multipart/form-data charset=UTF-8"
-//     }
-//   })
-//   .then(response => response.json())
-//   .then(json => console.log(json))
-// }
 
-// function Click()
-// {
-//   readFile(function(content) {
-//     dat=content;
-//     console.log(dat)
-//     sendData(dat);
-// })
-// }
-//      document
-//         .getElementById("add_file")
-//         .addEventListener("click", Click, false);
+    <!--aws cognito-->
+    <script src="./js/amazon-cognito-auth.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>  
+    <script src="./js/amazon-cognito-identity.min.js"></script> 
+    <script src="./js/config.js"></script>
+    <script src="./js/cognito.js"></script>
 
+    <!--parser and CSV import-->
 
-//sending test from text field section
+    <script src="js/parser_webpack.js"></script>
+    <script src="js/testCSVScripts.js"></script>
 
-function sendTest(Test) {
-    $.ajax({
-      type: "POST",
-      url: "https://cors-anywhere.herokuapp.com/https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPI/test",
-      crossDomain: true,
-      data: JSON.stringify(Test),
-      contentType: "application/json",
-      dataType: "json",
-      success: data => {
-        console.log(data);
-      },
-      error: err => {
-        console.log(err.responseJSON);
-      }
-    });
-  };
-
-function createTest() {
-  let inputName = document.getElementById("testNameInput");
-  let inputContent = document.getElementById("testContentInput");
-  
-  let newName = inputName.value;
-  let newQuestions = inputContent.value;
-  let questionsList = newQuestions.split(",");
-
-  let newTest = {
-        name: newName,
-        questions: questionsList
-  };
-
-  console.log(newTest);
-  sendTest(newTest);
-}
-
-function loadTestForm() {
-  window.open("createTestForm.html", "_self");
-}
-
-    </script>
   </body>
 </html>

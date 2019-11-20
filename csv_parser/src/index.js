@@ -20,17 +20,20 @@ export function parse(text){
         question.id = question_node.numer().getText();
         //type
         if(question_node.typ().getText() == 'O')
-            question.type = 'open';
+            question.type = 'O';
         else if(question_node.typ().getText() == 'L')
-            question.type = 'numeric';
+            question.type = 'L';
         else if(question_node.typ().getText() == 'W')
-            question.type = 'choice';
+            question.type = 'W';
         //question
-        question.question = question_node.tresc_pytania().getText();
+        question.content = question_node.tresc_pytania().getText();
         //answers
         question.answers = [];
         for(let j in question_node.tresc_odpowiedzi()){
             question.answers.push(question_node.tresc_odpowiedzi()[j].getText());
+        }
+        if(question.answers.length == 0){
+            question.answers.push("|");
         }
         test.questions.push(question);
     }
