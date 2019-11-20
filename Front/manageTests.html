@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <!-- meta section -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<head>
-  <!-- meta section -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- title section -->
+    <title>$aver$ recruitment</title>
 
-  <!-- title section -->
-  <title>$aver$ recruitment</title>
+    <!-- link section -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/manageTestsTheme.css" />
+  </head>
 
-  <!-- link section -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
-  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/manageTestsTheme.css" />
-</head>
+  <body>
+    <!-- header section -->
+    <header>
+      <h3 class="alert alert-success" role="alert">Your Tests Management</h3>
+    </header>
 
-<body>
-  <!-- header section -->
-  <header>
-    <h3 class="alert alert-success" role="alert">Your Tests Management</h3>
-  </header>
-
-  <!-- buttons section -->
-  <section class="buttonsSection">
-    <div class="card" style="width: 50%; margin: auto;">
-      <div class="card-body">
-        <button type="button" class="btn btn-outline-success btn-lg btn-block" data-toggle="modal"
-          data-target="#createTestModal">
-          Add Test with csv file
-        </button>
-        <button type="button" class="btn btn-outline-success btn-lg btn-block" onclick="loadTestForm()">
+    <!-- buttons section -->
+    <section class="buttonsSection">
+      <div class="card" style="width: 50%; margin: auto;">
+        <div class="card-body">
+          <button
+            type="button"
+            class="btn btn-outline-success btn-lg btn-block"
+            data-toggle="modal"
+            data-target="#createTestModal"
+          >
+            Add Test with csv file
+          </button>
+          <button
+          type="button"
+          class="btn btn-outline-success btn-lg btn-block"
+          onclick="window.open('createTestForm.html', '_self')"
+          >
           Add Test with form
         </button>
       </div>
@@ -39,6 +61,19 @@
     <div id="byte_range"></div>
     <div id="byte_content"></div>
   </section>
+
+  <section>
+      <img src="img/exam.png" class="rekroImg" alt="recro img" />
+  </section>
+
+    <!-- footer section -->
+    <footer class="fixed-bottom">
+        <div class="text-left">
+          <input type="button" class="btn-success btn" value="Back to main panel" id="buttonMainPanel"
+            onclick="window.open('recruiterMain.html', '_self');" />
+        </div>
+        <h4 class="alert alert-success" role="alert">Manage test menu</h4>
+      </footer>
 
   <!-- Modal -->
   <div class="modal fade bd-example-modal-xl" id="createTestModal" tabindex="-1" role="dialog"
@@ -51,23 +86,56 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Test Name</span>
-            </div>
-            <input type="text" aria-label="First name" class="form-control" id="testNameInput" />
-          </div>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Test Content</span>
-            </div>
-            <input type="text" aria-label="First name" class="form-control" id="testContentInput" />
+      </div>
+      <div id="byte_range"></div>
+      <div id="byte_content"></div>
+    </section>
 
+    <!-- Modal -->
+    <div
+      class="modal fade bd-example-modal-xl"
+      id="createTestModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="testModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="testModalLabel">Import file</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Test Name</span>
+              </div>
+              <input type="text" aria-label="First name" class="form-control" id="testNameInput" />
+              <div class="invalid-feedback">
+                  Należy podać nazwę testu
+              </div>
+            </div>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile01"
-                aria-describedby="inputGroupFileAddon01" />
-              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              <input
+                type="file"
+                class="custom-file-input"
+                id="testFileInput"
+                aria-describedby="inputGroupFileAddon01"
+              />
+              <div class="invalid-feedback">
+                  Należy wybrać plik
+              </div>
+              <label class="custom-file-label" for="inputGroupFile01">
+                  No file selected
+              </label>
             </div>
           </div>
         </div>
@@ -75,7 +143,7 @@
           <button type="button" class="btn btn-danger" data-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-success" id="add_file" onclick="createTest()">
+          <button type="button" class="btn btn-success" id="add_file" onclick="window.open('createTestForm.html', '_self');">
             Add
           </button>
         </div>
@@ -83,124 +151,28 @@
     </div>
   </div>
 
-  <!-- footer section -->
-  <footer class="fixed-bottom">
-    <div class="text-left">
-      <input type="button" class="btn-success btn" value="Back to main panel" id="buttonMainPanel"
-        onclick="mainPanel()" />
-    </div>
-    <h4 class="alert alert-success" role="alert">Manage test menu</h4>
-  </footer>
+    <!-- script section -->
 
-  <!-- img section -->
-  <section>
-      <img src="img/exam.png" class="rekroImg" alt="recro img" />
-  </section>
+    <!--libs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- script section -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
-  <script>
+    <!--aws cognito-->
+    <script src="./js/amazon-cognito-auth.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>  
+    <script src="./js/amazon-cognito-identity.min.js"></script> 
+    <script src="./js/config.js"></script>
+    <script src="./js/cognito.js"></script>
 
-    // let dat =""
-    // function readFile(cb) {
-    //   let content =""
-    //   var files = document.getElementById("inputGroupFile01").files;
-    //   if (!files.length) {
-    //     alert("Please select a file!");
-    //     return;
-    //   }
-    //   var file = files[0];
-    //   var reader = new FileReader();
-    //          // console.log(reader.readAsText(file));
-    //          reader.onload = function(evt) {
-    //            // if (evt.target.readyState == FileReader.DONE) {
-    //              // DONE == 2
-    //              content = evt.target.result
-    //              cb(content);
-    //              //  console.log(evt.target.result);
-    //              //  evt.target.result;
-    //            // }
-    //          };
-    //          reader.readAsText(file);      
-    // }
+    <!--parser and CSV import-->
 
-    // function sendData(data)
-    // {
-    //       fetch('https://jsonplaceholder.typicode.com/posts', {
-    //     method: 'POST',
-    //     body: data,
-    //     headers: {
-    //       "Content-type": "multipart/form-data charset=UTF-8"
-    //     }
-    //   })
-    //   .then(response => response.json())
-    //   .then(json => console.log(json))
-    // }
+    <script src="js/parser_webpack.js"></script>
+    <script src="js/testCSVScripts.js"></script>
 
-    // function Click()
-    // {
-    //   readFile(function(content) {
-    //     dat=content;
-    //     console.log(dat)
-    //     sendData(dat);
-    // })
-    // }
-    //      document
-    //         .getElementById("add_file")
-    //         .addEventListener("click", Click, false);
-
-
-    //sending test from text field section
-
-    function sendTest(Test) {
-      $.ajax({
-        type: "POST",
-        url: "https://cors-anywhere.herokuapp.com/https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPI/test",
-        crossDomain: true,
-        data: JSON.stringify(Test),
-        contentType: "application/json",
-        dataType: "json",
-        success: data => {
-          console.log(data);
-        },
-        error: err => {
-          console.log(err.responseJSON);
-        }
-      });
-    };
-
-    function createTest() {
-      let inputName = document.getElementById("testNameInput");
-      let inputContent = document.getElementById("testContentInput");
-
-      let newName = inputName.value;
-      let newQuestions = inputContent.value;
-      let questionsList = newQuestions.split(",");
-
-      let newTest = {
-        name: newName,
-        questions: questionsList
-      };
-
-      console.log(newTest);
-      sendTest(newTest);
-    }
-
-    function loadTestForm() {
-      window.open("createTestForm.html", "_self");
-    }
-
-    function mainPanel() {
-    window.open("recruiterMain.html", "_self");
-    }
-
-  </script>
-</body>
-
+  </body>
 </html>
