@@ -97,6 +97,13 @@ function createQuestion() {
     };
 
     questionList.push(newQuestionItem);
+
+    var counter = 1;
+    for (let question in questionList) {
+        questionList[question].id = counter;
+        counter++; 
+    }
+
     updateTable();
     questionCounter++;
 }
@@ -177,7 +184,14 @@ function updateTable() {
 
         //add answers table cell
         let newTableCellAnswers = document.createElement("td");
-        let newContentAnswers = document.createTextNode(questionList[question].answers.toString().split(",").join(", "));
+        let newContentAnswers;
+        if (("O".localeCompare(questionList[question].type.toString()) == 0 ||
+         ("L".localeCompare(questionList[question].type.toString())) == 0)) {
+            newContentAnswers = document.createTextNode("No answers");
+        }
+        else if(("W".localeCompare(questionList[question].type.toString())) == 0) {
+            newContentAnswers = document.createTextNode(questionList[question].answers.toString().split(",").join(", "));
+        }
         newTableCellAnswers.appendChild(newContentAnswers);
         newElement.appendChild(newTableCellAnswers);
 
@@ -202,6 +216,11 @@ function updateTable() {
 
 let deleteQuestion = function (index) {
     questionList.splice(index, 1);
+    var counter = 1;
+    for (let question in questionList) {
+        questionList[question].id = counter;
+        counter++; 
+    }
     updateTable();
 }
 
@@ -218,15 +237,24 @@ function createTest() {
         questions: questionList
     }
 
+    var check = checkFields();
+
+    if(check) {
     sendTest(newTest).then(
         result => {
             console.log(result)
-            window.open("manageTests.html", "_self");
+            let textDiv = document.getElementById("subTestDiv");
+            let text = document.createTextNode("Succes, redirecting to main panel");
+            textDiv.appendChild(text);
+            setTimeout(function(){
+                window.open("recruiterMain.html", "_self");
+            }, 2000);
         },
         reject => {
             console.log(reject)
         }
     )
+    }
 }
 
 function sendTest(test) {
@@ -246,3 +274,39 @@ function sendTest(test) {
         });
     });
   };
+
+function checkFields() {
+    let testName = document.getElementById("testName");
+    let size = 0;
+    var emptyAnswer = false;
+    var emptyName = false;
+
+    for (let question in questionList) {
+        if(questionList[question].content === "") {
+            emptyName = true;
+        }
+        if(questionList[question].type === "W") {
+            for(let answer in questionList[question].answers) {
+                if(questionList[question].answers[answer] === "" )
+                emptyAnswer = true;
+            }
+        }
+        size++; 
+    }
+
+    if (testName.value === "" || emptyName) {
+        $('#warnEmpty').modal('show');
+        return false;
+    } else if (size === 0) {
+        $('#warnNoQuestion').modal('show');
+        return false;
+    } else if(emptyAnswer) {
+        $('#warnEmptyAnswer').modal('show');
+        return false;
+    }
+    return true;   
+}
+
+function mainPanel() {
+    window.open("recruiterMain.html", "_self");
+}
