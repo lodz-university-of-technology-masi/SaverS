@@ -1,0 +1,1 @@
+aws lambda create-function --function-name create_candidate --runtime java8 --role arn:aws:iam::244452199480:role/basic_lambda --handler CandidateCreator::handleRequest --zip-file fileb://target/create_candidate-1.0-SNAPSHOT.jar --memory-size 512 --timeout 15

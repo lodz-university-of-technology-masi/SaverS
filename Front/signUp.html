@@ -32,12 +32,6 @@
     <section class="signUpSection">
         <form class="singUpForm">
 
-            <!-- username span and input -->
-            <div class="input-group-prepend">
-                <span class="input-group-text">Username</span>
-                <input type="text" id="inputUsername" class="form-control" />
-            </div>
-
             <!-- email address span and input -->
             <div class="input-group-prepend">
                 <span class="input-group-text">Email address</span>
@@ -56,20 +50,12 @@
                 <input type="password" id="inputConfirmPassword" class="form-control" />
             </div>
             
-            <!-- role span and input -->
-            <div class="input-group-prepend">
-                <span class="input-group-text">Choose Role</span>
-                <select class="form-control" id="userRole">
-                    <option value="0">Candidate</option>
-                    <option value="1">Recruiter</option>
-                </select>
-            </div>
         </form>
     </section>
     
     <section class="signUpButton">
         <!-- creating user button -->
-            <input type="button" class="btn btn-success" value="Create" onclick="createUser()" />
+            <input type="button" class="btn btn-success" value="Sign Up" onclick="signUp()" />
     </section>
 
     <!-- img section -->
@@ -99,10 +85,6 @@
 
     <script
         src="./js/cognito.js">
-    </script>
-    
-    <script>
-        window.onload = isUserType(1); //isRecruiter()
     </script>
 </body>
 

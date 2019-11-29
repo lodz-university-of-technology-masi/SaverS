@@ -23,6 +23,8 @@
     <header>
         <h1 class="alert alert-success" role="alert">$aver$ recruitment system</h1>
         <h4 class="recruiterNick">Recruiter: Test</h4>
+        <div class="d-none alert alert-danger fade show" id="alert-content" role="alert"></div>
+        <div class="d-none alert alert-success fade show" id="success-content" role="alert"></div>
     </header>
 
     <!-- buttons section -->
@@ -32,9 +34,7 @@
                 <a href="manageTests.html">
                     <button type="button" class="btn btn-outline-success btn-lg btn-block">Manage tests</button>
                 </a>
-                <a href="createCandidatesAccount.html">
-                    <button type="button" class="btn btn-outline-success btn-lg btn-block">Add account</button>
-                </a>
+                <button type="button" class="btn btn-outline-success btn-lg btn-block" onClick="createCandidateAccount()">Add account</button>
                 <button type="button" class="btn btn-outline-success btn-lg btn-block">Your account settings</button>
                 
                 <button type="button" class="btn btn-outline-success btn-lg btn-block " onclick="logOut()">Log out</button>
@@ -80,12 +80,6 @@
     <script
         src="./js/cognito.js">
     </script>
-
-    <script>
-        window.onload = isUserType(1); //isRecruiter()
-    </script>
-
-
 </body>
 
 </html>

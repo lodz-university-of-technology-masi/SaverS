@@ -51,7 +51,7 @@ public class ${2} implements RequestHandler<Integer, String>{
     }
 }"
 
-CREATE_LAMBDA_TEXT="aws lambda create-function --function-name ${1} --runtime java8 --role arn:aws:iam::439015664918:role/basic_lambda_role --handler ${2}::handleRequest --zip-file fileb://target/${1}-1.0-SNAPSHOT.jar --memory-size 512 --timeout 15"
+CREATE_LAMBDA_TEXT="aws lambda create-function --function-name ${1} --runtime java8 --role arn:aws:iam::244452199480:role/basic_lambda --handler ${2}::handleRequest --zip-file fileb://target/${1}-1.0-SNAPSHOT.jar --memory-size 512 --timeout 15"
 
 UPDATE_LAMBDA_TEXT="aws lambda update-function-code --function-name ${1} --zip-file fileb://target/${1}-1.0-SNAPSHOT.jar"
 
