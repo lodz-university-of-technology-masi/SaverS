@@ -1,0 +1,1 @@
+aws lambda create-function --function-name get_list_of_candidates --runtime java8 --role arn:aws:iam::244452199480:role/basic_lambda --handler CandidatesProvider::handleRequest --zip-file fileb://target/get_list_of_candidates-1.0-SNAPSHOT.jar --memory-size 512 --timeout 15
