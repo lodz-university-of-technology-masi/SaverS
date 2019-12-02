@@ -52,17 +52,15 @@ public class CandidateCreator implements RequestHandler<NewUserParams, String>{
 
 class NewUserParams{
 
-    public static final String VALIDATION_ERROR_MESSAGE = 
-        "Invalid user data! Required attributes: " +
-            "'username' - proper email address, " +
-            "'recruiter' - email of related recruiter";
-
     private String username;
     private String recruiter;
 
     void validate(){
-        if(username == null || recruiter == null){
-            throw new InvalidUserDataException();
+        if(username == null){
+            throw new InvalidUserDataException("Invalid request body: 'username' property required");
+        }
+        if(recruiter == null){
+            throw new InvalidUserDataException("Invalid request body: 'recruiter' property required");
         }
     }
 
@@ -83,8 +81,8 @@ class NewUserParams{
     }
     
     public class InvalidUserDataException extends RuntimeException{
-        public InvalidUserDataException(){
-            super(VALIDATION_ERROR_MESSAGE);
+        public InvalidUserDataException(String errorMessage){
+            super(errorMessage);
         }
     }
 }

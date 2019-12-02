@@ -11,15 +11,15 @@ function createCandidateAccount(){
     $('#success-content').addClass('d-none')
     let email = prompt("Podaj email kandydata:");
     let data = {
-        username: email,
-        recruiter: getUserName()
+        username: email
     };
     $.ajax({
         method: 'POST',
         url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
         data: JSON.stringify(data),
         headers: {
-            Authorization: JSON.parse(document.cookie).token
+            Authorization: JSON.parse(document.cookie).token,
+            "Content-Type": "application/json"
         },
         success: (data) => {
             if(data.errorMessage){
