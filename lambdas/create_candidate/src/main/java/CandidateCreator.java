@@ -1,6 +1,3 @@
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
@@ -12,35 +9,16 @@ import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class CandidateCreator implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>{
+public class CandidateCreator implements RequestHandler<NewUserParams, String>{
 
-    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent event, Context context) {
-
-        /* Prepare response */
-        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
-
-        try{
-
-            /* Parse request body */
-            Gson gson = new Gson();
-            NewUserParams userParams = gson.fromJson(event.getBody(), NewUserParams.class);
+    public String handleRequest(NewUserParams userParams, Context context) {
 
             /* Validate user params */
             if(userParams.validate() == false){
-                response.setStatusCode(400);
-                response.setBody("\"" + NewUserParams.VALIDATION_ERROR_MESSAGE + "\"");
-                return response;
+                return NewUserParams.VALIDATION_ERROR_MESSAGE;
             }
 
             /* Main action - create new user */
@@ -66,21 +44,11 @@ public class CandidateCreator implements RequestHandler<APIGatewayProxyRequestEv
             request.setUserPoolId("us-east-1_HAV7sF97C");
             request.setUserAttributes(attributes);
 
+            /* Make request */
             AdminCreateUserResult result = cognito.adminCreateUser(request);
 
-            response.setStatusCode(200);
-            response.setBody("\"" + result.getSdkResponseMetadata() + "\"");
-            Map<String, String> headers = new HashMap<String, String>();
-            headers.put("Access-Control-Allow-Origin", "*");
-            response.setHeaders(headers);
-            return response;
-
-        }catch(JsonSyntaxException e){
-            response.setStatusCode(400);
-            response.setBody("\"Body parse error: " + e + "\"");
-            return response;
-        }
-
+            /* Return response */
+            return "OK";
     }
 }
 

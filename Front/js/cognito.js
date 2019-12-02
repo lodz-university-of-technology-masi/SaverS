@@ -14,12 +14,20 @@ function createCandidateAccount(){
         method: 'POST',
         url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
         data: "{ \"username\": \"" + email + "\"}",
+        headers: {
+            Authorization: JSON.parse(document.cookie).token
+        },
         success: (data) => {
-            $('#success-content').append("Invitation has been sent to candidate!");
-            $('#success-content').removeClass('d-none')
+            if(data.errorMessage){
+                $('#alert-content').append(data.errorMessage);
+                $('#alert-content').removeClass('d-none')
+            }else{
+                $('#success-content').append("Invitation has been sent to candidate!");
+                $('#success-content').removeClass('d-none')
+            }
         },
         error: (err) => {
-            $('#alert-content').append(JSON.stringify(err));
+            $('#alert-content').append(err.statusText);
             $('#alert-content').removeClass('d-none')
         }
     });
@@ -89,6 +97,7 @@ function signIn() {
         let username = result.getIdToken().payload['email'];
         let usertype = result.getIdToken().payload['custom:usertype'];
         let userdata = {
+            token: result.getIdToken().getJwtToken(),
             username: username,
             usertype: usertype
         };
