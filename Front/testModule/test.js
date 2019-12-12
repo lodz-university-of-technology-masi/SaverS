@@ -1,5 +1,5 @@
-
 let test;
+
 const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
 console.log(myParam);
@@ -22,13 +22,16 @@ console.log(myParam);
   })
   };
   let zapiszTest;
+
 $(document).ready( function() {
 
  getJsonData().then(
    () => {
     const app = $("#test");
+    const a = $("#out");
     for (let i in test.questions) {
-      app.append("<p>" + test.questions[i].content + "</p>");
+      a.append(test.questions[i].content);
+      //app.append("<p>" + test.questions[i].content + "</p>");
       if (test.questions[i].answers == "|")
         app.append("<input id=" + i + ">" + "</input>");
       else
