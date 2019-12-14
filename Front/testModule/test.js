@@ -27,11 +27,80 @@ $(document).ready( function() {
 
  getJsonData().then(
    () => {
-    const app = $("#test");
-    const a = $("#out");
+  //$('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+test.questions[1].content+'</span></div>')
+
+  var testDIV = document.getElementById("placeholder");
+  const app = $("#test");
+
+  for(let i in test.questions){
+
+    //creating alert with question
+    var questionDiv = document.createElement("q1");
+    questionDiv.classList.add("alert", "alert-warning");
+    questionDiv.classList.add("role", "alert");
+
+    //creating test node with question
+    var questionText = document.createTextNode(test.questions[i].content); 
+    questionDiv.appendChild(questionText);
+
+    //separator
+    var p = document.createElement("p");
+
+    testDIV.appendChild(questionDiv);
+    testDIV.appendChild(p);
+
+  
+    if (test.questions[i].answers == "|"){
+      
+      var answerDiv = document.createElement("div");
+      answerDiv.classList.add("div", "input-group-prepend");
+      
+      var answSpan = document.createElement("span");
+      answSpan.classList.add("span", "input-group-text");
+      var answText = document.createTextNode("Answer");
+      answSpan.appendChild(answText);
+      answerDiv.appendChild(answSpan);
+      
+      var answ = document.createElement("input");
+      answ.classList.add("form", "form-control");
+      answ.id = i;
+      answerDiv.appendChild(answ);
+  
+      var b = document.createElement("br");
+      testDIV.appendChild(b);
+      testDIV.appendChild(answerDiv);
+      testDIV.appendChild(b);
+    }
+    else{
+  
+      for (let j in test.questions[i].answers){
+        var checkBoxDiv = document.createElement("div");
+        checkBoxDiv.classList.add("div", "form-check");
+
+        var checkboxInput = document.createElement("chinput");
+        checkboxInput.classList.add("input", "form-check-input");
+        checkboxInput.type = "checkbox";
+
+        var label = document.createElement("answ");
+        label.classList.add("label", "form-check-label");
+        var labelText = document.createTextNode(test.questions[i].answers[j]);
+        label.appendChild(labelText);
+        
+        checkBoxDiv.appendChild(label);
+        checkBoxDiv.appendChild(checkboxInput);
+
+        var a = document.createElement("a");
+        testDIV.appendChild(checkBoxDiv);
+
+        //app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
+      }  
+  }
+}
+testDIV.appendChild(QA);
+
+  /*
     for (let i in test.questions) {
-      a.append(test.questions[i].content);
-      //app.append("<p>" + test.questions[i].content + "</p>");
+        //app.append("<p>" + test.questions[i].content + "</p>");
       if (test.questions[i].answers == "|")
         app.append("<input id=" + i + ">" + "</input>");
       else
@@ -39,6 +108,8 @@ $(document).ready( function() {
         for (let j in test.questions[i].answers)
           app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
     }
+    */
+
     const ans = $('#answers')
     zapiszTest = () => {
     //   x = document.getElementById("1").value;

@@ -14,18 +14,28 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href=".././css/testModuleTheme.css" />
+
 </head>
 <body>
-    <div class="alert alert-primary" role="alert" id="out"></div>
+    <header>
+        <h3 class="alert alert-success" role="alert">Solve the test</h3>
+    </header>
+
+    <div id="placeholder"></div>
     <div id="test" class="container"></div>
 
-
-    <input type="submit" value="Zapisz Test" onclick="zapiszTest()" />
+    <button type="button" class="btn btn-info" onclick="zapiszTest()">Zapisz Test</button>
     <div id="answers"></div>
 
 
 
 
+
+    <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="materialUnchecked">
+            <label class="form-check-label">Material unchecked</label>
+        </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
