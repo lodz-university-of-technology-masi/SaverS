@@ -67,8 +67,6 @@ $(document).ready(function () {
           answ.id = i;
           answerDiv.appendChild(answ);
 
-          console.log("input 1 id: " + answ.id);
-
           var b = document.createElement("br");
           testDIV.appendChild(b);
           testDIV.appendChild(answerDiv);
@@ -114,11 +112,9 @@ let zapiszTest = function () {
       ans.append(document.getElementById(i).value + "<br>")
     }
     else
-      // console.log(ans)
       for (let j in test.questions[i].answers) {
         console.log(document.getElementById(j).checked)
         ans.append(document.getElementById(j).checked + "<br>")
       }
-    // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
   }
 }
