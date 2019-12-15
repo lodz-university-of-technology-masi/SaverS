@@ -21,7 +21,7 @@ console.log(myParam);
     })
   })
   };
-  let zapiszTest;
+
 
 $(document).ready( function() {
 
@@ -80,7 +80,7 @@ $(document).ready( function() {
         var checkboxInput = document.createElement("input");
         checkboxInput.classList.add("input", "form-check-input");
         checkboxInput.type = "checkbox";
-
+        checkboxInput.id="check"+j;
         var label = document.createElement("answ");
         label.classList.add("label", "form-check-label");
         var labelText = document.createTextNode(test.questions[i].answers[j]);
@@ -111,7 +111,30 @@ testDIV.appendChild(QA);
     }
     */
 
-    const ans = $('#answers')
+    // const ans = $('#answers')
+    // zapiszTest = () => {
+    // //   x = document.getElementById("1").value;
+    
+    //   for (let i in test.questions) {
+    //     if (test.questions[i].answers == "|"){
+    //       console.log(document.getElementById(i).value)
+    //     ans.append(document.getElementById(i).value+"<br>")
+    //     }
+    //     else
+    //       // console.log(ans)
+    //       for (let j in test.questions[i].answers){
+    //       console.log(document.getElementById("check"+j).checked)
+    //     ans.append(document.getElementById("check"+j).checked+"<br>")  
+    //     }
+    //         // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
+    //   }
+    // };
+   }
+ );
+
+});
+// let zapiszTest;
+const ans = $('#answers')
     zapiszTest = () => {
     //   x = document.getElementById("1").value;
     
@@ -129,7 +152,3 @@ testDIV.appendChild(QA);
             // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
       }
     };
-   }
- );
-
-});
