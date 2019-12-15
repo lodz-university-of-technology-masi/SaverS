@@ -2,11 +2,14 @@ const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
 let tests;
 let candidates;
+let assigns;
+let chosenCandidate;
 
 getTests();
 tests = tests.tests;
-console.log(tests);
-updateTable();
+if (tests.length > 0) {
+    updateTable();
+}
 
 function getTests() {
     $.ajax({
@@ -42,6 +45,10 @@ function getCandidates() {
     });
 }
 
+function getAssigns() {
+
+}
+
 function updateTable() {
     let tableDiv = document.getElementById("testTable");
 
@@ -63,10 +70,10 @@ function updateTable() {
     firstRowName.appendChild(firstRowNameText);
     firstRow.appendChild(firstRowName);
 
-    let firstRowDesc = document.createElement("td");
-    let firstRowDescText = document.createTextNode("Test title");
-    firstRowDesc.appendChild(firstRowDescText);
-    firstRow.appendChild(firstRowDesc);
+    let firstRowTest = document.createElement("td");
+    let firstRowTestText = document.createTextNode("Test title");
+    firstRowTest.appendChild(firstRowTestText);
+    firstRow.appendChild(firstRowTest);
 
     let firstRowQuestionNumber = document.createElement("td");
     let firstRowQuestionNumberText = document.createTextNode("Questions");
@@ -171,7 +178,66 @@ function updateCandidatesTable() {
         newAssignButton.value = "Assign";
         newAssignButton.addEventListener("click",
             function () {
-                assignModalPopUp(candidate);
+                chosenCandidate = candidates[candidate];
+                assign();
+            });
+        newTableCellButton.appendChild(newAssignButton);
+        newElement.appendChild(newTableCellButton);
+
+        table.appendChild(newElement);
+    }
+
+    tableDiv.appendChild(table);
+}
+
+function updateAssignedTable() {
+    let tableDiv = document.getElementById("assignedTable");
+
+    //remove all elements
+    while (tableDiv.firstChild) {
+        tableDiv.removeChild(tableDiv.firstChild);
+    }
+
+    //create table
+    let table = document.createElement("table");
+    table.classList.add("table", "table-bordered");
+    table.classList.add("text", "text-center");
+
+    //set first row of a column
+    let firstRow = document.createElement("tr");
+
+    let firstRowTest = document.createElement("td");
+    let firstRowTestText = document.createTextNode("Test");
+    firstRowTest.appendChild(firstRowTestText);
+    firstRow.appendChild(firstRowTest);
+
+    let firstRowCandidate = document.createElement("td");
+    let firstRowCandidateText = document.createTextNode("Candidate");
+    firstRowCandidate.appendChild(firstRowCandidateText);
+    firstRow.appendChild(firstRowCandidate);
+
+    table.appendChild(firstRow);
+
+    for (let assign in assigns) {
+        
+        let newElement = document.createElement("tr");
+
+        //add candidate title
+        let newTableCellQuestion = document.createElement("td");
+        let newContentQuestion = document.createTextNode(assigns[assign]);
+        newTableCellQuestion.appendChild(newContentQuestion);
+        newElement.appendChild(newTableCellQuestion);
+
+        //add assign button cell
+        let newTableCellButton = document.createElement("td");
+        let newAssignButton = document.createElement("input");
+        newAssignButton.type = "button";
+        newAssignButton.classList.add("button", "btn");
+        newAssignButton.classList.add("button", "btn-success");
+        newAssignButton.value = "Assign";
+        newAssignButton.addEventListener("click",
+            function () {
+                assign();
             });
         newTableCellButton.appendChild(newAssignButton);
         newElement.appendChild(newTableCellButton);
@@ -189,7 +255,8 @@ function assignModalPopUp() {
 }
 
 function assign() {
-    
+    console.log(chosenCandidate);
+    $('#assignModal').modal('hide');
 }
 
 function mainPanel() {
