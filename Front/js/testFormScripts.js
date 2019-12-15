@@ -231,7 +231,7 @@ function createTest() {
     let language = document.getElementById("language");
 
     let newTest = {
-        owner: username,
+        recruiter: username,
         name: testName.value,
         lang: language.value,
         questions: questionList
@@ -262,7 +262,7 @@ function sendTest(test) {
     return new Promise((resolve, reject) => {
         $.ajax({
           type: 'POST',
-          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPI/test',
+          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/test',
           data: JSON.stringify(test),
           contentType: 'application/json',
           success: data => {

@@ -2,3 +2,13 @@ h3 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
 }
+
+div .form-check {
+    margin-left: 20px;
+}
+
+.waves-input-wrapper {
+    display:block;
+    width: 200px;
+    margin: auto;
+}

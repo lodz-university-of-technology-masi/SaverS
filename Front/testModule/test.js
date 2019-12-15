@@ -71,13 +71,13 @@ $(document).ready( function() {
       testDIV.appendChild(answerDiv);
       testDIV.appendChild(b);
     }
-    else{
+    else {
   
       for (let j in test.questions[i].answers){
         var checkBoxDiv = document.createElement("div");
         checkBoxDiv.classList.add("div", "form-check");
 
-        var checkboxInput = document.createElement("chinput");
+        var checkboxInput = document.createElement("input");
         checkboxInput.classList.add("input", "form-check-input");
         checkboxInput.type = "checkbox";
 
@@ -86,14 +86,15 @@ $(document).ready( function() {
         var labelText = document.createTextNode(test.questions[i].answers[j]);
         label.appendChild(labelText);
         
-        checkBoxDiv.appendChild(label);
         checkBoxDiv.appendChild(checkboxInput);
+        checkBoxDiv.appendChild(label);
 
-        var a = document.createElement("a");
         testDIV.appendChild(checkBoxDiv);
-
-        //app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
-      }  
+        
+        // app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
+      }
+      var br = document.createElement("br");
+      testDIV.appendChild(br);
   }
 }
 testDIV.appendChild(QA);
