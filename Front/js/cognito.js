@@ -18,7 +18,7 @@ function createCandidateAccount(){
         url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
         data: JSON.stringify(data),
         headers: {
-            Authorization: JSON.parse(document.cookie).token,
+            "Authorization": getToken(),
             "Content-Type": "application/json"
         },
         success: (data) => {
@@ -147,21 +147,15 @@ function signIn() {
 }
 
 function getUserType(){
-    let userdata = JSON.parse(document.cookie);
-    if(userdata.usertype != undefined){
-        return userdata.usertype;
-    }else{
-        return "unknown";
-    }
+    return JSON.parse(document.cookie).usertype;
 }
 
 function getUserName(){
-    let userdata = JSON.parse(document.cookie);
-    if(userdata.username != undefined){
-        return userdata.username;
-    }else{
-        return "unknown";
-    }
+    return JSON.parse(document.cookie).username;
+}
+
+function getToken(){
+    return JSON.parse(document.cookie).token;
 }
 
 function logOut(){

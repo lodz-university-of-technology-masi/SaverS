@@ -1,10 +1,12 @@
 let test;
+const ans = $('#answers');
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
 console.log(myParam);
-  function getJsonData() {
-    return new Promise((resolve, reject) => {
+function getJsonData() {
+  return new Promise((resolve, reject) => {
     $.ajax({
       url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/test/${myParam}`,
       type: "GET",
