@@ -83,6 +83,7 @@ $(document).ready( function() {
         checkboxInput.id="check"+j;
         var label = document.createElement("answ");
         label.classList.add("label", "form-check-label");
+        label.id = "label"+j;
         var labelText = document.createTextNode(test.questions[i].answers[j]);
         label.appendChild(labelText);
         
@@ -97,7 +98,7 @@ $(document).ready( function() {
       testDIV.appendChild(br);
   }
 }
-testDIV.appendChild(QA);
+// testDIV.appendChild(QA);
 
   /*
     for (let i in test.questions) {
@@ -135,20 +136,60 @@ testDIV.appendChild(QA);
 });
 // let zapiszTest;
 const ans = $('#answers')
+let answerJson;
     zapiszTest = () => {
     //   x = document.getElementById("1").value;
     
+
+    // answerJson=test;
+    
+    let arr = {}
+    let answer;
+    // console.log(answerJson)
       for (let i in test.questions) {
         if (test.questions[i].answers == "|"){
-          console.log(document.getElementById(i).value)
+          // console.log(document.getElementById(i).value)
+          userAnswer = document.getElementById(i).value;
+          console.log(userAnswer)
         ans.append(document.getElementById(i).value+"<br>")
-        }
-        else
-          // console.log(ans)
-          for (let j in test.questions[i].answers){
-          console.log(document.getElementById("check"+j).checked)
-        ans.append(document.getElementById("check"+j).checked+"<br>")  
-        }
-            // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
+        arr[i] = {
+          'id':test.questions[i].id,
+          'type': test.questions[i].type,
+          'content': test.questions[i].content,
+          'answers': test.questions[i].answers,
+          'userAnswers': userAnswer
+      };
       }
+        else
+        {
+          let answerArr = [];
+          for (let j in test.questions[i].answers){
+          if(document.getElementById("check"+j).checked){
+            console.log("checked")
+            console.log(document.getElementById("label"+j).textContent)
+            answerArr.push(document.getElementById("label"+j).textContent)
+          }
+        ans.append(document.getElementById("check"+j).checked+"<br>")  
+          
+      }
+      arr[i] = {
+        'id':test.questions[i].id,
+        'type': test.questions[i].type,
+        'content': test.questions[i].content,
+        'answers': test.questions[i].answers,
+        'userAnswers': answerArr
+    };
+  }
+        // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
+      }
+      // console.log(answerJson)
+
+      // console.log(arr)
+      answerJson={
+        'userName': getUserName(),
+        'clientId': userPool.clientId,
+        'test': test,
+        'questions': arr  
+      };
+      console.log(answerJson)
     };
