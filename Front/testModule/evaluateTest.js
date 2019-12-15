@@ -170,10 +170,10 @@ $(document).ready( function() {
       
             for( x of incoming.questions[i].userAnswers)
             {
-                console.log(x)
+                // console.log(x)
             if(x === test.questions[i].answers[j])
             {
-                console.log(x)
+                // console.log(x)
             checkboxInput.checked=true;
             }
         }
@@ -209,9 +209,9 @@ $(document).ready( function() {
   
 }
 correctAnswer = (i) => {
-    console.log("Correct Answer "+i)
+    // console.log("Correct Answer "+i)
     let ans=document.getElementById(`answer${i}`)
-    console.log(ans)
+    // console.log(ans)
     ans.classList.remove("incorrect")
     ans.classList.add("correct")
     let corBut = document.getElementById(`correctButton${i}`)
@@ -224,10 +224,10 @@ correctAnswer = (i) => {
 
 }
 incorrectAnswer = (i) => {
-    console.log("Incorrect Answer "+i)
+    // console.log("Incorrect Answer "+i)
     let ans=document.getElementById(`answer${i}`)
     let but=document
-    console.log(ans)
+    // console.log(ans)
     ans.classList.add("incorrect")
     ans.classList.remove("correct")
     let corBut = document.getElementById(`correctButton${i}`)
@@ -235,7 +235,7 @@ incorrectAnswer = (i) => {
     corBut.classList.remove("btn-success")
     let incBut = document.getElementById(`inCorrectButton${i}`)
     incBut.classList.add("btn-danger")
-    incBut.classList.removegit ("btn-outline-danger")
+    incBut.classList.remove("btn-outline-danger")
 
 }
 // testDIV.appendChild(QA);
@@ -279,13 +279,14 @@ const ans = $('#answers')
 // let answerJson;
     zapiszTest = () => {
         let score = 0;
+        let total = 0;
     console.log("Submit answers")
     for(let i in test.questions){
+        total++
         let ans = document.getElementById(`answer${i}`)
-        console.log(ans)
+        // console.log(ans)
         if(ans.classList.contains(`correct`))
             score++
-        console.log(score)
-        
     }
+    console.log(`Score is ${score}/${total}`)
     };
