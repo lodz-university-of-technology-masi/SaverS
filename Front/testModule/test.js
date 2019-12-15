@@ -137,7 +137,7 @@ $(document).ready( function() {
 
 });
 // let zapiszTest;
-const ans = $('#answers')
+// const ans = $('#answers')
 let answerJson;
     zapiszTest = () => {
     //   x = document.getElementById("1").value;

@@ -276,7 +276,7 @@ incorrectAnswer = (i) => {
 });
 // let zapiszTest;
 const ans = $('#answers')
-// let answerJson;
+let answerJson;
     zapiszTest = () => {
         let score = 0;
         let total = 0;
