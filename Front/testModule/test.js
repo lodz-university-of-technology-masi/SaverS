@@ -23,7 +23,29 @@ function getJsonData() {
     })
   })
   };
-
+  function sendTest(test) {
+    console.log(JSON.stringify(test));
+    return new Promise((resolve, reject) => {
+        $.ajax({
+          type: 'PUT',
+          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/testJJ/uploadresult',
+          headers: {
+            "Authorization": getToken(),
+            "Content-Type": "application/json"
+        },
+          data: JSON.stringify(test),
+          contentType: 'application/json',
+          success: data => {
+            console.log(data);
+            return resolve(data)
+          },
+          error: err => {
+            return reject(err.responseText)
+          }
+        });
+    });
+  };
+ 
 
 $(document).ready( function() {
 
@@ -193,5 +215,6 @@ let answerJson;
         'test': test,
         'questions': arr  
       };
-      console.log(answerJson)
+      // console.log(answerJson)
+      sendTest(answerJson);
     };
