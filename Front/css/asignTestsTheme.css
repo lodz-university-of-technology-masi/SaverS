@@ -1,4 +1,8 @@
-h3 {
+h3, h4 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
+}
+
+table, tr, th, td {
+    font-size: 13pt !important;
 }
