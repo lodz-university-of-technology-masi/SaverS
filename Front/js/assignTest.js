@@ -4,11 +4,17 @@ let tests;
 let candidates;
 let assigns;
 let chosenCandidate;
+let chosenTest;
 
 getTests();
 tests = tests.tests;
 if (tests.length > 0) {
     updateTable();
+}
+getAssigns();
+assigns = assigns.attributions;
+if (assigns.length > 0) {
+    updateAssignedTable();
 }
 
 function getTests() {
@@ -45,8 +51,39 @@ function getCandidates() {
     });
 }
 
-function getAssigns() {
+function postAssign(assign) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+          type: 'POST',
+          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/attribution',
+          data: JSON.stringify(assign),
+          contentType: 'application/json',
+          success: data => {
+            return resolve(data)
+          },
+          error: err => {
+            return reject(err.responseText)
+          }
+        });
+    });
+}
 
+function getAssigns() {
+    $.ajax({
+        method: 'GET',
+        async: false,
+        url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/attribution/recruiter/${myParam}`,
+        headers: {
+            "Authorization": getToken(),
+            "Content-Type": "application/json"
+        },
+        success: (data) => {
+            assigns = JSON.parse(data.body);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
 }
 
 function updateTable() {
@@ -120,7 +157,8 @@ function updateTable() {
         newAssignButton.value = "Choose";
         newAssignButton.addEventListener("click",
             function () {
-                assignModalPopUp(test);
+                assignModalPopUp();
+                chosenTest = tests[test].id;
             });
         newTableCellButton.appendChild(newAssignButton);
         newElement.appendChild(newTableCellButton);
@@ -222,25 +260,24 @@ function updateAssignedTable() {
         
         let newElement = document.createElement("tr");
 
-        //add candidate title
+        let testname;
+        for (let test in tests) {
+            if (tests[test].id == assigns[assign].testID) {
+                testname = tests[test].name;
+            }
+        }
+
+        //add test title
+        let newTableCellTest = document.createElement("td");
+        let newContenetTest = document.createTextNode(testname);
+        newTableCellTest.appendChild(newContenetTest);
+        newElement.appendChild(newTableCellTest);
+
+        //add candidate name
         let newTableCellQuestion = document.createElement("td");
-        let newContentQuestion = document.createTextNode(assigns[assign]);
+        let newContentQuestion = document.createTextNode(assigns[assign].candidate);
         newTableCellQuestion.appendChild(newContentQuestion);
         newElement.appendChild(newTableCellQuestion);
-
-        //add assign button cell
-        let newTableCellButton = document.createElement("td");
-        let newAssignButton = document.createElement("input");
-        newAssignButton.type = "button";
-        newAssignButton.classList.add("button", "btn");
-        newAssignButton.classList.add("button", "btn-success");
-        newAssignButton.value = "Assign";
-        newAssignButton.addEventListener("click",
-            function () {
-                assign();
-            });
-        newTableCellButton.appendChild(newAssignButton);
-        newElement.appendChild(newTableCellButton);
 
         table.appendChild(newElement);
     }
@@ -255,8 +292,16 @@ function assignModalPopUp() {
 }
 
 function assign() {
-    console.log(chosenCandidate);
     $('#assignModal').modal('hide');
+
+    let newAssign = {
+        candidate: chosenCandidate,
+        testID: chosenTest,
+        recruiter: getUserName()
+    }
+
+    postAssign(newAssign);
+
 }
 
 function mainPanel() {
