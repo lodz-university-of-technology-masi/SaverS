@@ -292,16 +292,21 @@ function assignModalPopUp() {
 }
 
 function assign() {
-    $('#assignModal').modal('hide');
-
     let newAssign = {
         candidate: chosenCandidate,
         testID: chosenTest,
         recruiter: getUserName()
     }
 
-    postAssign(newAssign);
-
+    postAssign(newAssign).then(
+        result => {
+            $('#assignModal').modal('hide');
+            location.reload();
+        },
+        reject => {
+            console.log(reject)
+        }
+    );
 }
 
 function mainPanel() {
