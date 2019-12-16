@@ -1,93 +1,19 @@
-let incoming = {
-    "userName": "Jenczu11@gmail.com",
-    "clientId": "10eg4tgjmcgsjhrrdj5chgqhg7",
-    "test": {
-      "id": "dc5d578c-308e-4638-84ad-8a2c2ad0090e",
-      "name": "Przykładowy Test2",
-      "lang": "pl",
-      "questions": [
-        {
-          "id": 1,
-          "type": "O",
-          "content": "What is your name and surname?",
-          "answers": [
-            "|"
-          ],
-          "errors": []
-        },
-        {
-          "id": 2,
-          "type": "W",
-          "content": "What does Cyclomatic Complexity measure?",
-          "answers": [
-            "complexity of software",
-            "duplication of code",
-            "robustness",
-            "number of lines of code"
-          ],
-          "errors": []
-        },
-        {
-          "id": 3,
-          "type": "L",
-          "content": "How many principles were in the original Agile Manifesto?",
-          "answers": [
-            "|"
-          ],
-          "errors": []
-        }
-      ],
-      "message": []
-    },
-    "questions": {
-      "0": {
-        "id": 1,
-        "type": "O",
-        "content": "What is your name and surname?",
-        "answers": [
-          "|"
-        ],
-        "userAnswers": "asdga"
-      },
-      "1": {
-        "id": 2,
-        "type": "W",
-        "content": "What does Cyclomatic Complexity measure?",
-        "answers": [
-          "complexity of software",
-          "duplication of code",
-          "robustness",
-          "number of lines of code"
-        ],
-        "userAnswers": [
-          "complexity of software",
-          "robustness"
-        ]
-      },
-      "2": {
-        "id": 3,
-        "type": "L",
-        "content": "How many principles were in the original Agile Manifesto?",
-        "answers": [
-          "|"
-        ],
-        "userAnswers": "asdgsdfgazg"
-      }
-    }
-  }
-let test=incoming.test;
+
+// let test=incoming.test;
 
 const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('id');
-console.log(myParam);
+const myParam = urlParams.get('userID');
+const myParam1 = urlParams.get('testID');
+console.log("userID",myParam);
+console.log("testID",myParam1);
   function getJsonData() {
     return new Promise((resolve, reject) => {
     $.ajax({
-      url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/test/${myParam}`,
+      url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/testJJ/getTestForCheck?userID=${myParam}&testID=${myParam1}`,
       type: "GET",
       success: data => {
         console.log(data);
-        // test = JSON.parse(data.body);
+        test = data.Items[0];
         return resolve()
         // updateTodoList();
       },
@@ -97,6 +23,24 @@ console.log(myParam);
       }
     })
   })
+  };
+  function updateScore(scoreData) {
+    console.log(JSON.stringify(scoreData));
+    return new Promise((resolve, reject) => {
+        $.ajax({
+          type: 'PUT',
+          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/testJJ/updateScore',
+          data: JSON.stringify(scoreData),
+          contentType: 'application/json',
+          success: data => {
+            console.log(data);
+            return resolve(data)
+          },
+          error: err => {
+            return reject(err.responseText)
+          }
+        });
+    });
   };
 
 let correctAnswer
@@ -142,7 +86,7 @@ $(document).ready( function() {
       
       var answ = document.createElement("span");
       answ.classList.add("span", "input-group-text");
-      answ.appendChild(document.createTextNode(incoming.questions[i].userAnswers))
+      answ.appendChild(document.createTextNode(test.questions[i].userAnswers))
       answerDiv.appendChild(answ);
   
     //   var b = document.createElement("br");
@@ -168,7 +112,7 @@ $(document).ready( function() {
         var labelText = document.createTextNode(test.questions[i].answers[j]);
         label.appendChild(labelText);
       
-            for( x of incoming.questions[i].userAnswers)
+            for( x of test.questions[i].userAnswers)
             {
                 // console.log(x)
             if(x === test.questions[i].answers[j])
@@ -182,11 +126,8 @@ $(document).ready( function() {
         checkBoxDiv.appendChild(label);
 
         testDIV.appendChild(checkBoxDiv);
-        
-        // app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
       }
-    //   var br = document.createElement("br");
-    //   testDIV.appendChild(br);
+
   }
   var inCorrectButton = document.createElement("button");
   let id = `inCorrectButton${i}`
@@ -238,38 +179,6 @@ incorrectAnswer = (i) => {
     incBut.classList.remove("btn-outline-danger")
 
 }
-// testDIV.appendChild(QA);
-
-  /*
-    for (let i in test.questions) {
-        //app.append("<p>" + test.questions[i].content + "</p>");
-      if (test.questions[i].answers == "|")
-        app.append("<input id=" + i + ">" + "</input>");
-      else
-        // console.log(ans)
-        for (let j in test.questions[i].answers)
-          app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
-    }
-    */
-
-    // const ans = $('#answers')
-    // zapiszTest = () => {
-    // //   x = document.getElementById("1").value;
-    
-    //   for (let i in test.questions) {
-    //     if (test.questions[i].answers == "|"){
-    //       console.log(document.getElementById(i).value)
-    //     ans.append(document.getElementById(i).value+"<br>")
-    //     }
-    //     else
-    //       // console.log(ans)
-    //       for (let j in test.questions[i].answers){
-    //       console.log(document.getElementById("check"+j).checked)
-    //     ans.append(document.getElementById("check"+j).checked+"<br>")  
-    //     }
-    //         // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
-    //   }
-    // };
    }
  );
 
@@ -288,5 +197,14 @@ let answerJson;
         if(ans.classList.contains(`correct`))
             score++
     }
+    let scoreData = 
+      {
+        "clientId": myParam,
+        "testId": myParam1,
+        "score": score,
+        "resolved": "true"
+      }
+    
     console.log(`Score is ${score}/${total}`)
+    updateScore(scoreData);
     };

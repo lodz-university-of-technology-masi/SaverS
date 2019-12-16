@@ -213,7 +213,8 @@ let answerJson;
         'userName': getUserName(),
         'clientId': userPool.clientId,
         'test': test,
-        'questions': arr  
+        'questions': arr,
+        'resolved': "locked"
       };
       // console.log(answerJson)
       sendTest(answerJson);
