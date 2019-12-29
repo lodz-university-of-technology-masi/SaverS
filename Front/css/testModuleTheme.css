@@ -12,3 +12,13 @@ div .form-check {
     width: 200px;
     margin: auto;
 }
+
+.modal-xl {
+    max-width: 800px;
+    text-align: center;
+}
+
+.waves-input-wrapper {
+    margin-left: 0px;
+    width: 250px;
+}

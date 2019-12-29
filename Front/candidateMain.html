@@ -29,14 +29,13 @@
     <section class="buttonsSection">
         <div class="card" style="width: 50%; margin: auto;">
             <div class="card-body">
-                <button type="button" class="btn btn-outline-success btn-lg btn-block">Test1</button>
-                <button type="button" class="btn btn-outline-success btn-lg btn-block">Test2</button>
-                <button type="button" class="btn btn-outline-success btn-lg btn-block">Test3</button>
-                <button type="button" class="btn btn-outline-success btn-lg btn-block">Test4</button>
+                <div id="testsdiv">
+                </div>
+
                 <button type="button" class="btn btn-outline-success btn-lg btn-block">Your account settings</button>
-                
-                <button type="button" class="btn btn-outline-success btn-lg btn-block " onclick="logOut()">Log out</button>
-                
+                <button type="button" class="btn btn-outline-success btn-lg btn-block " onclick="logOut()">Log
+                    out</button>
+
             </div>
         </div>
     </section>
@@ -50,29 +49,26 @@
     <footer class="fixed-bottom">
         <h4 class="alert alert-success" role="alert">Candidate main panel</h4>
     </footer>
-    
-    <script 
-        src="https://code.jquery.com/jquery-1.11.3.min.js">
-    </script>
-    
-    <script 
-        src="./js/amazon-cognito-auth.min.js">
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js">
     </script>
 
-    <script 
-        src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
-    </script> 
-    
-    <script 
-        src="./js/amazon-cognito-identity.min.js">
-    </script> 
-    
-    <script 
-        src="./js/config.js">
+    <script src="./js/amazon-cognito-auth.min.js">
     </script>
 
-    <script
-        src="./js/cognito.js">
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+    </script>
+
+    <script src="./js/amazon-cognito-identity.min.js">
+    </script>
+
+    <script src="./js/config.js">
+    </script>
+
+    <script src="./js/cognito.js">
+    </script>
+
+    <script src="./js/mainCandidateScrpits.js">
     </script>
 
 </body>

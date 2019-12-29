@@ -262,7 +262,7 @@ function sendTest(test) {
     return new Promise((resolve, reject) => {
         $.ajax({
           type: 'POST',
-          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/test',
+          url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
           data: JSON.stringify(test),
           contentType: 'application/json',
           success: data => {

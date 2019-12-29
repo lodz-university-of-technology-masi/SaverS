@@ -19,7 +19,7 @@ if (assigns.length > 0) {
 
 function getTests() {
     $.ajax({
-      url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/tests/${myParam}`,
+      url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
       type: "GET",
       async: false,
       success: data => {
@@ -55,7 +55,7 @@ function postAssign(assign) {
     return new Promise((resolve, reject) => {
         $.ajax({
           type: 'POST',
-          url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/attribution',
+          url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution',
           data: JSON.stringify(assign),
           contentType: 'application/json',
           success: data => {
@@ -72,7 +72,7 @@ function getAssigns() {
     $.ajax({
         method: 'GET',
         async: false,
-        url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/attribution/recruiter/${myParam}`,
+        url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution/recruiter/${myParam}`,
         headers: {
             "Authorization": getToken(),
             "Content-Type": "application/json"

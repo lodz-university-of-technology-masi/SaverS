@@ -19,8 +19,9 @@ img {
     display: block;
     margin: 0 auto;
     margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 footer {
- margin-bottom: -17px;    
+    margin-bottom: -17px;
 }
