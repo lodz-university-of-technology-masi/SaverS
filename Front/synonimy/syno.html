@@ -1,0 +1,36 @@
+
+<html> 
+  
+    <head> 
+        <title>Selected Text</title> 
+    </head> 
+      
+    <body> 
+        <center> 
+            <h1 style=color:green> 
+              GeeksfroGeeks 
+          </h1> 
+             
+      
+            <p>Select any part of this sentence 
+              and press the button</p> 
+      
+            <form name="testform"> 
+                <textarea name="selectedtext" 
+                          rows="5"
+                          cols="20"></textarea> 
+            </form>
+            <!-- To trzeba dodac gdzies w stopce razem z js `syno.js` i bedzie dzialo -->
+            <input type="button"
+                   value="Get Synonims" 
+                   onmousedown="getSelectedText()"> 
+            <select id="language-option-selector"></select>
+            <!-- I to -->
+        </center> 
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js">
+        </script>    
+        <script src="syno.js"></script>
+    </body> 
+    
+      
+    </html> 
