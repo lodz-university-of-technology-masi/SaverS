@@ -48,6 +48,7 @@ function sendTest(name, text){
         contentType: 'application/json',
         success: data => {
             console.log(data);
+            $('#createTestModal').modal('hide');
         },
         error: err => {
             console.log(err.responseText);
