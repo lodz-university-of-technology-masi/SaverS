@@ -23,6 +23,24 @@ function getJsonData() {
     })
   })
 };
+function getEvaluatedTest(id) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${id}`,
+      type: "GET",
+      success: data => {
+        
+        console.log(JSON.parse(data.body));
+
+        return resolve(data);
+      },
+      error: err => {
+        console.log(err.responseJSON);
+        return reject(err.responseText)
+      }
+    })
+  })
+};
 
 
 $(document).ready(function () {
@@ -199,17 +217,30 @@ function sendAnswers() {
         }
       }
       if (body.message[0] == "This test is solved or evaluated") {
-        $('#alreadyAnsweredModal').modal('show');
-        let errorText = document.getElementById("errorText");
-        while (errorText.firstChild) {
-          errorText.removeChild(errorText.firstChild);
-        }    
-        let newText = document.createTextNode(body.message + "! You will find your results here when the test will be checked.");
-        errorText.appendChild(newText);
+        evalID = getUserName() + "-" + test.id;
+        // console.log(evalID);
+        getEvaluatedTest(evalID).then( (eval) => {
+          if (eval.statusCode == 200) {
+           let evaluatedTest = JSON.parse(eval.body);
+           console.log(evaluatedTest);
+           let points = evaluatedTest.points;
+           let totalPoints = evaluatedTest.test.questions.length;
+           scoreText = `Your score is ${points} out of ${totalPoints}`;
+           console.log(scoreText)
+           $('#alreadyAnsweredModal').modal('show');
+           let errorText = document.getElementById("errorText");
+           while (errorText.firstChild) {
+             errorText.removeChild(errorText.firstChild);
+           }    
+           let newText = document.createTextNode(body.message + "! "+scoreText);
+           errorText.appendChild(newText);
+          }
+        }) 
+       
       }
       if (body.message[0] == "Data is correct") {
         let textDiv = document.getElementById("textDiv");
-        let text = document.createTextNode("Succes, redirecting to main panel");
+        let text = document.createTextNode("Success, redirecting to main panel");
         textDiv.appendChild(text);
         setTimeout(function(){
           window.open("../candidateMain.html", "_self");;
