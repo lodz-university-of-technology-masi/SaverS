@@ -194,7 +194,7 @@ function exportModalPopUp() {
     
      getTest(chosenTest).then( (csv) => {
 
-    var text = csv.body;
+    var text = csv.body+"\n";
     var encodedUri = encodeURI(text);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);

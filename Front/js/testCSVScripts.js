@@ -34,7 +34,7 @@ function createTest(){
 function sendTest(name, text){
     /* Parse to json */
     let test = parser.parse(text);
-    test.owner = getUserName();
+    test.recruiter = getUserName();
     test.name = name;
     test.lang = 'pl';
     console.log(text);
@@ -43,7 +43,7 @@ function sendTest(name, text){
     /* Send */
     $.ajax({
         type: 'POST',
-        url: 'https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPI/test',
+        url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
         data: JSON.stringify(test),
         contentType: 'application/json',
         success: data => {
@@ -53,4 +53,5 @@ function sendTest(name, text){
             console.log(err.responseText);
         }
     });
+    
 }
