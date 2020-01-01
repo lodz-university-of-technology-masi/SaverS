@@ -75,29 +75,47 @@ let incoming = {
       }
     }
   }
-let test=incoming.test;
+let answer;
+let answerToSend;
 
 const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
-console.log(myParam);
-  function getJsonData() {
-    return new Promise((resolve, reject) => {
+
+function getJsonData() {
+  return new Promise((resolve, reject) => {
+  $.ajax({
+    url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${myParam}`,
+    type: "GET",
+    success: data => {
+      console.log(data);
+      answer = JSON.parse(data.body);
+      return resolve()
+    },
+    error: err => {
+      console.log(err.responseJSON);
+      return reject(err.responseText)
+    }
+  })
+})
+};
+
+function postEvaluatedTest() {
+   return new Promise((resolve, reject) => {
     $.ajax({
-      url: `https://x3vqos9dhc.execute-api.us-east-1.amazonaws.com/TestAPIv2/test/${myParam}`,
-      type: "GET",
+      type: "PUT",
+      url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${myParam}`,
+      data: JSON.stringify(answerToSend),
+      contentType: 'application/json',
       success: data => {
         console.log(data);
-        // test = JSON.parse(data.body);
         return resolve()
-        // updateTodoList();
       },
       error: err => {
-        console.log(err.responseJSON);
+        console.log(err.responseText);
         return reject(err.responseText)
       }
-    })
-  })
-  };
+    });
+})};
 
 let correctAnswer
 let incorrectAnswer
@@ -110,7 +128,7 @@ $(document).ready( function() {
   var testDIV = document.getElementById("placeholder");
   const app = $("#test");
 
-  for(let i in test.questions){
+  for(let i in answer.test.questions){
 
     //creating p with question
     var questionDiv = document.createElement("p");
@@ -119,7 +137,7 @@ $(document).ready( function() {
     questionDiv.id=`answer${i}`;
 
     //creating test node with question
-    var questionText = document.createTextNode(test.questions[i].content); 
+    var questionText = document.createTextNode(answer.test.questions[i].content); 
     questionDiv.appendChild(questionText);
 
     //separator
@@ -129,7 +147,7 @@ $(document).ready( function() {
     testDIV.appendChild(p);
 
   
-    if (test.questions[i].answers == "|"){
+    if (answer.test.questions[i].answers == "|"){
       
       var answerDiv = document.createElement("div");
       answerDiv.classList.add("div", "input-group-prepend");
@@ -142,7 +160,7 @@ $(document).ready( function() {
       
       var answ = document.createElement("span");
       answ.classList.add("span", "input-group-text");
-      answ.appendChild(document.createTextNode(incoming.questions[i].userAnswers))
+      answ.appendChild(document.createTextNode(answer.answers[i]));
       answerDiv.appendChild(answ);
   
     //   var b = document.createElement("br");
@@ -153,7 +171,7 @@ $(document).ready( function() {
     }
     else {
   
-      for (let j in test.questions[i].answers){
+      for (let j in answer.test.questions[i].answers){
         var checkBoxDiv = document.createElement("div");
         checkBoxDiv.classList.add("div", "form-check");
 
@@ -165,28 +183,28 @@ $(document).ready( function() {
         var label = document.createElement("answ");
         label.classList.add("label", "form-check-label");
         label.id = "label"+j;
-        var labelText = document.createTextNode(test.questions[i].answers[j]);
+        var labelText = document.createTextNode(answer.test.questions[i].answers[j]);
         label.appendChild(labelText);
-      
-            for( x of incoming.questions[i].userAnswers)
+        
+        // getting user answers
+        let userAnswers = [];
+        userAnswers = answer.answers[i].split(';');
+
+            for(let x of userAnswers)
             {
-                // console.log(x)
-            if(x === test.questions[i].answers[j])
-            {
-                // console.log(x)
-            checkboxInput.checked=true;
-            }
+              // checkbox set to true if correct
+              if(x === answer.test.questions[i].answers[j])
+              {
+                checkboxInput.checked=true;
+              }
         }
        
+        // spawn elements - checkbox and label
         checkBoxDiv.appendChild(checkboxInput);
         checkBoxDiv.appendChild(label);
 
         testDIV.appendChild(checkBoxDiv);
-        
-        // app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
       }
-    //   var br = document.createElement("br");
-    //   testDIV.appendChild(br);
   }
   var inCorrectButton = document.createElement("button");
   let id = `inCorrectButton${i}`
@@ -281,12 +299,21 @@ let answerJson;
         let score = 0;
         let total = 0;
     console.log("Submit answers")
-    for(let i in test.questions){
+    answerToSend = answer;
+    answerToSend.correctness = [];
+    for(let i in answer.test.questions){
         total++
         let ans = document.getElementById(`answer${i}`)
-        // console.log(ans)
-        if(ans.classList.contains(`correct`))
+        if(ans.classList.contains(`correct`)) {
             score++
+            answerToSend.correctness[i] = true;
+        }
+        else {
+          answerToSend.correctness[i] = false;
+        }
     }
     console.log(`Score is ${score}/${total}`)
+    answerToSend.points = score;
+    console.log(answerToSend);
+    postEvaluatedTest();
     };

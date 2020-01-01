@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <!-- meta section -->
+   <meta charset="utf-8" />
+   <meta
+     name="viewport"
+     content="width=device-width, initial-scale=1, shrink-to-fit=no"
+   />
+
+    <!-- title section -->
+   <title>$aver$ recruitment</title>
+
+   <!-- link section -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"/>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css"/>
+   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"/>
+   <link rel="stylesheet" href="../css/testModuleTheme.css" />
+</head>
+
+<body>
+
+    <!-- header section -->
+    <header>
+        <h3 class="alert alert-success" role="alert">List of your tests with current state</h3>
+        <h4 class="recruiterNick">Recruiter: Test</h4>
+    </header>
+
+    <!-- card section -->
+    <section class="buttonsSection">
+        <div class="card" style="width: 70%; margin: auto;">
+            <div class="card-body">
+                <div id="testsdiv"></div>
+            </div>
+        </div>
+    </section>
+
+       <!-- script section -->
+
+    <!--libs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+    <!--aws cognito-->
+    <script src="../js/amazon-cognito-auth.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>  
+    <script src="../js/amazon-cognito-identity.min.js"></script> 
+    <script src="../js/config.js"></script>
+    <script src="../js/cognito.js"></script>
+    <script SRC="./evaluateTestMenu.js"></script>
+
+</body>
+
+</html>

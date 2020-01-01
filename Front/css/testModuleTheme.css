@@ -1,4 +1,4 @@
-h3 {
+h3, h4 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
 }
@@ -21,4 +21,11 @@ div .form-check {
 .waves-input-wrapper {
     margin-left: 0px;
     width: 250px;
+}
+
+.recruiterNick {
+    text-align: center;
+    color: green;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
