@@ -49,9 +49,21 @@
     </section>
 
     <!-- footer section -->
-    <footer class="fixed-bottom">
+    <!-- <footer class="fixed-bottom">
         <h4 class="alert alert-success" role="alert">Recruiter main panel</h4>
-    </footer>
+    </footer> -->
+    <footer class="fixed-bottom alert-success">
+       
+            <div class="float-left">
+                    <h4 class="alert alert-success" role="alert">Recruiter main panel</h4>
+            </div>
+            <div class="float-right">
+                    <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
+                    onmousedown="getSelectedText()" />
+                    <select class="" id="language-option-selector"></select>
+            
+        </div>
+        </footer>
     
     <script 
         src="https://code.jquery.com/jquery-1.11.3.min.js">
@@ -80,6 +92,9 @@
     <script
         src="./js/cognito.js">
     </script>
+     <script
+     src="./js/syno.js">
+ </script>
 </body>
 
 </html>
