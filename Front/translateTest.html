@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- meta section -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- title section -->
+  <title>$aver$ recruitment</title>
+
+  <!-- link section -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/asignTestsTheme.css" />
+</head>
+
+<body>
+  <!-- header section -->
+  <header>
+    <h3 class="alert alert-success" role="alert">Your tests & candidates</h3>
+  </header>
+
+  <!-- tests table section -->
+  <section class="testList">
+    <div class="card" style="width: 70%; margin: auto;">
+      <div class="card-body">
+        <h4>List of your tests</h4>
+        <br />
+        Select target language
+        <select id="lang-select">
+                <option value="pl">Polish</option>
+                <option value="en">English</option>
+                <option value="ru">Ruskie</option>
+            </select>
+        <div id="testTable">
+            You haven't created any tests so far.
+        </div>
+      </div>
+    </div>
+  </section>
+  <br/>
+
+
+  <footer class="fixed-bottom">
+    <div class="text-left">
+      <input type="button" class="btn-success btn" value="Back to main panel" id="buttonMainPanel"
+        onclick="mainPanel()" />
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <div class="modal fade bd-example-modal-xl" id="assignModal" tabindex="-1" role="dialog"
+    aria-labelledby="testModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Choose language of test</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="languagesTable">
+              <!-- TODO: Dodac jezyki ? i je spiąć -->
+                <select>
+                        <option>Polish</option>
+                        <option>English</option>
+                    </select>
+                    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- script section -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+  <script src="./js/amazon-cognito-auth.min.js">
+  </script>
+
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+  </script>
+
+  <script src="./js/amazon-cognito-identity.min.js">
+  </script>
+
+  <script src="./js/config.js"></script>
+  <script src="./js/cognito.js"></script>
+  <script src="./js/translateTest.js"></script>
+</body>
+
+</html>
