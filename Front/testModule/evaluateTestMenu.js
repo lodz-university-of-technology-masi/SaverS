@@ -115,7 +115,9 @@ function createTestTable() {
     table.appendChild(firstRow);
 
     for (let attr in attributions.attributions) {
-        
+        // console.log(attributions.attributions[attr])
+        let identificator = attributions.attributions[attr].candidate+"-"+attributions.attributions[attr].testID
+        console.log(identificator)
         let newElement = document.createElement("tr");
 
         let newTableCellId = document.createElement("td");
@@ -143,6 +145,7 @@ function createTestTable() {
         newAssignButton.addEventListener("click",
             function () {
                 console.log("eval");
+                window.open(`evaluateTest.html?id=${identificator}`, "_self");
             });
         newTableCellButton.appendChild(newAssignButton);
         newElement.appendChild(newTableCellButton);

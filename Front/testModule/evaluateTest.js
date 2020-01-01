@@ -107,8 +107,15 @@ function postEvaluatedTest() {
       data: JSON.stringify(answerToSend),
       contentType: 'application/json',
       success: data => {
-        console.log(data);
-        return resolve()
+        // console.log(data);
+        // console.log(data.statusCode)
+        let res = {
+          statusCode: data.statusCode,
+          message: JSON.parse(data.body).message.toString()
+        }
+        // message = JSON.parse(data.body).message.toString()
+        // console.log(JSON.parse(data.body).message.toString())
+        return resolve(res)
       },
       error: err => {
         console.log(err.responseText);
@@ -315,5 +322,8 @@ let answerJson;
     console.log(`Score is ${score}/${total}`)
     answerToSend.points = score;
     console.log(answerToSend);
-    postEvaluatedTest();
+    postEvaluatedTest().then( (res) => {
+     if(res.statusCode===403) {alert(res.message) }
+     window.open(`evaluateTestMenu.html?id=${answer.recruiter}`, "_self");
+    });
     };
