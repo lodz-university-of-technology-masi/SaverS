@@ -135,18 +135,39 @@ function createTestTable() {
         newTableCellQuestionNumber.appendChild(newContentQuestionNumber);
         newElement.appendChild(newTableCellQuestionNumber);
 
-        //add assign button cell
+        //add evaluate button cell
         let newTableCellButton = document.createElement("td");
         let newAssignButton = document.createElement("input");
         newAssignButton.type = "button";
-        newAssignButton.classList.add("button", "btn");
-        newAssignButton.classList.add("button", "btn-info");
-        newAssignButton.value = "Evaluate";
-        newAssignButton.addEventListener("click",
-            function () {
-                console.log("eval");
-                window.open(`evaluateTest.html?id=${identificator}`, "_self");
-            });
+        if(attributions.attributions[attr].state==1) {
+            newAssignButton.classList.add("button", "btn");
+            newAssignButton.classList.add("button", "btn-success");
+            newAssignButton.value = "Evaluate";
+                newAssignButton.addEventListener("click",
+                function () {
+                    console.log("eval");
+                    window.open(`evaluateTest.html?id=${identificator}`, "_self");
+                });
+        }
+        if(attributions.attributions[attr].state==0) {
+            newAssignButton.classList.add("button", "btn");
+            newAssignButton.classList.add("button", "btn-info");
+            newAssignButton.value = "Unresolved";
+              
+        }
+        if(attributions.attributions[attr].state==2) {
+            newAssignButton.classList.add("button", "btn");
+            newAssignButton.classList.add("button", "btn-danger");
+            newAssignButton.value = "Check again";
+                newAssignButton.addEventListener("click",
+                function () {
+                    console.log("eval");
+                    window.open(`evaluateTest.html?id=${identificator}`, "_self");
+                });
+        }
+        
+        
+      
         newTableCellButton.appendChild(newAssignButton);
         newElement.appendChild(newTableCellButton);
 
