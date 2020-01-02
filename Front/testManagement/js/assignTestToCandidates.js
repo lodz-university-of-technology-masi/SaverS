@@ -306,7 +306,8 @@ function assign() {
         testID: chosenTest,
         recruiter: getUserName()
     }
-
+    
+    showSpinner();
     postAssign(newAssign).then(
         result => {
             $('#assignModal').modal('hide');
