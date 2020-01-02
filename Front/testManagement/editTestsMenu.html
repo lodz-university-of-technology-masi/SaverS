@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- meta section -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- title section -->
+    <title>$aver$ recruitment</title>
+
+    <!-- link section -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/asignTestsTheme.css" />
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
+  </head>
+
+<body>
+
+    <!-- header section -->
+    <header>
+        <h3 class="alert alert-success" role="alert">List of your tests</h3>
+        <h5>You can only edit tests which are not solved by any of your candidates</h5>
+        <h4 class="recruiterNick">Recruiter: Test</h4>
+    </header>
+
+    <!-- card section -->
+    <section class="buttonsSection">
+        <div class="card" style="width: 70%; margin: auto;">
+            <div class="card-body">
+                <div id="testsdiv"></div>
+            </div>
+        </div>
+    </section>
+
+     <!-- footer section -->
+     <footer class="fixed-bottom">
+            <div class="float-left">
+              <input
+                type="button"
+                class="btn-success btn"
+                value="Back to manage test panel"
+                id="buttonManagePanel"
+                onclick="managePanel()"
+              />
+            </div>
+            <div class="float-right">
+              <input
+                type="button"
+                class="btn-success btn"
+                value="Get Synonims!"
+                id="buttonMainPanel"
+                onmousedown="getSelectedText()"
+              />
+              <select class="" id="language-option-selector"></select>
+            </div>
+          </footer>
+      
+
+       <!-- script section -->
+
+    <!--libs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+    <!--aws cognito-->
+    <script src="../js/amazon-cognito-auth.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>  
+    <script src="../js/amazon-cognito-identity.min.js"></script> 
+    <script src="../js/config.js"></script>
+    <script src="../js/cognito.js"></script>
+    <script SRC="js/editTestsMenu.js"></script>
+    <script SRC="../js/syno.js"></script>
+
+</body>
+
+</html>

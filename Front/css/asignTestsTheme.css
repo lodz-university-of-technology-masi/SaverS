@@ -1,8 +1,13 @@
-h3, h4 {
+h3, h4, h5 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
 }
 
 table, tr, th, td {
     font-size: 13pt !important;
+}
+
+h5, p {
+    color: #961e06;
+    font-weight: bold;
 }
