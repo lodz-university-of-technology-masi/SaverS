@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/asignTestsTheme.css" />
+  <link rel="stylesheet" href="../css/asignTestsTheme.css" />
 </head>
 
 <body>
@@ -37,57 +37,52 @@
   </section>
   <br/>
 
-<!-- Footer -->
-  <footer class="fixed-bottom">
-       
-      <div class="float-left">
-          <input
-          type="button"
-          class="btn-success btn"
-          value="Back to manage test panel"
-          id="buttonManagePanel"
-          onclick="managePanel()"
-        />
+  <!-- assigns section -->
+  <section class="assignedList">
+    <div class="card" style="width: 70%; margin: auto;">
+      <div class="card-body">
+        <h4>List of candidates already assinged</h4>
+        <br />
+        <div id="assignedTable">
+          Currently nobody is assigned to your tests.
+        </div>
       </div>
-      <div class="float-right">
-              <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
-              onmousedown="getSelectedText()" />
-              <select class="" id="language-option-selector"></select>
-      
-  </div>
+    </div>
+  </section>
+  <br/>
+
+  <footer class="fixed-bottom">
+    <div class="text-left">
+        <input
+        type="button"
+        class="btn-success btn"
+        value="Back to manage test panel"
+        id="buttonManagePanel"
+        onclick="managePanel()"
+      />
+    </div>
   </footer>
 
   <!-- Modals -->
-  <div
-  class="modal fade bd-example-modal-xl"
-  id="exportModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="testModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="ModalLabel">
-          Exporting test
-        </h6>
-      </div>
-      <div class="modal-body">
-        <div class="d-flex justify-content-center">
-          <div
-            id="spinner"
-            class="spinner-border text-success"
-            role="status"
-          >
-            <span class="sr-only">Loading...</span>
+  <div class="modal fade bd-example-modal-xl" id="assignModal" tabindex="-1" role="dialog"
+    aria-labelledby="testModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Choose a candidate you want to assign</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4>List of your candidates</h4>
+          <br />
+          <div id="candidatesTable">
           </div>
         </div>
-        <div id="modal-body" class="container"></div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- script section -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -98,19 +93,18 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
 
-  <script src="./js/amazon-cognito-auth.min.js">
+  <script src="../js/amazon-cognito-auth.min.js">
   </script>
 
   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
   </script>
 
-  <script src="./js/amazon-cognito-identity.min.js">
+  <script src="../js/amazon-cognito-identity.min.js">
   </script>
 
-  <script src="./js/config.js"></script>
-  <script src="./js/cognito.js"></script>
-  <script src="./js/exportTest.js"></script>
-  <script src="./js/syno.js"></script> </script>
+  <script src="../js/config.js"></script>
+  <script src="../js/cognito.js"></script>
+  <script src="js/assignTestToCandidates.js"></script>
 </body>
 
 </html>
