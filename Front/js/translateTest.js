@@ -1,18 +1,34 @@
 const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('id');
+const myParam = urlParams.get('recruiterId');
 let tests;
 let candidates;
 let assigns;
 let chosenCandidate;
 let chosenTest;
-
+let testTranslated;
 getTests();
 tests = tests.tests;
 if (tests.length > 0) {
     updateTable();
 }
 
-
+function sendTest(test) {
+    console.log(JSON.stringify(test));
+    return new Promise((resolve, reject) => {
+        $.ajax({
+          type: 'POST',
+          url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
+          data: JSON.stringify(test),
+          contentType: 'application/json',
+          success: data => {
+            return resolve(data)
+          },
+          error: err => {
+            return reject(err.responseText)
+          }
+        });
+    });
+  };
 function getTests() {
     $.ajax({
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
@@ -195,7 +211,8 @@ function exportModalPopUp() {
     //  console.log(chosenTest);
     //  console.log(testToSend)
   
-    $('#assignModal').modal('show');
+    
+    id=chosenTest;
     var e = document.getElementById("lang-select");
     var selectedLang = e.options[e.selectedIndex].value;
     let t = {
@@ -204,11 +221,17 @@ function exportModalPopUp() {
     }
 
     //  console.log(testToSend)
-    translateTest(t);
+    translateTest(t).then( (test) => {
+        testTranslated=JSON.parse(test.body);
+        abc(JSON.parse(test.body));
+        $('#assignModal').modal('show');
+    } );
+
+    
  
 }
 function translateTest(test) {
-    console.log(JSON.stringify(test));
+    // console.log(JSON.stringify(test));
     return new Promise((resolve, reject) => {
         $.ajax({
           type: 'POST',
@@ -217,6 +240,7 @@ function translateTest(test) {
           contentType: 'application/json',
           success: data => {
               console.log(data);
+
             return resolve(data)
           },
           error: err => {
@@ -225,6 +249,132 @@ function translateTest(test) {
         });
     });
   };
+ function abc (test) {
+    var testDIV = document.getElementById("test");
+    // const app = $("#test");
+    // console.log(test);
+    for (let i in test.questions) {
+
+      //creating alert with question
+      var questionDiv = document.createElement("q1");
+      questionDiv.classList.add("alert", "alert-warning");
+      questionDiv.classList.add("role", "alert");
+
+      //creating test node with question
+      var questionText = document.createTextNode(test.questions[i].content);
+      questionDiv.appendChild(questionText);
+
+      //separator
+      var p = document.createElement("p");
+
+      testDIV.appendChild(questionDiv);
+      testDIV.appendChild(p);
+
+
+      if (test.questions[i].answers == "|") {
+
+        var answerDiv = document.createElement("div");
+        answerDiv.classList.add("div", "input-group-prepend");
+
+        var answSpan = document.createElement("span");
+        answSpan.classList.add("span", "input-group-text");
+        var answText = document.createTextNode("Answer");
+        answSpan.appendChild(answText);
+        answerDiv.appendChild(answSpan);
+
+        var answ = document.createElement("input");
+        answ.classList.add("form", "form-control");
+        answ.id = i;
+        answerDiv.appendChild(answ);
+
+        var b = document.createElement("br");
+        testDIV.appendChild(b);
+        testDIV.appendChild(answerDiv);
+        testDIV.appendChild(b);
+      }
+      else {
+
+        for (let j in test.questions[i].answers) {
+          var checkBoxDiv = document.createElement("div");
+          checkBoxDiv.classList.add("div", "form-check");
+
+          var checkboxInput = document.createElement("input");
+          checkboxInput.classList.add("input", "form-check-input");
+          checkboxInput.type = "checkbox";
+          checkboxInput.id = "check" + j;
+          var label = document.createElement("answ");
+          label.classList.add("label", "form-check-label");
+          label.id = "label" + j;
+          var labelText = document.createTextNode(test.questions[i].answers[j]);
+          label.appendChild(labelText);
+
+          checkBoxDiv.appendChild(checkboxInput);
+          checkBoxDiv.appendChild(label);
+
+          testDIV.appendChild(checkBoxDiv);
+
+          // app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
+        }
+        var br = document.createElement("br");
+        testDIV.appendChild(br);
+      }
+    }
+    var inCorrectButton = document.createElement("button");
+  let id = `inCorrectButton`
+  inCorrectButton.id=id;
+  inCorrectButton.classList.add("btn", "btn-outline-danger");
+  inCorrectButton.type = "button";
+  inCorrectButton.setAttribute("onclick",`incorrectAnswer()`)
+//   inCorrectButton.setAttribute("data-dismiss",`modal`)
+  inCorrectButton.setAttribute("aria-label",`Close`)
+  inCorrectButton.appendChild(document.createTextNode("No"))
+
+  var correctButton = document.createElement("button");
+  id = `correctButton`
+  correctButton.id=id;
+  correctButton.classList.add("btn", "btn-outline-success");
+  correctButton.type = "button";
+  correctButton.setAttribute("onclick",`correctAnswer(test)`)
+  correctButton.appendChild(document.createTextNode("Yes"))
+
+  testDIV.appendChild(correctButton)
+  testDIV.appendChild(inCorrectButton)
+ }
 function mainPanel() {
     window.open("recruiterMain.html", "_self");
+}
+correctAnswer = () => {
+   
+    let corBut = document.getElementById(`correctButton`)
+    corBut.classList.remove("btn-outline-success")
+    corBut.classList.add("btn-success")
+    let incBut = document.getElementById(`inCorrectButton`)
+    incBut.classList.remove("btn-danger")
+    incBut.classList.add("btn-outline-danger")
+    delete testTranslated.id;
+    console.log(testTranslated);
+    sendTest(testTranslated).then(
+        result => {
+            console.log(result)
+            setTimeout(function(){
+                $('#assignModal').modal('hide'); 
+                $('#test').empty();
+            }, 2000);
+        },
+        reject => {
+            console.log(reject)
+        }
+    )
+
+}
+incorrectAnswer = () => {
+    let corBut = document.getElementById(`correctButton`)
+    corBut.classList.add("btn-outline-success")
+    corBut.classList.remove("btn-success")
+    let incBut = document.getElementById(`inCorrectButton`)
+    incBut.classList.add("btn-danger")
+    incBut.classList.remove("btn-outline-danger")
+    setTimeout(function() {$('#assignModal').modal('hide'); $('#test').empty();}, 2000);
+    
+
 }
