@@ -99,6 +99,11 @@ function updateTable(tests) {
   firstRowQuestionNumber.appendChild(firstRowQuestionNumberText);
   firstRow.appendChild(firstRowQuestionNumber);
 
+  let firstRowLang = document.createElement("td");
+  let firstRowLangText = document.createTextNode("Lang");
+  firstRowLang.appendChild(firstRowLangText);
+  firstRow.appendChild(firstRowLang);
+
   let firstRowDelete = document.createElement("td");
   let firstRowDeleteText = document.createTextNode("Choose test");
   firstRowDelete.appendChild(firstRowDeleteText);
@@ -131,6 +136,15 @@ function updateTable(tests) {
     newTableCellQuestionNumber.appendChild(newContentQuestionNumber);
     newElement.appendChild(newTableCellQuestionNumber);
 
+    //Add lang of test
+    let newTableCellLang = document.createElement("td");
+    let newContentLang = document.createTextNode(
+      tests[test].lang
+    );
+    newTableCellLang.appendChild(newContentLang);
+    newElement.appendChild(newTableCellLang);
+
+
     //add Translate button cell
     let newTableCellButton = document.createElement("td");
     let newAssignButton = document.createElement("input");
@@ -140,8 +154,7 @@ function updateTable(tests) {
     newAssignButton.value = "Translate";
     newAssignButton.addEventListener("click", function() {
       testToSend = tests[test];
-      testName = tests[test].name;
-      exportModalPopUp(testToSend);
+      translateModalPopUp(testToSend);
     });
     newTableCellButton.appendChild(newAssignButton);
     newElement.appendChild(newTableCellButton);
@@ -162,7 +175,7 @@ function hideSpinner() {
   s.style.display = "none";
 }
 
-function exportModalPopUp(testToSend) {
+function translateModalPopUp(testToSend) {
   var e = document.getElementById("lang-select");
   var selectedLang = e.options[e.selectedIndex].value;
   let t = {
@@ -170,9 +183,7 @@ function exportModalPopUp(testToSend) {
     targetLang: selectedLang
   };
   showSpinner();
-
   $("#assignModal").modal({ backdrop: "static", keyboard: false });
-
   //  console.log(testToSend)
   translateTest(t).then(test => {
     hideSpinner();
@@ -183,8 +194,6 @@ function exportModalPopUp(testToSend) {
 
 function createModalWithTest(test) {
   var testDIV = document.getElementById("test");
-  // const app = $("#test");
-  // console.log(test);
   for (let i in test.questions) {
     //creating alert with question
     var questionDiv = document.createElement("q1");
@@ -244,16 +253,18 @@ function createModalWithTest(test) {
       testDIV.appendChild(br);
     }
   }
+  // No button
   var inCorrectButton = document.createElement("button");
   let id = `inCorrectButton`;
   inCorrectButton.id = id;
   inCorrectButton.classList.add("btn", "btn-outline-danger");
   inCorrectButton.type = "button";
   inCorrectButton.setAttribute("onclick", `dismiss()`);
-  //   inCorrectButton.setAttribute("data-dismiss",`modal`)
   inCorrectButton.setAttribute("aria-label", `Close`);
   inCorrectButton.appendChild(document.createTextNode("No"));
+  testDIV.appendChild(inCorrectButton);
 
+  // Yes button
   var correctButton = document.createElement("button");
   id = `correctButton`;
   correctButton.id = id;
@@ -261,9 +272,8 @@ function createModalWithTest(test) {
   correctButton.type = "button";
   correctButton.setAttribute("onclick", `accept(test)`);
   correctButton.appendChild(document.createTextNode("Yes"));
-
   testDIV.appendChild(correctButton);
-  testDIV.appendChild(inCorrectButton);
+  
 }
 function mainPanel() {
   window.open("recruiterMain.html", "_self");
