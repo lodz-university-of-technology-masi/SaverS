@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/testFormTheme.css" />
+    <link rel="stylesheet" href="/css/testFormTheme.css" />
 </head>
 
 <body>
@@ -184,8 +184,13 @@
     <footer class="fixed-bottom">
        
         <div class="float-left">
-            <input type="button" class="btn-success btn" value="Back to main panel"
-                id="buttonMainPanel" onclick="mainPanel()" />
+                <input
+                type="button"
+                class="btn-success btn"
+                value="Back to manage test panel"
+                id="buttonManagePanel"
+                onclick="managePanel()"
+              />
         </div>
         <div class="float-right">
                 <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
@@ -205,20 +210,20 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
 
-    <script src="./js/amazon-cognito-auth.min.js">
+    <script src="../js/amazon-cognito-auth.min.js">
     </script>
 
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
     </script>
 
-    <script src="./js/amazon-cognito-identity.min.js">
+    <script src="../js/amazon-cognito-identity.min.js">
     </script>
 
-    <script src="./js/config.js">
+    <script src="../js/config.js">
     </script>
-    <script src="./js/cognito.js"></script>
-    <script src="./js/testFormScripts.js"></script>
-    <script src="./js/syno.js">
+    <script src="../js/cognito.js"></script>
+    <script src="js/createTestForm.js"></script>
+    <script src="../js/syno.js">
     </script>
 
 

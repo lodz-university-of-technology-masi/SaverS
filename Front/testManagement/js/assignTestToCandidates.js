@@ -11,7 +11,11 @@ tests = tests.tests;
 if (tests.length > 0) {
     updateTable();
 }
-
+getAssigns();
+assigns = assigns.attributions;
+if (assigns.length > 0) {
+    updateAssignedTable();
+}
 
 function getTests() {
     $.ajax({
@@ -81,24 +85,6 @@ function getAssigns() {
         }
     });
 }
-//  https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal
-function getTest(testID) {
-    return new Promise((resolve, reject) => {
-    $.ajax({
-        method: 'GET',
-        async: false,
-        url: `https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/test/export/${testID}`,
-        success: (data) => {
-            // assigns = JSON.parse(data.body);
-
-            console.log(data);
-            return resolve(data)
-        },
-        error: (err) => {
-            return reject(err.responseText)
-        }
-    });
-})}
 
 function updateTable() {
     let tableDiv = document.getElementById("testTable");
@@ -132,7 +118,7 @@ function updateTable() {
     firstRow.appendChild(firstRowQuestionNumber);
 
     let firstRowDelete = document.createElement("td");
-    let firstRowDeleteText = document.createTextNode("Choose test");
+    let firstRowDeleteText = document.createTextNode("Choose candidate");
     firstRowDelete.appendChild(firstRowDeleteText);
     firstRow.appendChild(firstRowDelete);
 
@@ -162,20 +148,17 @@ function updateTable() {
         newTableCellQuestionNumber.appendChild(newContentQuestionNumber);
         newElement.appendChild(newTableCellQuestionNumber);
 
-        //add Export button cell
+        //add assign button cell
         let newTableCellButton = document.createElement("td");
         let newAssignButton = document.createElement("input");
         newAssignButton.type = "button";
         newAssignButton.classList.add("button", "btn");
         newAssignButton.classList.add("button", "btn-info");
-        newAssignButton.value = "Export";
+        newAssignButton.value = "Choose";
         newAssignButton.addEventListener("click",
             function () {
+                assignModalPopUp();
                 chosenTest = tests[test].id;
-                testName = tests[test].name;
-                exportModalPopUp();
-               
-               
             });
         newTableCellButton.appendChild(newAssignButton);
         newElement.appendChild(newTableCellButton);
@@ -186,27 +169,146 @@ function updateTable() {
     tableDiv.appendChild(table);
 }
 
+function updateCandidatesTable() {
+    let tableDiv = document.getElementById("candidatesTable");
 
+    //remove all elements
+    while (tableDiv.firstChild) {
+        tableDiv.removeChild(tableDiv.firstChild);
+    }
 
+    //create table
+    let table = document.createElement("table");
+    table.classList.add("table", "table-bordered");
+    table.classList.add("text", "text-center");
 
-function exportModalPopUp() {
-     console.log(chosenTest);
-    
-     getTest(chosenTest).then( (csv) => {
-        console.log(csv.body.replace(/"/g,''));
-    var text = csv.body.replace(/"/g,'')+"\n";
-    var encodedUri = encodeURI(text);
-    var link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    let filename = testName+".csv"
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
+    //set first row of a column
+    let firstRow = document.createElement("tr");
 
-     })
- 
+    let firstRowDesc = document.createElement("td");
+    let firstRowDescText = document.createTextNode("Candidate");
+    firstRowDesc.appendChild(firstRowDescText);
+    firstRow.appendChild(firstRowDesc);
+
+    let firstRowDelete = document.createElement("td");
+    let firstRowDeleteText = document.createTextNode("Assign Candidate");
+    firstRowDelete.appendChild(firstRowDeleteText);
+    firstRow.appendChild(firstRowDelete);
+
+    table.appendChild(firstRow);
+
+    for (let candidate in candidates) {
+        
+        let newElement = document.createElement("tr");
+
+        //add candidate title
+        let newTableCellQuestion = document.createElement("td");
+        let newContentQuestion = document.createTextNode(candidates[candidate]);
+        newTableCellQuestion.appendChild(newContentQuestion);
+        newElement.appendChild(newTableCellQuestion);
+
+        //add assign button cell
+        let newTableCellButton = document.createElement("td");
+        let newAssignButton = document.createElement("input");
+        newAssignButton.type = "button";
+        newAssignButton.classList.add("button", "btn");
+        newAssignButton.classList.add("button", "btn-success");
+        newAssignButton.value = "Assign";
+        newAssignButton.addEventListener("click",
+            function () {
+                chosenCandidate = candidates[candidate];
+                assign();
+            });
+        newTableCellButton.appendChild(newAssignButton);
+        newElement.appendChild(newTableCellButton);
+
+        table.appendChild(newElement);
+    }
+
+    tableDiv.appendChild(table);
 }
 
-function mainPanel() {
-    window.open("recruiterMain.html", "_self");
+function updateAssignedTable() {
+    let tableDiv = document.getElementById("assignedTable");
+
+    //remove all elements
+    while (tableDiv.firstChild) {
+        tableDiv.removeChild(tableDiv.firstChild);
+    }
+
+    //create table
+    let table = document.createElement("table");
+    table.classList.add("table", "table-bordered");
+    table.classList.add("text", "text-center");
+
+    //set first row of a column
+    let firstRow = document.createElement("tr");
+
+    let firstRowTest = document.createElement("td");
+    let firstRowTestText = document.createTextNode("Test");
+    firstRowTest.appendChild(firstRowTestText);
+    firstRow.appendChild(firstRowTest);
+
+    let firstRowCandidate = document.createElement("td");
+    let firstRowCandidateText = document.createTextNode("Candidate");
+    firstRowCandidate.appendChild(firstRowCandidateText);
+    firstRow.appendChild(firstRowCandidate);
+
+    table.appendChild(firstRow);
+
+    for (let assign in assigns) {
+        
+        let newElement = document.createElement("tr");
+
+        let testname;
+        for (let test in tests) {
+            if (tests[test].id == assigns[assign].testID) {
+                testname = tests[test].name;
+            }
+        }
+
+        //add test title
+        let newTableCellTest = document.createElement("td");
+        let newContenetTest = document.createTextNode(testname);
+        newTableCellTest.appendChild(newContenetTest);
+        newElement.appendChild(newTableCellTest);
+
+        //add candidate name
+        let newTableCellQuestion = document.createElement("td");
+        let newContentQuestion = document.createTextNode(assigns[assign].candidate);
+        newTableCellQuestion.appendChild(newContentQuestion);
+        newElement.appendChild(newTableCellQuestion);
+
+        table.appendChild(newElement);
+    }
+
+    tableDiv.appendChild(table);
 }
+
+function assignModalPopUp() {
+    getCandidates();
+    updateCandidatesTable();
+    $('#assignModal').modal('show');
+}
+
+function assign() {
+    let newAssign = {
+        candidate: chosenCandidate,
+        testID: chosenTest,
+        recruiter: getUserName()
+    }
+
+    postAssign(newAssign).then(
+        result => {
+            $('#assignModal').modal('hide');
+            location.reload();
+        },
+        reject => {
+            console.log(reject)
+        }
+    );
+}
+
+function managePanel() {
+    window.open("../manageTests.html", "_self");
+  }

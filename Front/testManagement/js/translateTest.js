@@ -323,3 +323,7 @@ dismiss = () => {
     $("#test").empty();
   }, 1000);
 };
+
+function managePanel() {
+  window.open("../manageTests.html", "_self");
+}
