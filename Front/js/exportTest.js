@@ -190,6 +190,8 @@ function updateTable() {
 
 
 function exportModalPopUp() {
+    showSpinner();
+    $("#exportModal").modal({ backdrop: "static", keyboard: false });
      console.log(chosenTest);
     
      getTest(chosenTest).then( (csv) => {
@@ -202,7 +204,14 @@ function exportModalPopUp() {
     link.setAttribute("download", filename);
     document.body.appendChild(link);
     link.click();
-
+    $("#modal-body").empty();
+    hideSpinner(); 
+        
+        returnMessage("Test exported");
+        returnMessage(`And saved under name \`${filename}\``);
+        setTimeout(function() {
+          $("#exportModal").modal("hide");
+        }, 1000);
      })
  
 }
@@ -210,3 +219,21 @@ function exportModalPopUp() {
 function mainPanel() {
     window.open("recruiterMain.html", "_self");
 }
+
+//Spinner Functions
+function showSpinner() {
+    s = document.getElementById("spinner");
+    s.style.display = "block";
+  }
+  function hideSpinner() {
+    s = document.getElementById("spinner");
+    s.style.display = "none";
+  }
+
+  function returnMessage(message) {
+    var modal = document.getElementById("modal-body");
+    var p = document.createElement("p");
+    var content = document.createTextNode(message);
+    p.appendChild(content);
+    modal.appendChild(p);
+  }
