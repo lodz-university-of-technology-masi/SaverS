@@ -87,6 +87,10 @@ function createTestButtons() {
         if(tests[currentTest].state==1){
           // Rozwiazany
           newButton.classList.add("button", "btn-outline-warning");
+          var br = document.createElement("br");
+           var content = document.createTextNode("Your test is being evaluated");
+           newButton.appendChild(br);
+           newButton.appendChild(content);
         }
         if(tests[currentTest].state==2){
           // Oceniony
