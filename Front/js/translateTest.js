@@ -205,7 +205,16 @@ function updateTable() {
 }
 
 
-
+function showSpinner()
+{
+  s = document.getElementById("spinner");
+  s.style.display="block";
+}
+function hideSpinner()
+{
+  s = document.getElementById("spinner");
+  s.style.display="none"
+} 
 
 function exportModalPopUp() {
     //  console.log(chosenTest);
@@ -219,12 +228,16 @@ function exportModalPopUp() {
         "test": testToSend,
         "targetLang": selectedLang
     }
+    showSpinner()
+    
+    $('#assignModal').modal({backdrop: 'static', keyboard: false})  
 
     //  console.log(testToSend)
     translateTest(t).then( (test) => {
+      hideSpinner();
         testTranslated=JSON.parse(test.body);
         abc(JSON.parse(test.body));
-        $('#assignModal').modal('show');
+        
     } );
 
     
