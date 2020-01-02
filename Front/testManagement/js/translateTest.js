@@ -75,6 +75,14 @@ function updateTable(tests) {
   while (tableDiv.firstChild) {
     tableDiv.removeChild(tableDiv.firstChild);
   }
+  if(tests.length==0) {
+    let text = document.createTextNode("You haven't created any tests so far.");
+    let h5 = document.createElement("h5");
+    h5.classList.add("text-center");
+    h5.appendChild(text)
+    tableDiv.appendChild(h5);
+    return;
+  }
 
   //create table
   let table = document.createElement("table");

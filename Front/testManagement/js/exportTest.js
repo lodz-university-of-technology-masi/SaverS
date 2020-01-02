@@ -42,10 +42,18 @@ function getExportedTest(testID) {
 
 function updateTable(tests) {
     let tableDiv = document.getElementById("testTable");
-
     //remove all elements
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
+    }
+    // console.log(tests)
+    if(tests.length==0) {
+      let text = document.createTextNode("You haven't created any tests so far.");
+      let h5 = document.createElement("h5");
+      h5.classList.add("text-center");
+      h5.appendChild(text)
+      tableDiv.appendChild(h5);
+      return;
     }
 
     //create table
