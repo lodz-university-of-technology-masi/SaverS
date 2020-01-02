@@ -33,22 +33,26 @@ function getTests() {
 }
 
 function getCandidates() {
-    $.ajax({
-        method: 'GET',
-        async: false,
-        url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
-        headers: {
-            "Authorization": getToken(),
-            "Content-Type": "application/json"
-        },
-        success: (data) => {
-            console.log(data); 
-            candidates = data;
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'GET',
+            url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
+            headers: {
+                "Authorization": getToken(),
+                "Content-Type": "application/json"
+            },
+            success: (data) => {
+                console.log(data); 
+                candidates = data;
+                return resolve();
+            },
+            error: (err) => {
+                console.log(err);
+                return reject(err);
+            }
+        });
+    })
+   
 }
 
 function postAssign(assign) {
@@ -286,9 +290,14 @@ function updateAssignedTable() {
 }
 
 function assignModalPopUp() {
-    getCandidates();
-    updateCandidatesTable();
     $('#assignModal').modal('show');
+     
+    getCandidates().then( () => {
+        hideSpinner();
+        updateCandidatesTable();
+    });
+    
+    
 }
 
 function assign() {
@@ -297,7 +306,8 @@ function assign() {
         testID: chosenTest,
         recruiter: getUserName()
     }
-
+    
+    showSpinner();
     postAssign(newAssign).then(
         result => {
             $('#assignModal').modal('hide');
@@ -310,5 +320,15 @@ function assign() {
 }
 
 function managePanel() {
-    window.open("../manageTests.html", "_self");
+    window.open("./manageTests.html", "_self");
+  }
+
+  //Spinner Functions
+function showSpinner() {
+    s = document.getElementById("spinner");
+    s.style.display = "block";
+  }
+  function hideSpinner() {
+    s = document.getElementById("spinner");
+    s.style.display = "none";
   }

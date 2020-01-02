@@ -1,96 +1,36 @@
 const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
-let tests;
-let candidates;
-let assigns;
-let chosenCandidate;
+
 let chosenTest;
 
-getTests();
-tests = tests.tests;
-if (tests.length > 0) {
-    updateTable();
-}
-
-
-function getTests() {
-    $.ajax({
-      url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
-      type: "GET",
-      async: false,
-      success: data => {
-        console.log(data);
-        tests = JSON.parse(data.body);
-      },
-      error: err => {
-        console.log(err.responseJSON);
-      }
-    })
-}
-
-function getCandidates() {
-    $.ajax({
-        method: 'GET',
-        async: false,
-        url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
-        headers: {
-            "Authorization": getToken(),
-            "Content-Type": "application/json"
-        },
-        success: (data) => {
-            console.log(data); 
-            candidates = data;
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
-}
-
-function postAssign(assign) {
+getTests().then(incomingTests => {
+    updateTable(incomingTests.tests);
+  });
+  
+  //Download all test for recruiter
+  function getTests() {
     return new Promise((resolve, reject) => {
-        $.ajax({
-          type: 'POST',
-          url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution',
-          data: JSON.stringify(assign),
-          contentType: 'application/json',
-          success: data => {
-            return resolve(data)
-          },
-          error: err => {
-            return reject(err.responseText)
-          }
-        });
-    });
-}
-
-function getAssigns() {
-    $.ajax({
-        method: 'GET',
-        async: false,
-        url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution/recruiter/${myParam}`,
-        headers: {
-            "Authorization": getToken(),
-            "Content-Type": "application/json"
+      $.ajax({
+        url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
+        type: "GET",
+        success: data => {
+          console.log(JSON.parse(data.body).message[0]);
+          return resolve(JSON.parse(data.body));
         },
-        success: (data) => {
-            assigns = JSON.parse(data.body);
-        },
-        error: (err) => {
-            console.log(err);
+        error: err => {
+          console.log(err.responseJSON);
         }
+      });
     });
-}
-//  https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal
-function getTest(testID) {
+  }
+
+
+function getExportedTest(testID) {
     return new Promise((resolve, reject) => {
     $.ajax({
         method: 'GET',
-        async: false,
         url: `https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/test/export/${testID}`,
         success: (data) => {
-            // assigns = JSON.parse(data.body);
-
             console.log(data);
             return resolve(data)
         },
@@ -100,7 +40,7 @@ function getTest(testID) {
     });
 })}
 
-function updateTable() {
+function updateTable(tests) {
     let tableDiv = document.getElementById("testTable");
 
     //remove all elements
@@ -194,7 +134,7 @@ function exportModalPopUp() {
     $("#exportModal").modal({ backdrop: "static", keyboard: false });
      console.log(chosenTest);
     
-     getTest(chosenTest).then( (csv) => {
+     getExportedTest(chosenTest).then( (csv) => {
         console.log(csv.body.replace(/"/g,''));
     var text = csv.body.replace(/"/g,'')+"\n";
     var encodedUri = encodeURI(text);
@@ -203,15 +143,14 @@ function exportModalPopUp() {
     let filename = testName+".csv"
     link.setAttribute("download", filename);
     document.body.appendChild(link);
-    link.click();
     $("#modal-body").empty();
     hideSpinner(); 
-        
         returnMessage("Test exported");
         returnMessage(`And saved under name \`${filename}\``);
+        link.click();
         setTimeout(function() {
           $("#exportModal").modal("hide");
-        }, 1000);
+        }, 2000);
      })
  
 }
@@ -237,6 +176,8 @@ function showSpinner() {
     p.appendChild(content);
     modal.appendChild(p);
   }
+
   function managePanel() {
-    window.open("../manageTests.html", "_self");
+    window.open("./manageTests.html", "_self");
   }
+  
