@@ -14,7 +14,7 @@ function getEvaluatedTest(id) {
       type: "GET",
       success: data => {
         
-        console.log(JSON.parse(data.body));
+        // console.log(JSON.parse(data.body));
         return resolve(data);
       },
       error: err => {
@@ -30,9 +30,9 @@ function getAssigns() {
       type: "GET",
       async: false,
       success: data => {
-        console.log(data);
+        // console.log(data);
         assigns = JSON.parse(data.body);
-        console.log(assigns)
+        // console.log(assigns)
       },
       error: err => {
         console.log(err.responseJSON);
@@ -46,7 +46,7 @@ function getTest() {
       type: "GET",
       async: false,
       success: data => {
-        console.log(data);
+        // console.log(data);
         test = JSON.parse(data.body);
        
       },
@@ -102,7 +102,7 @@ function createTestButtons() {
            let points = evaluatedTest.points;
            let totalPoints = evaluatedTest.test.questions.length;
            scoreText = `Your score is ${points} out of ${totalPoints}`;
-           console.log(scoreText)
+          //  console.log(scoreText)
            var br = document.createElement("br");
            var content = document.createTextNode(scoreText);
            newButton.appendChild(br);
@@ -120,4 +120,13 @@ function createTestButtons() {
         
         tableDiv.appendChild(newButton);
     }
+}
+//Spinner Functions
+function showSpinner() {
+  s = document.getElementById("spinner");
+  s.style.display = "block";
+}
+function hideSpinner() {
+  s = document.getElementById("spinner");
+  s.style.display = "none";
 }
