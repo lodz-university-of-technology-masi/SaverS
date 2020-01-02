@@ -70,7 +70,7 @@ function translateTest(test) {
 // Update table with tests
 function updateTable(tests) {
   let tableDiv = document.getElementById("testTable");
-
+  // tests=[];
   //remove all elements
   while (tableDiv.firstChild) {
     tableDiv.removeChild(tableDiv.firstChild);
@@ -83,6 +83,11 @@ function updateTable(tests) {
     tableDiv.appendChild(h5);
     return;
   }
+  $("#testTable").append(`<h4>Select target language</h4>
+  <select id="lang-select" class="custom-select">
+    <option value="pl">Polish</option>
+    <option value="en">English</option>
+  </select>`);
 
   //create table
   let table = document.createElement("table");
