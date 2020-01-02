@@ -47,6 +47,8 @@ $(document).ready(function () {
 
   getJsonData().then(
     () => {
+      hideSpinner();
+
       //$('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+test.questions[1].content+'</span></div>')
 
       var testDIV = document.getElementById("placeholder");
@@ -258,3 +260,12 @@ function mainPanel() {
   window.open("../candidateMain.html", "_self");
 }
 
+//Spinner Functions
+function showSpinner() {
+  s = document.getElementById("spinner");
+  s.style.display = "block";
+}
+function hideSpinner() {
+  s = document.getElementById("spinner");
+  s.style.display = "none";
+}
