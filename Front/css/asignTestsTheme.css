@@ -11,3 +11,10 @@ h5, p {
     color: #961e06;
     font-weight: bold;
 }
+
+.recruiterNick {
+    text-align: center;
+    color: green;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
