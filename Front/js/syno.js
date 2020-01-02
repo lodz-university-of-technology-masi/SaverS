@@ -1,6 +1,10 @@
 let text;
+let lang = `en-en`;
+let dane;
+let selected = "";
+APIkey = `dict.1.1.20191231T111832Z.3ffa08bfd4e19e3c.c56cc8b57c34f90e0b05d1d8d9c2f7367ca26bf0`;
+langs = [];
 function getSelectedText() { 
-    // var selectedText = ''; 
 
     // window.getSelection 
     if (window.getSelection) { 
@@ -14,13 +18,8 @@ function getSelectedText() {
     else if (document.selection) { 
         text = document.selection.createRange().text; 
     } else return; 
-    // To write the selected text into the textarea 
-    // document.testform.selectedtext.value = text; 
     lookup().then(showAlert,showError)
 } 
-
-APIkey = `dict.1.1.20191231T111832Z.3ffa08bfd4e19e3c.c56cc8b57c34f90e0b05d1d8d9c2f7367ca26bf0`;
-langs = [];
 function getLangs() {
     return new Promise((resolve, reject) => {
     $.ajax({
@@ -40,20 +39,30 @@ function getLangs() {
 function createOption()
 {
     var select = document.getElementById("language-option-selector");
-    getLangs().then(() => {
-        array = langs;
-        for (var i = 0; i < array.length; i++) {
-            var option = document.createElement("option");
-            option.value = array[i];
-            option.text = array[i];
-            select.appendChild(option);
-        }
-    })
+    // Dodaj do opcji wszystkie obslugiwane przez Yandex
+    // getLangs().then(() => {
+    //     array = langs;
+    //     for (var i = 0; i < array.length; i++) {
+    //         var option = document.createElement("option");
+    //         option.value = array[i];
+    //         option.text = array[i];
+    //         select.appendChild(option);
+    //     }
+    // })
+    // Dodaj do opcji tylko pl-ru, en-en
+    array = ["en-en","pl-ru"]
+    for (var i = 0; i < array.length; i++) {
+              var option = document.createElement("option");
+              option.value = array[i];
+              option.text = array[i];
+              select.appendChild(option);
+          }
+    
+   
+
     
 }
-  lang = `en-en`;
-  let dane;
-  let selected = "";
+
   function lookup() {
     var select = document.getElementById("language-option-selector");
     // console.log(select.value);
@@ -79,7 +88,6 @@ function createOption()
   function showAlert()
   {
       let preparedText=`Synonyms for "${selected}" are: `
-      // console.log(preparedText);
       for(x of dane)
       {
           preparedText = preparedText + `\n`;
