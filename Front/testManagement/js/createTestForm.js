@@ -308,5 +308,5 @@ function checkFields() {
 }
 
 function managePanel() {
-    window.open("../manageTests.html", "_self");
+    window.open("./manageTests.html", "_self");
   }
