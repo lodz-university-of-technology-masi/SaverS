@@ -6,30 +6,55 @@ let assigns;
 let chosenCandidate;
 let chosenTest;
 
-getTests();
-tests = tests.tests;
-if (tests.length > 0) {
-    updateTable();
-}
-getAssigns();
-assigns = assigns.attributions;
-if (assigns.length > 0) {
-    updateAssignedTable();
-}
+getTests().then(incomingTests => {
+    tests=incomingTests.tests;
+    updateTable(incomingTests.tests); 
+});
+getAssigns().then( (incomingAssigns) => {
+    assigns = assigns.attributions;
+    if (assigns.length > 0) {
+        updateAssignedTable(incomingAssigns.attributions);
+    }
+});
+
 
 function getTests() {
-    $.ajax({
-      url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
-      type: "GET",
-      async: false,
-      success: data => {
-        console.log(data);
-        tests = JSON.parse(data.body);
-      },
-      error: err => {
-        console.log(err.responseJSON);
-      }
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
+            type: "GET",
+            success: data => {
+              console.log(data);
+              tests = JSON.parse(data.body);
+              return resolve(JSON.parse(data.body));
+            },
+            error: err => {
+              console.log(err.responseJSON);
+              return reject(err.responseJSON);
+            }
+          })
     })
+}
+function getAssigns() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'GET',
+            url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution/recruiter/${myParam}`,
+            headers: {
+                "Authorization": getToken(),
+                "Content-Type": "application/json"
+            },
+            success: (data) => {
+                assigns = JSON.parse(data.body);
+                return resolve(JSON.parse(data.body));
+            },
+            error: (err) => {
+                console.log(err);
+                return reject();
+            }
+        });
+    })
+    
 }
 
 function getCandidates() {
@@ -72,25 +97,9 @@ function postAssign(assign) {
     });
 }
 
-function getAssigns() {
-    $.ajax({
-        method: 'GET',
-        async: false,
-        url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution/recruiter/${myParam}`,
-        headers: {
-            "Authorization": getToken(),
-            "Content-Type": "application/json"
-        },
-        success: (data) => {
-            assigns = JSON.parse(data.body);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
-}
 
-function updateTable() {
+
+function updateTable(tests) {
     let tableDiv = document.getElementById("testTable");
 
     //remove all elements
@@ -232,7 +241,7 @@ function updateCandidatesTable() {
     tableDiv.appendChild(table);
 }
 
-function updateAssignedTable() {
+function updateAssignedTable(assigns) {
     let tableDiv = document.getElementById("assignedTable");
 
     //remove all elements
