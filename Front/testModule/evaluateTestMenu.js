@@ -194,5 +194,5 @@ function getTestName(id) {
     return "no test with given id";
 }
 function managePanel() {
-    window.open("../manageTests.html", "_self");
+    window.open("../testManagement/manageTests.html", "_self");
 }
