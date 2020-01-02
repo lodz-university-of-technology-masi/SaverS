@@ -309,6 +309,6 @@ function assign() {
     );
 }
 
-function mainPanel() {
-    window.open("recruiterMain.html", "_self");
-}
+function managePanel() {
+    window.open("../manageTests.html", "_self");
+  }
