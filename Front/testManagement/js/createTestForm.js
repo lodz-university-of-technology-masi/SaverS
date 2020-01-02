@@ -240,14 +240,16 @@ function createTest() {
     var check = checkFields();
 
     if(check) {
+        showSpinner();
     sendTest(newTest).then(
         result => {
+            hideSpinner();
             console.log(result)
             let textDiv = document.getElementById("subTestDiv");
-            let text = document.createTextNode("Succes, redirecting to main panel");
+            let text = document.createTextNode("Success, redirecting to main panel");
             textDiv.appendChild(text);
             setTimeout(function(){
-                window.open("recruiterMain.html", "_self");
+                window.open("../recruiterMain.html", "_self");
             }, 2000);
         },
         reject => {
@@ -309,4 +311,13 @@ function checkFields() {
 
 function managePanel() {
     window.open("./manageTests.html", "_self");
+  }
+
+  function showSpinner() {
+    s = document.getElementById("spinner");
+    s.style.display = "block";
+  }
+  function hideSpinner() {
+    s = document.getElementById("spinner");
+    s.style.display = "none";
   }
