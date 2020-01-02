@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- meta section -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- title section -->
+    <title>$aver$ recruitment</title>
+
+    <!-- link section -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/testFormTheme.css" />
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
+</head>
+
+<body>
+
+    <!-- header section -->
+    <header>
+        <h3 class="alert alert-success" role="alert">Edit test panel</h3>
+    </header>
+
+    <!-- create test section -->
+    <section class="createTestSection">
+        <div class="card" style="width: 60%; margin: auto;">
+            <div class="card-body">
+                <form class="singUpForm">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Test Name</span>
+                        <input type="text" id="testName" class="form-control" placeholder="Enter name of your test" />
+                    </div>
+                    <br />
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Question language</span>
+                        <select class="form-control" id="language">
+                            <option value="pl">Polish</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    <br />
+
+                    <div id="questionTable"></div>
+
+                    <section class="newQuestionButton">
+                        <input data-toggle="modal" data-target="#newQuestion" type="button" class="btn btn-success"
+                            value="Add question" />
+                    </section>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- update test -->
+    <section class="submitest">
+        <br />
+        <input type="button" class="btn btn-primary btn-lg" value="Update test" onclick="updateTest()" />
+        <br />
+    </section>
+    <div id="subTestDiv">
+            <div class="d-flex justify-content-center">
+                    <div
+                      id="spinner"
+                      class="spinner-grow text-success"
+                      role="status"
+                      style="display: none;"
+                    >
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+        <br />
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-xl" id="newQuestion" tabindex="-1" role="dialog"
+        aria-labelledby="testModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="testModalLabel">Creating new question</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Question type</span>
+                        <select class="form-control" id="type" name="type">
+                            <option value="O">Open question</option>
+                            <option value="W">Multiple choice question</option>
+                            <option value="L">Number question</option>
+                        </select>
+
+                    </div>
+                    <br />
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Question Content</span>
+                        </div>
+                        <input type="text" aria-label="First name" class="form-control" id="content" />
+                    </div>
+
+                    <div id="answersPanel">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-success" id="add_file" onclick="createQuestion()"
+                        data-dismiss="modal">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-xl" id="warnEmpty" tabindex="-1" role="dialog"
+        aria-labelledby="testModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="testModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do not leave empty fields! (check test name and question names)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-xl" id="warnEmptyAnswer" tabindex="-1" role="dialog"
+        aria-labelledby="testModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="testModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do not leave empty answers in multiple questions!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-xl" id="warnNoQuestion" tabindex="-1" role="dialog"
+        aria-labelledby="testModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="testModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Test must contain at least one question!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fixed-bottom">
+       
+        <div class="float-left">
+                <input
+                type="button"
+                class="btn-success btn"
+                value="Back to manage test panel"
+                id="buttonManagePanel"
+                onclick="managePanel()"
+              />
+        </div>
+        <div class="float-right">
+                <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
+                onmousedown="getSelectedText()" />
+                <select class="" id="language-option-selector"></select>
+        
+    </div>
+    </footer>
+
+
+    <!-- script section -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+    <script src="../js/amazon-cognito-auth.min.js">
+    </script>
+
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js">
+    </script>
+
+    <script src="../js/amazon-cognito-identity.min.js">
+    </script>
+
+    <script src="../js/config.js">
+    </script>
+    <script src="../js/cognito.js"></script>
+    <script src="js/editTest.js"></script>
+    <script src="../js/syno.js">
+    </script>
+
+
+</body>
+
+</html>
