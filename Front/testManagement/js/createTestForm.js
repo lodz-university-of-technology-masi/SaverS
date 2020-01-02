@@ -119,6 +119,7 @@ function updateTable() {
     //create table
     let table = document.createElement("table");
     table.classList.add("table", "table-bordered");
+    table.classList.add("table-responsive-sm","table-responsive-md");
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -184,6 +185,9 @@ function updateTable() {
 
         //add answers table cell
         let newTableCellAnswers = document.createElement("td");
+        newTableCellAnswers.style.textAlign = "center";
+        newTableCellAnswers.style.marginTop = ".25in";
+        // newTableCellAnswers.classList.add("text-center");
         let newContentAnswers;
         if (("O".localeCompare(questionList[question].type.toString()) == 0 ||
          ("L".localeCompare(questionList[question].type.toString())) == 0)) {
@@ -192,6 +196,7 @@ function updateTable() {
         else if(("W".localeCompare(questionList[question].type.toString())) == 0) {
             newContentAnswers = document.createTextNode(questionList[question].answers.toString().split(",").join(", "));
         }
+        
         newTableCellAnswers.appendChild(newContentAnswers);
         newElement.appendChild(newTableCellAnswers);
 
@@ -199,7 +204,7 @@ function updateTable() {
         let newTableCellButton = document.createElement("td");
         let newDeleteButton = document.createElement("input");
         newDeleteButton.type = "button";
-        newDeleteButton.classList.add("button", "btn-light");
+        newDeleteButton.classList.add("btn","btn-sm", "btn-danger");
         newDeleteButton.value = "X";
         newDeleteButton.addEventListener("click",
             function () {

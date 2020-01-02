@@ -62,7 +62,7 @@ function createTestTable() {
 
     //create table
     let table = document.createElement("table");
-    table.classList.add("table", "table-bordered");
+    table.classList.add("table", "table-bordered","table-responsive");
     table.classList.add("text", "text-center");
 
     //set first row of a column

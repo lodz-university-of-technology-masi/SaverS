@@ -156,7 +156,7 @@ function updateTable() {
 
     //create table
     let table = document.createElement("table");
-    table.classList.add("table", "table-bordered");
+    table.classList.add("table", "table-bordered","table-responsive");
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -237,7 +237,7 @@ function updateTable() {
         let newTableCellButton = document.createElement("td");
         let newDeleteButton = document.createElement("input");
         newDeleteButton.type = "button";
-        newDeleteButton.classList.add("button", "btn-light");
+        newDeleteButton.classList.add("btn","btn-sm", "btn-danger");
         newDeleteButton.value = "X";
         newDeleteButton.addEventListener("click",
             function () {
