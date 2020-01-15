@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/asignTestsTheme.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
   <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
   <!-- Zabezpieczenie statycznego html'a -->
   <script>
@@ -81,17 +82,12 @@
   </section>
   <br/>
 
-  <footer class="fixed-bottom">
-    <div class="text-left">
-        <input
-        type="button"
-        class="btn-success btn"
-        value="Back to manage test panel"
-        id="buttonManagePanel"
-        onclick="managePanel()"
-      />
+  <div class="saversfooter">
+    <div class="gobackbuttonwrapper">
+        <input type="button" class="btn-success btn" value="Back to manage test panel" 
+            id="buttonManagePanel" onclick="managePanel()" />
     </div>
-  </footer>
+  </div>
 
   <!-- Modals -->
   <div class="modal fade bd-example-modal-xl" id="assignModal" tabindex="-1" role="dialog"

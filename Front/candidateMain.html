@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/candidateMainMenuTheme.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
      <!-- Zabezpieczenie statycznego html'a -->
      <script>
@@ -68,9 +69,16 @@
     </section>
 
     <!-- footer section -->
-    <footer class="fixed-bottom">
-        <h4 class="alert alert-success" role="alert">Candidate main panel</h4>
-    </footer>
+    <div class="saversfooterfixed">
+        <div class="labelfooterwrapper">
+            <h3>Candidate main panel</h3>
+        </div>
+        <div class="getsynonimswrapper">
+            <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
+                onmousedown="getSelectedText()" />
+            <select class="" id="language-option-selector"></select>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-1.11.3.min.js">
     </script>
@@ -89,6 +97,10 @@
 
     <script src="./js/cognito.js">
     </script>
+
+    <script src="./js/syno.js">
+    </script>
+
 
     <script src="./js/mainCandidateScrpits.js">
     </script>

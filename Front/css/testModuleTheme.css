@@ -7,21 +7,13 @@ div .form-check {
     margin-left: 20px;
 }
 
-.waves-input-wrapper {
-    display:block;
-    width: 200px;
-    margin: auto;
-}
+
 
 .modal-xl {
     max-width: 800px;
     text-align: center;
 }
 
-.waves-input-wrapper {
-    margin-left: 0px;
-    width: 250px;
-}
 
 .recruiterNick {
     text-align: center;

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/recruterMainMenuTheme.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
     <script>
         if(document.cookie.toString() === ""){
@@ -60,21 +61,16 @@
     </section>
 
     <!-- footer section -->
-    <!-- <footer class="fixed-bottom">
-        <h4 class="alert alert-success" role="alert">Recruiter main panel</h4>
-    </footer> -->
-    <footer class="fixed-bottom alert-success">
-       
-            <div class="float-left">
-                    <h4 class="alert alert-success" role="alert">Recruiter main panel</h4>
-            </div>
-            <div class="float-right">
-                    <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
-                    onmousedown="getSelectedText()" />
-                    <select class="" id="language-option-selector"></select>
-            
+    <div class="saversfooterfixed">
+        <div class="labelfooterwrapper">
+            <h3>Recruiter main panel</h3>
         </div>
-        </footer>
+        <div class="getsynonimswrapper">
+            <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
+                onmousedown="getSelectedText()" />
+            <select class="" id="language-option-selector"></select>
+        </div>
+    </div>
     
     <script 
         src="https://code.jquery.com/jquery-1.11.3.min.js">

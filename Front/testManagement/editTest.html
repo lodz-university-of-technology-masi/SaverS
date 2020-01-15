@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../css/testFormTheme.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
     <!-- Zabezpieczenie statycznego html'a -->
     <script>
@@ -203,24 +204,17 @@
         </div>
     </div>
 
-    <footer class="fixed-bottom">
-       
-        <div class="float-left">
-                <input
-                type="button"
-                class="btn-success btn"
-                value="Back to manage test panel"
-                id="buttonManagePanel"
-                onclick="managePanel()"
-              />
+    <div class="saversfootermargin">
+        <div class="gobackbuttonwrapper">
+            <input type="button" class="btn-success btn" value="Back to manage test panel" 
+                id="buttonManagePanel" onclick="managePanel()" />
         </div>
-        <div class="float-right">
-                <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
+        <div class="getsynonimswrapper">
+          <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
                 onmousedown="getSelectedText()" />
-                <select class="" id="language-option-selector"></select>
-        
+          <select class="" id="language-option-selector"></select>
+        </div>
     </div>
-    </footer>
 
 
     <!-- script section -->
@@ -247,6 +241,8 @@
     <script src="js/editTest.js"></script>
     <script src="../js/syno.js">
     </script>
+
+    
 
 
 </body>

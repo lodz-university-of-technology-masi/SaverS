@@ -1,6 +1,5 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
 }
 
 .singUpForm {
@@ -13,4 +12,9 @@ body {
 }
 .table td {
     vertical-align:middle;
+}
+
+.submitest {
+    display: block;
+    text-align: center;
 }

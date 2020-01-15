@@ -1,0 +1,36 @@
+.saversfooter, .saversfooterfixed, .saversfootermargin {
+    display: inline-block;
+    width: 100%;
+    position: sticky;
+    margin-top: 20px;
+    bottom: 0px;
+    background-color: #dfffe8;
+    font-family: 'Montserrat', sans-serif
+}
+
+.gobackbuttonwrapper {
+    display: block;
+    float: left;
+    margin-left: 10px;
+}
+
+.getsynonimswrapper {
+    display: block;
+    float: right;
+    margin-right: 10px;
+}
+
+.labelfooterwrapper {
+    display: block;
+    margin-top: 12px;
+    margin-left: 10px;
+    float: left;
+}
+
+.saversfooterfixed {
+    position: fixed;
+}
+
+.saversfootermargin {
+    margin-top: 350px;
+}

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=".././css/testModuleTheme.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
     <!-- Zabezpieczenie statycznego html'a -->
     <script>
@@ -49,10 +50,17 @@
     </section>
     <div id="answers"></div>
 
-    <!-- <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="materialUnchecked">
-        <label class="form-check-label">Material unchecked</label>
-    </div> -->
+    <div class="saversfootermargin">
+        <div class="gobackbuttonwrapper">
+            <input type="button" class="btn-success btn" value="Back to manage test panel" 
+                id="buttonManagePanel" onclick="managePanel()" />
+        </div>
+        <div class="getsynonimswrapper">
+          <input type="button" class="btn-success btn" value="Get Synonims!" id="buttonMainPanel"
+                onmousedown="getSelectedText()" />
+          <select class="" id="language-option-selector"></select>
+        </div>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -73,7 +81,15 @@
 
     <script src="../js/config.js">
     </script>
+    <script src="../js/syno.js">
+    </script>
     <script src="../js/cognito.js"></script>
     <script src='evaluateTest.js'></script>
+
+    <script>
+        function managePanel() {
+            window.open("../testManagement/manageTests.html", "_self");
+        }
+    </script>
 </body>
 </html>
