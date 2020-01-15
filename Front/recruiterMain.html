@@ -16,6 +16,16 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/recruterMainMenuTheme.css" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
+    <script>
+        if(document.cookie.toString() === ""){
+            alert("Nie jestes upowazniony do tego zasobu");
+            window.open("index.html","_self")
+        }
+        if(getUserType() != 1){
+            alert("Nie jestes upowazniony do tego zasobu");
+            window.open("index.html","_self")
+        }
+    </script>
 </head>
 
 <body>
@@ -96,6 +106,7 @@
      <script
      src="./js/syno.js">
  </script>
+ 
 </body>
 
 </html>

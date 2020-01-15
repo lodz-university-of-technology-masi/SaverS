@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
+    
     <!-- title section -->
     <title>$aver$ recruitment</title>
 
@@ -30,6 +30,17 @@
     />
     <link rel="stylesheet" href="../css/manageTestsTheme.css" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.png"/>
+    <!-- Zabezpieczenie statycznego html'a -->
+    <script>
+      if(document.cookie.toString() === ""){
+          alert("Nie jestes upowazniony do tego zasobu");
+          window.open("index.html","_self")
+      }
+      if(getUserType() != 1){
+          alert("Nie jestes upowazniony do tego zasobu");
+          window.open("index.html","_self")
+      }
+  </script>
   </head>
 
   <body>
