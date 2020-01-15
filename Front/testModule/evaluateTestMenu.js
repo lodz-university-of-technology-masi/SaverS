@@ -159,12 +159,12 @@ function createTestTable() {
         if(attributions.attributions[attr].state==2) {
             newAssignButton.classList.add("button", "btn");
             newAssignButton.classList.add("button", "btn-danger");
-            newAssignButton.value = "Check again";
-                newAssignButton.addEventListener("click",
-                function () {
-                    console.log("eval");
-                    window.open(`evaluateTest.html?id=${identificator}`, "_self");
-                });
+            newAssignButton.value = "Evaluated !";
+                // newAssignButton.addEventListener("click",
+                // function () {
+                //     console.log("eval");
+                //     window.open(`evaluateTest.html?id=${identificator}`, "_self");
+                // });
         }
         
         
@@ -174,8 +174,30 @@ function createTestTable() {
 
         table.appendChild(newElement);
     }
-
+    
     tableDiv.appendChild(table);
+    const evaluated = document.getElementsByClassName("btn-danger").length;
+    const unresolved = document.getElementsByClassName("btn-info").length;
+    const toCheck = document.getElementsByClassName("btn-success").length;
+    let textArray = [evaluated,unresolved,toCheck]
+    textArray = textArray.map( e => e <= 1 ? "test" : "tests" )
+    let text = document.createTextNode(`${evaluated} ${textArray[0]} evaluated `);
+    let h5 = document.createElement("h5");
+    
+    h5.classList.add("text-center");
+    h5.appendChild(text);
+    tableDiv.prepend(h5);
+    text = document.createTextNode(`${unresolved} ${textArray[1]} unresolved`);
+    h5 = document.createElement("h5");
+    h5.classList.add("text-center");
+    h5.appendChild(text);
+    tableDiv.prepend(h5);
+    text = document.createTextNode(`You have ${toCheck} ${textArray[2]} to check`);
+    h5 = document.createElement("h5");
+    h5.classList.add("text-center");
+    h5.appendChild(text);
+    tableDiv.prepend(h5);
+    
 }
 
 function getStateName(number) {
