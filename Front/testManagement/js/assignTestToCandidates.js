@@ -117,7 +117,8 @@ function updateTable(tests) {
 
     //create table
     let table = document.createElement("table");
-    table.classList.add("table", "table-bordered","table-responsive");
+    table.classList.add("table", "table-bordered");
+    table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -201,7 +202,8 @@ function updateCandidatesTable() {
 
     //create table
     let table = document.createElement("table");
-    table.classList.add("table", "table-bordered","table-responsive");
+    table.classList.add("table", "table-bordered");
+    table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -268,7 +270,8 @@ function updateAssignedTable(assigns) {
 
     //create table
     let table = document.createElement("table");
-    table.classList.add("table", "table-bordered","table-responsive");
+    table.classList.add("table", "table-bordered");
+    table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
     table.classList.add("text", "text-center");
 
     //set first row of a column
