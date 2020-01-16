@@ -14,9 +14,15 @@ import com.amazonaws.services.cognitoidp.model.ListUsersRequest;
 import com.amazonaws.services.cognitoidp.model.ListUsersResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
 
-public class CandidatesProvider implements RequestHandler<String, List<String>>{
+public class CandidatesProvider implements RequestHandler<GetListOfCandidatesRequest, List<String>>{
 
-    public List<String> handleRequest(String recruiterName, Context context) {
+    public List<String> handleRequest(GetListOfCandidatesRequest getListOfCandidatesRequest, Context context) {
+
+        /* Authorization */
+        if(!getListOfCandidatesRequest.getUsertype().equals("1")){
+            throw new RuntimeException("Operation not permitted!");
+        }
+
         AWSCognitoIdentityProvider cognito = AWSCognitoIdentityProviderClientBuilder.standard()
                                                 .withRegion(Regions.US_EAST_1)
                                                 .build();
@@ -33,7 +39,7 @@ public class CandidatesProvider implements RequestHandler<String, List<String>>{
             return user.getAttributes().stream()
                 .filter(attr -> {
                     return attr.getName().equals("custom:recruiter")
-                        && attr.getValue().equals(recruiterName);
+                        && attr.getValue().equals(getListOfCandidatesRequest.getUsername());
                 })
                 .findAny()
                 .isPresent();
@@ -50,4 +56,28 @@ public class CandidatesProvider implements RequestHandler<String, List<String>>{
         return userEmails;
     }
 
+}
+
+class GetListOfCandidatesRequest{
+
+    private String username;
+    private String usertype;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public GetListOfCandidatesRequest() {}
 }
