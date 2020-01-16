@@ -4,19 +4,56 @@ const userPool = new AmazonCognitoIdentity.CognitoUserPool({
     ClientId: _config.cognito.clientID
 });
 
-function createCandidateAccount(){
-    $('#alert-content').text('')
-    $('#alert-content').addClass('d-none')
-    $('#success-content').text('')
-    $('#success-content').addClass('d-none')
-    let email = prompt("Podaj email kandydata:");
-    let data = {
-        username: email
-    };
+function getCredentials(){
+    /* Set the region where your identity pool exists (us-east-1, eu-west-1) */
+    AWS.config.region = 'us-east-1';
+
+    /* Configure the credentials provider to use your identity pool */
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:77cf702a-629e-4174-af2e-b2fd78d9da47',
+        Logins: { // optional tokens, used for authenticated login
+            'cognito-idp.us-east-1.amazonaws.com/us-east-1_HAV7sF97C': getToken()
+        }
+    });
+
+    /* Make the call to obtain credentials */
+    AWS.config.credentials.get(function(err){
+        /* Credentials will be available when this function is called. */
+        if(err) {
+            $('#alert-content').append(err);
+            $('#alert-content').removeClass('d-none')
+        }else{
+            /* Add credentials to current cookie */
+            let cookie = JSON.parse(document.cookie);
+            cookie.accessKeyId = AWS.config.credentials.accessKeyId;
+            cookie.secretAccessKey = AWS.config.credentials.secretAccessKey;
+            cookie.sessionToken = AWS.config.credentials.sessionToken;
+            document.cookie = JSON.stringify(cookie);
+        }
+    });
+}
+
+function getListOfCandidates(){
     $.ajax({
-        method: 'POST',
+        method: 'GET',
         url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
-        data: JSON.stringify(data),
+        headers: {
+            "Authorization": getToken()
+        },
+        success: (data) => console.log(data),
+        error: (err) => console.log(err)
+    });
+}
+
+function removeCandidateAccount(email){
+    $('#alert-content').text('');
+    $('#alert-content').addClass('d-none');
+    $('#success-content').text('');
+    $('#success-content').addClass('d-none');
+    $.ajax({
+        method: 'DELETE',
+        url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
+        data: JSON.stringify({username: email}),
         headers: {
             "Authorization": getToken(),
             "Content-Type": "application/json"
@@ -24,15 +61,45 @@ function createCandidateAccount(){
         success: (data) => {
             if(data.errorMessage){
                 $('#alert-content').append(data.errorMessage);
-                $('#alert-content').removeClass('d-none')
+                $('#alert-content').removeClass('d-none');
             }else{
-                $('#success-content').append("Invitation has been sent to candidate!");
-                $('#success-content').removeClass('d-none')
+                $('#success-content').append("Candidate " + email + " has been removed!");
+                $('#success-content').removeClass('d-none');
             }
         },
         error: (err) => {
             $('#alert-content').append(err.statusText);
-            $('#alert-content').removeClass('d-none')
+            $('#alert-content').removeClass('d-none');
+        }
+    });
+}
+
+function createCandidateAccount(){
+    $('#alert-content').text('');
+    $('#alert-content').addClass('d-none');
+    $('#success-content').text('');
+    $('#success-content').addClass('d-none');
+    let email = prompt("Podaj email kandydata:");
+    $.ajax({
+        method: 'POST',
+        url: 'https://6fsmq4shbf.execute-api.us-east-1.amazonaws.com/beta/candidates',
+        data: JSON.stringify({username: email}),
+        headers: {
+            "Authorization": getToken(),
+            "Content-Type": "application/json"
+        },
+        success: (data) => {
+            if(data.errorMessage){
+                $('#alert-content').append(data.errorMessage);
+                $('#alert-content').removeClass('d-none');
+            }else{
+                $('#success-content').append("Invitation has been sent to candidate!");
+                $('#success-content').removeClass('d-none');
+            }
+        },
+        error: (err) => {
+            $('#alert-content').append(err.statusText);
+            $('#alert-content').removeClass('d-none');
         }
     });
 }
@@ -106,9 +173,8 @@ function signIn() {
             usertype: usertype
         };
         document.cookie = JSON.stringify(userdata);
-
         /* Redirect to proper subpage */
-        if(usertype == '1'){
+        if(cookie.usertype == '1'){
             window.open("recruiterMain.html","_self")
         }else{
             window.open("candidateMain.html", "_self");
