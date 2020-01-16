@@ -12,12 +12,14 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandidateCreator implements RequestHandler<NewUserParams, String>{
+public class CandidateCreator implements RequestHandler<CreateCandidateRequest, String>{
 
-    public String handleRequest(NewUserParams userParams, Context context) {
+    public String handleRequest(CreateCandidateRequest createCandidateRequest, Context context) {
 
-        /* Validate user params */
-        userParams.validate();
+        /* Authorization */
+        if(!createCandidateRequest.getUsertype().equals("1")){
+            throw new RuntimeException("Operation not permitted!");
+        }
 
         /* Main action - create new user */
         AWSCognitoIdentityProvider cognito = AWSCognitoIdentityProviderClientBuilder
@@ -31,14 +33,14 @@ public class CandidateCreator implements RequestHandler<NewUserParams, String>{
         usertype.setValue("2");
         AttributeType recruiter = new AttributeType();
         recruiter.setName("custom:recruiter");
-        recruiter.setValue(userParams.getRecruiter());
+        recruiter.setValue(createCandidateRequest.getUsername());
         List<AttributeType> attributes = new ArrayList<AttributeType>();
         attributes.add(usertype);
         attributes.add(recruiter);
 
         /* Create request */
         AdminCreateUserRequest request = new AdminCreateUserRequest();
-        request.setUsername(userParams.getUsername());
+        request.setUsername(createCandidateRequest.getCandidate());
         request.setUserPoolId("us-east-1_HAV7sF97C");
         request.setUserAttributes(attributes);
 
@@ -50,19 +52,11 @@ public class CandidateCreator implements RequestHandler<NewUserParams, String>{
     }
 }
 
-class NewUserParams{
+class CreateCandidateRequest{
 
     private String username;
-    private String recruiter;
-
-    void validate(){
-        if(username == null){
-            throw new InvalidUserDataException("Invalid request body: 'username' property required");
-        }
-        if(recruiter == null){
-            throw new InvalidUserDataException("Invalid request body: 'recruiter' property required");
-        }
-    }
+    private String usertype;
+    private String candidate;
 
     public void setUsername(String username) {
         this.username = username;
@@ -72,17 +66,19 @@ class NewUserParams{
         return username;
     }
 
-    public void setRecruiter(String recruiter){
-        this.recruiter = recruiter;
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
-    public String getRecruiter(){
-        return recruiter;
+    public String getUsertype() {
+        return usertype;
     }
-    
-    public class InvalidUserDataException extends RuntimeException{
-        public InvalidUserDataException(String errorMessage){
-            super(errorMessage);
-        }
+
+    public void setCandidate(String candidate) {
+        this.candidate = candidate;
+    }
+
+    public String getCandidate() {
+        return candidate;
     }
 }
