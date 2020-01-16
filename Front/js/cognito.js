@@ -174,7 +174,7 @@ function signIn() {
         };
         document.cookie = JSON.stringify(userdata);
         /* Redirect to proper subpage */
-        if(cookie.usertype == '1'){
+        if(usertype == '1'){
             window.open("recruiterMain.html","_self")
         }else{
             window.open("candidateMain.html", "_self");
