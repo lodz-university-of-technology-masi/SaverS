@@ -14,6 +14,11 @@ public class CandidateRemover implements RequestHandler<RemovedCandidateParams, 
 
     public String handleRequest(RemovedCandidateParams params, Context context) {
 
+        /* Authorization */
+        if(!params.getUsertype().equals("1")){
+            throw new RuntimeException("Operation not permitted!");
+        }
+
         AWSCognitoIdentityProvider cognito = AWSCognitoIdentityProviderClientBuilder.standard()
                                                     .withRegion(Regions.US_EAST_1)
                                                     .build();
@@ -25,7 +30,7 @@ public class CandidateRemover implements RequestHandler<RemovedCandidateParams, 
         AdminGetUserResult getUserResult = cognito.adminGetUser(getUserRequest);
         if(!getUserResult.getUserAttributes().stream()
             .filter((AttributeType attribute) -> 
-                    attribute.getName().equals("custom:recruiter") && attribute.getValue().equals(params.getRecruiter()))
+                    attribute.getName().equals("custom:recruiter") && attribute.getValue().equals(params.getUsername()))
             .findAny()
             .isPresent()){
             throw new RuntimeException("This is not your candidate");
@@ -44,15 +49,8 @@ public class CandidateRemover implements RequestHandler<RemovedCandidateParams, 
 class RemovedCandidateParams{
 
     private String candidate;
-    private String recruiter;
-
-    public void setRecruiter(String recruiter) {
-        this.recruiter = recruiter;
-    }
-
-    public String getRecruiter() {
-        return recruiter;
-    }
+    private String username;
+    private String usertype;
 
     public void setCandidate(String candidate) {
         this.candidate = candidate;
@@ -62,10 +60,19 @@ class RemovedCandidateParams{
         return candidate;
     }
 
-    public RemovedCandidateParams(String candidate, String recruiter) {
-        this.candidate = candidate;
-        this.recruiter = recruiter;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public RemovedCandidateParams(){}
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
 }
