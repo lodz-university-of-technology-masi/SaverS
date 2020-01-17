@@ -12,7 +12,7 @@ import java.util.List;
 @DynamoDBTable(tableName = "tests")
 public class Test {
     private String id;
-    private transient String recruiter;
+    private String recruiter;
     private String name;
     private String lang;
     private List<Question> questions;
@@ -100,5 +100,13 @@ public class Test {
         availableLang.add("EN");
         availableLang.add("en");
         if (!availableLang.contains(this.lang)) message.add("Invalid lang");
+    }
+
+    public String exportToCSV() {
+        String output = "data:text/csv;charset=utf-8,";
+        for (Question question : questions) {
+            output+="\"" + question.exportToCSV(this.lang)+"\"\n";
+        }
+        return output;
     }
 }

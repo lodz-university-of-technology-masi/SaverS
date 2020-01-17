@@ -84,4 +84,16 @@ public class Question {
         checkQuestionType(id);
         return errors.size() == 0;
     }
+
+    public String exportToCSV(String lang) {
+        String output = "";
+        output+=this.id +";";
+        output+=this.type+";";
+        output+=lang+";";
+        output+=this.content+";";
+        for (String answer : this.answers) {
+            output+=answer+";";
+        }
+        return output;
+    }
 }
