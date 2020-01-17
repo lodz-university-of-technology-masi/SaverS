@@ -13,6 +13,8 @@ public class RequestUserTest {
     private int state;
     @DynamoDBIgnore
     private ArrayList<String> message;
+    @DynamoDBIgnore
+    private transient int userType;
 
     public RequestUserTest() {
         this.message = new ArrayList<>();
@@ -76,5 +78,15 @@ public class RequestUserTest {
             message.add(0,"Data is incorrect");
             return false;
         }
+    }
+
+    @DynamoDBIgnore
+    public int getUserType() {
+        return userType;
+    }
+
+    @DynamoDBIgnore
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 }

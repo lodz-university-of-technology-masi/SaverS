@@ -4,6 +4,7 @@ public class RequestTest {
     private String httpMethod;
     private Test test;
     private String targetLang;
+    private transient int userType;
 
     public String getHttpMethod() {
         return httpMethod;
@@ -27,5 +28,13 @@ public class RequestTest {
 
     public void setTargetLang(String targetLang) {
         this.targetLang = targetLang;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 }

@@ -37,9 +37,9 @@ public class App {
      * @since 2019-11-27
      */
     public Object singleTestHandler(final RequestTest requestTest, final Context context)  {
-        //if (requestTest.getUserType()) {
-        //    return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
-        //}
+        if ((requestTest.getUserType() != 1) && (!requestTest.getHttpMethod().equals("GET"))){
+            return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
+        }
         Test test = null;
         boolean isValidFlag = false;
         try{
@@ -109,6 +109,9 @@ public class App {
      * @since 2019-11-27
      */
     public Object getTestsByRecruiter(final RequestUser requestUser, final Context context)  {
+        if (requestUser.getUserType() != 1){
+            return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
+        }
         List<Test> tests = null;
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         try{
@@ -141,6 +144,9 @@ public class App {
      * @since 2019-12-15
      */
     public Object setTestToCandidate(final RequestUserTest requestUserTest, final Context context){
+        if (requestUserTest.getUserType() != 1){
+            return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
+        }
         List<RequestUserTest> attribution = null;
         boolean isValidFlag;
         try {
@@ -171,6 +177,9 @@ public class App {
      * @since 2019-12-15
      */
     public Object getTestToCandidateByRecruiter (final RequestUserTest requestUserTest, final Context context){
+        if (requestUserTest.getUserType() != 1){
+            return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
+        }
         List<RequestUserTest> attribution = null;
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         try {
@@ -244,6 +253,9 @@ public class App {
      * @since 2019-12-15
      */
     public Object evaluateTest (final Answer answer, final Context context){
+        if (answer.getUserType() != 1){
+            return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
+        }
         List<RequestUserTest> attribution = null;
         try {
             attribution = attribution = findAttribution(answer.getCandidate(), answer.getRecruiter(), answer.getTest().getId());
@@ -319,6 +331,9 @@ public class App {
      * @since 2019-12-28
      */
     public Object export(RequestTest requestTest, final Context context)  {
+        if (requestTest.getUserType() != 1){
+            return new GatewayResponse("{\"message\":[\"Unauthorized access\"]}", this.getHeaders(), 401);
+        }
         try {
             Test test = mapper.load(Test.class, requestTest.getTest().getId());
             if (test != null)
