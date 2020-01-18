@@ -39,7 +39,6 @@ function sendTest(name, text){
         /* If parser did not fail */
         test.recruiter = getUserName();
         test.name = name;
-        test.lang = 'pl';
         console.log(text);
         console.log(test);
         
@@ -56,7 +55,7 @@ function sendTest(name, text){
             error: err => {
                 console.log(err);
                 $('#alert-content').removeClass('d-none');
-                $('#alert-content').text(err.responseText);
+                $('#alert-content').text(err.statusText);
             }
         });
     }else{

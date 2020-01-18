@@ -39,6 +39,8 @@ export function parse(text){
                 question.type = 'L';
             else if(question_node.typ().getText() == 'W')
                 question.type = 'W';
+            //language
+            test.lang = question_node.jezyk().getText().toLowerCase();
             //question
             question.content = question_node.tresc_pytania().getText();
             //answers
