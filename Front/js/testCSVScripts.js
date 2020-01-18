@@ -32,27 +32,39 @@ function createTest(){
 }
 
 function sendTest(name, text){
-    /* Parse to json */
+    /* Parse test */
     let test = parser.parse(text);
-    test.recruiter = getUserName();
-    test.name = name;
-    test.lang = 'pl';
-    console.log(text);
-    console.log(test);
-    
-    /* Send */
-    $.ajax({
-        type: 'POST',
-        url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
-        data: JSON.stringify(test),
-        contentType: 'application/json',
-        success: data => {
-            console.log(data);
-            $('#createTestModal').modal('hide');
-        },
-        error: err => {
-            console.log(err.responseText);
-        }
-    });
-    
+
+    if(typeof(test) == 'object'){
+        /* If parser did not fail */
+        test.recruiter = getUserName();
+        test.name = name;
+        test.lang = 'pl';
+        console.log(text);
+        console.log(test);
+        
+        /* Send */
+        $.ajax({
+            type: 'POST',
+            url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
+            data: JSON.stringify(test),
+            contentType: 'application/json',
+            success: data => {
+                console.log(data);
+                $('#createTestModal').modal('hide');
+            },
+            error: err => {
+                console.log(err);
+                $('#alert-content').removeClass('d-none');
+                $('#alert-content').text(err.responseText);
+            }
+        });
+    }else{
+        /* If parser failed */
+        console.log(test);
+        test = test.replace("<", "");
+        test = test.replace(">", "");
+        $('#alert-content').removeClass('d-none');
+        $('#alert-content').text(test);
+    }
 }
