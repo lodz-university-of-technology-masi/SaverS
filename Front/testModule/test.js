@@ -10,6 +10,9 @@ function getJsonData() {
     $.ajax({
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test/${myParam}`,
       type: "GET",
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         console.log(data);
         test = JSON.parse(data.body);
@@ -28,6 +31,9 @@ function getEvaluatedTest(id) {
     $.ajax({
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${id}`,
       type: "GET",
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         
         console.log(JSON.parse(data.body));
@@ -203,6 +209,9 @@ function sendAnswers() {
     type: 'POST',
     url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer',
     data: JSON.stringify(answerJson),
+    headers: {
+      "Authorization": getToken()
+  },
     contentType: 'application/json',
     success: data => {
       console.log(data);

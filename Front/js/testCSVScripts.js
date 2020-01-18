@@ -48,6 +48,9 @@ function sendTest(name, text){
             url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
             data: JSON.stringify(test),
             contentType: 'application/json',
+            headers: {
+                "Authorization": getToken()
+            },
             success: data => {
                 console.log(data);
                 $('#createTestModal').modal('hide');

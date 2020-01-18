@@ -23,6 +23,9 @@ function getTests() {
         $.ajax({
             url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
             type: "GET",
+            headers: {
+                "Authorization": getToken()
+            },
             success: data => {
               console.log(data);
               tests = JSON.parse(data.body);
@@ -86,6 +89,9 @@ function postAssign(assign) {
           type: 'POST',
           url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution',
           data: JSON.stringify(assign),
+          headers: {
+            "Authorization": getToken()
+        },
           contentType: 'application/json',
           success: data => {
             return resolve(data)

@@ -23,6 +23,9 @@ function getAttributions() {
         $.ajax({
             url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution/recruiter/${myParam}`,
             type: "GET",
+            headers: {
+                "Authorization": getToken()
+            },
             success: data => {
                 console.log(data);
                 attributions = JSON.parse(data.body);
@@ -43,6 +46,9 @@ function getAnswers() {
             $.ajax({
                 url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${answerID}`,
                 type: "GET",
+                headers: {
+                    "Authorization": getToken()
+                },
                 success: data => {
                     console.log(data);
                     answers[attr] = JSON.parse(data.body);
@@ -63,6 +69,9 @@ function getTests() {
         $.ajax({
             url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
             type: "GET",
+            headers: {
+                "Authorization": getToken()
+            },
             success: data => {
                 console.log(data);
                 tests = JSON.parse(data.body);

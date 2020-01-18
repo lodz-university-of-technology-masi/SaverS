@@ -25,6 +25,9 @@ function getLangs() {
     $.ajax({
       url: `https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=${APIkey}`,
       type: "GET",
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         langs = data; 
         return resolve()
@@ -71,6 +74,9 @@ function createOption()
     $.ajax({
       url: `https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${APIkey}&lang=${select.value}&text=${selected}`,
       type: "GET",
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         if (data.def.length===0) {
           return reject()

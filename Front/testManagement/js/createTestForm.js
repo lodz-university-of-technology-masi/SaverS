@@ -271,6 +271,9 @@ function sendTest(test) {
           type: 'POST',
           url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
           data: JSON.stringify(test),
+          headers: {
+            "Authorization": getToken()
+        },
           contentType: 'application/json',
           success: data => {
             return resolve(data)

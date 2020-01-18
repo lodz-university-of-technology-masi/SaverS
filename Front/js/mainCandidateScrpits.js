@@ -12,6 +12,9 @@ function getEvaluatedTest(id) {
     $.ajax({
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${id}`,
       type: "GET",
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         
         // console.log(JSON.parse(data.body));
@@ -29,6 +32,9 @@ function getAssigns() {
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution/candidate/${myParam}`,
       type: "GET",
       async: false,
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         // console.log(data);
         assigns = JSON.parse(data.body);
@@ -45,6 +51,9 @@ function getTest() {
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test/${testID}`,
       type: "GET",
       async: false,
+      headers: {
+        "Authorization": getToken()
+    },
       success: data => {
         // console.log(data);
         test = JSON.parse(data.body);

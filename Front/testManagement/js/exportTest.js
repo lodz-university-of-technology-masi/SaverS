@@ -13,6 +13,9 @@ getTests().then(incomingTests => {
       $.ajax({
         url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
         type: "GET",
+        headers: {
+          "Authorization": getToken()
+      },
         success: data => {
           console.log(JSON.parse(data.body).message[0]);
           return resolve(JSON.parse(data.body));
@@ -29,6 +32,9 @@ function getExportedTest(testID) {
     return new Promise((resolve, reject) => {
     $.ajax({
         method: 'GET',
+        headers: {
+          "Authorization": getToken()
+      },
         url: `https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/test/export/${testID}`,
         success: (data) => {
             console.log(data);

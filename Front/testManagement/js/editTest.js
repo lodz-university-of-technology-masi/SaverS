@@ -48,6 +48,9 @@ function getTest() {
         $.ajax({
         url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test/${testID}`,
         type: "GET",
+        headers: {
+            "Authorization": getToken()
+        },
         async: false,
         success: data => {
             console.log(data);
@@ -299,6 +302,9 @@ function sendTest(test) {
     return new Promise((resolve, reject) => {
         $.ajax({
           type: 'PUT',
+          headers: {
+            "Authorization": getToken()
+        },
           url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test',
           data: JSON.stringify(test),
           contentType: 'application/json',

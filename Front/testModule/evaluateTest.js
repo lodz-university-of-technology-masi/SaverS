@@ -86,6 +86,9 @@ function getJsonData() {
   $.ajax({
     url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${myParam}`,
     type: "GET",
+    headers: {
+      "Authorization": getToken()
+  },
     success: data => {
       console.log(data);
       answer = JSON.parse(data.body);
@@ -104,6 +107,9 @@ function postEvaluatedTest() {
     $.ajax({
       type: "PUT",
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/answer/${myParam}`,
+      headers: {
+        "Authorization": getToken()
+    },
       data: JSON.stringify(answerToSend),
       contentType: 'application/json',
       success: data => {

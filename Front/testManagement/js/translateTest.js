@@ -10,6 +10,9 @@ function sendTest(test) {
   return new Promise((resolve, reject) => {
     $.ajax({
       type: "POST",
+      headers: {
+        "Authorization": getToken()
+    },
       url:
         "https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test",
       data: JSON.stringify(test),
@@ -33,6 +36,9 @@ function getTests() {
     $.ajax({
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
       type: "GET",
+      headers: {
+        "Authorization": getToken()
+    },
       async: false,
       success: data => {
         console.log(JSON.parse(data.body).message[0]);
@@ -54,6 +60,9 @@ function translateTest(test) {
       url:
         "https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/translatetest",
       data: JSON.stringify(test),
+      headers: {
+        "Authorization": getToken()
+    },
       contentType: "application/json",
       success: data => {
         console.log(data);
