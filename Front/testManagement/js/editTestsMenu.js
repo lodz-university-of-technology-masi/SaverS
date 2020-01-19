@@ -65,6 +65,14 @@ function createTestTable() {
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
+    if (tests == 0 || tests == null || tests.message) {
+        let text = document.createTextNode("You haven't created any tests so far.");
+        let h5 = document.createElement("h5");
+        h5.classList.add("text-center");
+        h5.appendChild(text)
+        tableDiv.appendChild(h5);
+        return;
+    }
 
     //create table
     let table = document.createElement("table");
