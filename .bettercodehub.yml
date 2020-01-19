@@ -8,3 +8,5 @@ exclude:
 # - /Front/testModule/.*.js
 - /csv_parser
 - /csv_parser/src/parser/csvParser.js
+- /Front/testManagement/js/editTestsMenu.js
+- /Front/testModule/evaluateTestMenu.js
