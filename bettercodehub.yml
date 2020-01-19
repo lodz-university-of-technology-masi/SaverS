@@ -1,8 +1,11 @@
+component_depth: 1
+languages:
+- java
 exclude:
-- Front/js/.*.js
-- Front/testManagement/js/.*.js
-- Front/testManagement/.*.js
-- Front/testModule/.*.js
-- csv_parser
-- events
-- LogoAssets
+- /Front/js/.*.js
+- /Front/testManagement/js/.*.js
+- /Front/testManagement/.*.js
+- /Front/testModule/.*.js
+- /csv_parser
+- /events
+- /LogoAssets
