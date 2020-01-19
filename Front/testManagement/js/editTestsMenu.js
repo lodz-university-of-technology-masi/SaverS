@@ -65,7 +65,7 @@ function createTestTable() {
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
-    if (tests == 0 || tests == null || tests.message) {
+    if (tests == 0 || tests == null || tests.message[0].includes("does not have tests")) {
         let text = document.createTextNode("You haven't created any tests so far.");
         let h5 = document.createElement("h5");
         h5.classList.add("text-center");
