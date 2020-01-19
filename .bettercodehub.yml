@@ -10,3 +10,5 @@ exclude:
 - /csv_parser/src/parser/csvParser.js
 - /Front/testManagement/js/editTestsMenu.js
 - /Front/testModule/evaluateTestMenu.js
+- /Front/js/cognito.js
+- /Front/testManagement/js/assignTestToCandidates.js
