@@ -21,6 +21,7 @@ function getEvaluatedTest(id) {
         return resolve(data);
       },
       error: err => {
+        console.err("getEvaluatedError")
         console.log(err.responseJSON);
         return reject(err.responseText)
       }
