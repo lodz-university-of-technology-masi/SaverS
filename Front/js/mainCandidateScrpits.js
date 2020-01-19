@@ -52,7 +52,8 @@ function getTest() {
       type: "GET",
       async: false,
       headers: {
-        "Authorization": getToken()
+        "Authorization": getToken(),
+        "Content-Type": "application/json"
     },
       success: data => {
         // console.log(data);
