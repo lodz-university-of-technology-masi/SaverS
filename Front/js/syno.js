@@ -33,6 +33,7 @@ function getLangs() {
         return resolve()
       },
       error: err => {
+        console.err("GetLangsERROR")
         console.log(err.responseJSON);
         return reject(err.responseText)
       }
@@ -85,6 +86,7 @@ function createOption()
         return resolve()
       },
       error: err => {
+        console.err("LookUpError")
         console.log(err.responseJSON);
         return reject(err.responseText)
       }
