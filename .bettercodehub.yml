@@ -12,3 +12,4 @@ exclude:
 - /Front/testModule/evaluateTestMenu.js
 - /Front/js/cognito.js
 - /Front/testManagement/js/assignTestToCandidates.js
+- /Front/testManagement/js/createTestForm.js
