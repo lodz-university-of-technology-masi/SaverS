@@ -92,6 +92,14 @@ function createTestTable() {
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
+    if (tests == 0 || tests == null || tests.message) {
+        let text = document.createTextNode("You haven't created any tests so far.");
+        let h5 = document.createElement("h5");
+        h5.classList.add("text-center");
+        h5.appendChild(text)
+        tableDiv.appendChild(h5);
+        return;
+    }
 
     //create table
     let table = document.createElement("table");
@@ -151,7 +159,7 @@ function createTestTable() {
         newAssignButton.type = "button";
         if(attributions.attributions[attr].state==1) {
             newAssignButton.classList.add("button", "btn");
-            newAssignButton.classList.add("button", "btn-success");
+            newAssignButton.classList.add("button", "btn-success","button-check") ;
             newAssignButton.value = "Evaluate";
                 newAssignButton.addEventListener("click",
                 function () {
@@ -187,7 +195,7 @@ function createTestTable() {
     tableDiv.appendChild(table);
     const evaluated = document.getElementsByClassName("btn-danger").length;
     const unresolved = document.getElementsByClassName("btn-info").length;
-    const toCheck = document.getElementsByClassName("btn-success").length;
+    const toCheck = document.getElementsByClassName("button-check").length;
     let textArray = [evaluated,unresolved,toCheck]
     textArray = textArray.map( e => e <= 1 ? "test" : "tests" )
     let text = document.createTextNode(`${evaluated} ${textArray[0]} evaluated `);
