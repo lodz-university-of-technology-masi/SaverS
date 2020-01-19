@@ -58,6 +58,27 @@ function getTests() {
     })
 }
 
+function deleteTest(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test/${id}`,
+            type: "DELETE",
+            headers: {
+                "Authorization": getToken()
+            },
+            success: data => {
+                console.log(data);
+                location.reload();
+                return resolve()
+            },
+            error: err => {
+                console.log(err.responseJSON);
+                return reject(err.responseText)
+            }
+        })
+    })
+}
+
 function createTestTable() {
     let tableDiv = document.getElementById("testsdiv");
 
@@ -97,6 +118,11 @@ function createTestTable() {
     let firstRowQuestionNumberText = document.createTextNode("Edit");
     firstRowQuestionNumber.appendChild(firstRowQuestionNumberText);
     firstRow.appendChild(firstRowQuestionNumber);
+
+    let firstRowDelete = document.createElement("td");
+    let firstRowDeleteText = document.createTextNode("Delete");
+    firstRowDelete.appendChild(firstRowDeleteText);
+    firstRow.appendChild(firstRowDelete);
 
     table.appendChild(firstRow);
     let number = 0;
@@ -141,6 +167,20 @@ function createTestTable() {
         }
         
         newElement.appendChild(newTableCellButton);
+
+        //add delete button cell
+        let newTableDeleteCellButton = document.createElement("td");
+        let newDeleteButton = document.createElement("input");
+        newDeleteButton.type = "button";
+        newDeleteButton.classList.add("btn","btn-sm", "btn-danger");
+        newDeleteButton.value = "X";
+        newDeleteButton.addEventListener("click",
+            function () {
+                deleteTest(tests.tests[test].id);
+            });
+        newTableDeleteCellButton.appendChild(newDeleteButton);
+        newElement.appendChild(newTableDeleteCellButton);
+
         table.appendChild(newElement);
     }
 

@@ -93,7 +93,7 @@ function createTestTable() {
         tableDiv.removeChild(tableDiv.firstChild);
     }
     if (tests == 0 || tests == null || tests.message) {
-        let text = document.createTextNode("You haven't created any tests so far.");
+        let text = document.createTextNode("None of your test is ready to evaluete!");
         let h5 = document.createElement("h5");
         h5.classList.add("text-center");
         h5.appendChild(text)
