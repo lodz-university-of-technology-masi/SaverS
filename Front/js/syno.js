@@ -43,23 +43,23 @@ function createOption()
 {
     var select = document.getElementById("language-option-selector");
     // Dodaj do opcji wszystkie obslugiwane przez Yandex
-    // getLangs().then(() => {
-    //     array = langs;
-    //     for (var i = 0; i < array.length; i++) {
-    //         var option = document.createElement("option");
-    //         option.value = array[i];
-    //         option.text = array[i];
-    //         select.appendChild(option);
-    //     }
-    // })
+    getLangs().then(() => {
+        array = langs;
+        for (var i = 0; i < array.length; i++) {
+            var option = document.createElement("option");
+            option.value = array[i];
+            option.text = array[i];
+            select.appendChild(option);
+        }
+    })
     // Dodaj do opcji tylko pl-ru, en-en
-    array = ["en-en","pl-ru"]
-    for (var i = 0; i < array.length; i++) {
-              var option = document.createElement("option");
-              option.value = array[i];
-              option.text = array[i];
-              select.appendChild(option);
-          }
+    // array = ["en-en","pl-ru"]
+    // for (var i = 0; i < array.length; i++) {
+    //           var option = document.createElement("option");
+    //           option.value = array[i];
+    //           option.text = array[i];
+    //           select.appendChild(option);
+    //       }
     
    
 
