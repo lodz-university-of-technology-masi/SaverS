@@ -53,7 +53,7 @@ function updateTable(tests) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
     // console.log(tests)
-    if(tests.length==0) {
+    if (tests == 0 || tests == null) {
       let text = document.createTextNode("You haven't created any tests so far.");
       let h5 = document.createElement("h5");
       h5.classList.add("text-center");
