@@ -1,5 +1,6 @@
 languages:
 - java
+- javascript
 exclude:
 # - /Front/js/.*.js
 # - /Front/testManagement/js/.*.js
