@@ -17,7 +17,7 @@ function getJsonData() {
         console.log(data);
         test = JSON.parse(data.body);
         return resolve()
-        // updateTodoList();
+        
       },
       error: err => {
         console.log(err.responseJSON);
@@ -55,8 +55,7 @@ $(document).ready(function () {
     () => {
       hideSpinner();
 
-      //$('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+test.questions[1].content+'</span></div>')
-
+    
       var testDIV = document.getElementById("placeholder");
       const app = $("#test");
 
@@ -120,44 +119,12 @@ $(document).ready(function () {
 
             testDIV.appendChild(checkBoxDiv);
 
-            // app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
-          }
+         }
           var br = document.createElement("br");
           testDIV.appendChild(br);
         }
       }
-      // testDIV.appendChild(QA);
-
-      /*
-        for (let i in test.questions) {
-            //app.append("<p>" + test.questions[i].content + "</p>");
-          if (test.questions[i].answers == "|")
-            app.append("<input id=" + i + ">" + "</input>");
-          else
-            // console.log(ans)
-            for (let j in test.questions[i].answers)
-              app.append("<input id=check"  + j + " type=checkBox>" + test.questions[i].answers[j] + "</input>");
-        }
-        */
-
-      // const ans = $('#answers')
-      // zapiszTest = () => {
-      // //   x = document.getElementById("1").value;
-
-      //   for (let i in test.questions) {
-      //     if (test.questions[i].answers == "|"){
-      //       console.log(document.getElementById(i).value)
-      //     ans.append(document.getElementById(i).value+"<br>")
-      //     }
-      //     else
-      //       // console.log(ans)
-      //       for (let j in test.questions[i].answers){
-      //       console.log(document.getElementById("check"+j).checked)
-      //     ans.append(document.getElementById("check"+j).checked+"<br>")  
-      //     }
-      //         // app.append("<input id=" + i + " type=checkBox>" + ans + "</input>");
-      //   }
-      // };
+    
       zapiszTest();
     }
   );
