@@ -1,0 +1,8 @@
+component_depth: 6
+languages:
+- java
+exclude:
+- /Front
+- /csv_parser
+- /events
+- /LogoAssets
