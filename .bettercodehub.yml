@@ -13,3 +13,4 @@ exclude:
 - /Front/js/cognito.js
 - /Front/testManagement/js/assignTestToCandidates.js
 - /Front/testManagement/js/createTestForm.js
+- /Front/js/parser_webpack.js
