@@ -1,0 +1,16 @@
+languages:
+- java
+- javascript
+exclude:
+# - /Front/js/.*.js
+# - /Front/testManagement/js/.*.js
+# - /Front/testManagement/.*.js
+# - /Front/testModule/.*.js
+- /csv_parser
+- /csv_parser/src/parser/csvParser.js
+- /Front/testManagement/js/editTestsMenu.js
+- /Front/testModule/evaluateTestMenu.js
+- /Front/js/cognito.js
+- /Front/testManagement/js/assignTestToCandidates.js
+- /Front/testManagement/js/createTestForm.js
+- /Front/js/parser_webpack.js
