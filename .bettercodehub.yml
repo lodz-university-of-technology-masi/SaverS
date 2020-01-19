@@ -1,10 +1,8 @@
 languages:
 - java
 exclude:
-- /Front/js/.*.js
-- /Front/testManagement/js/.*.js
-- /Front/testManagement/.*.js
-- /Front/testModule/.*.js
+# - /Front/js/.*.js
+# - /Front/testManagement/js/.*.js
+# - /Front/testManagement/.*.js
+# - /Front/testModule/.*.js
 - /csv_parser
-- /events
-- /LogoAssets
