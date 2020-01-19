@@ -7,11 +7,27 @@ let chosenCandidate;
 let chosenTest;
 
 getTests().then(incomingTests => {
-    tests=incomingTests.tests;
-    updateTable(incomingTests.tests); 
+    tests = incomingTests.tests;
+    updateTable(incomingTests.tests);
 });
-getAssigns().then( (incomingAssigns) => {
+getAssigns().then((incomingAssigns) => {
     assigns = assigns.attributions;
+    if (assigns == null) {
+        let tableDiv = document.getElementById("assignedTable");
+
+        //remove all elements
+        while (tableDiv.firstChild) {
+            tableDiv.removeChild(tableDiv.firstChild);
+        }
+        if (assigns == 0 || assigns == null) {
+            let text = document.createTextNode("Currently nobody is assigned to your tests.");
+            let h5 = document.createElement("h5");
+            h5.classList.add("text-center");
+            h5.appendChild(text)
+            tableDiv.appendChild(h5);
+            return;
+        }
+    }
     if (assigns.length > 0) {
         updateAssignedTable(incomingAssigns.attributions);
     }
@@ -27,15 +43,15 @@ function getTests() {
                 "Authorization": getToken()
             },
             success: data => {
-              console.log(data);
-              tests = JSON.parse(data.body);
-              return resolve(JSON.parse(data.body));
+                console.log(data);
+                tests = JSON.parse(data.body);
+                return resolve(JSON.parse(data.body));
             },
             error: err => {
-              console.log(err.responseJSON);
-              return reject(err.responseJSON);
+                console.log(err.responseJSON);
+                return reject(err.responseJSON);
             }
-          })
+        })
     })
 }
 function getAssigns() {
@@ -57,7 +73,7 @@ function getAssigns() {
             }
         });
     })
-    
+
 }
 
 function getCandidates() {
@@ -70,7 +86,7 @@ function getCandidates() {
                 "Content-Type": "application/json"
             },
             success: (data) => {
-                console.log(data); 
+                console.log(data);
                 candidates = data;
                 return resolve();
             },
@@ -80,25 +96,25 @@ function getCandidates() {
             }
         });
     })
-   
+
 }
 
 function postAssign(assign) {
     return new Promise((resolve, reject) => {
         $.ajax({
-          type: 'POST',
-          url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution',
-          data: JSON.stringify(assign),
-          headers: {
-            "Authorization": getToken()
-        },
-          contentType: 'application/json',
-          success: data => {
-            return resolve(data)
-          },
-          error: err => {
-            return reject(err.responseText)
-          }
+            type: 'POST',
+            url: 'https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/attribution',
+            data: JSON.stringify(assign),
+            headers: {
+                "Authorization": getToken()
+            },
+            contentType: 'application/json',
+            success: data => {
+                return resolve(data)
+            },
+            error: err => {
+                return reject(err.responseText)
+            }
         });
     });
 }
@@ -112,19 +128,19 @@ function updateTable(tests) {
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
-    if(tests.length==0) {
+    if (tests == 0 || tests == null) {
         let text = document.createTextNode("You haven't created any tests so far.");
         let h5 = document.createElement("h5");
         h5.classList.add("text-center");
         h5.appendChild(text)
         tableDiv.appendChild(h5);
         return;
-      }
+    }
 
     //create table
     let table = document.createElement("table");
     table.classList.add("table", "table-bordered");
-    table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
+    table.classList.add("table-responsive-sm", "table-responsive-md", "table-responsive-lg")
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -154,7 +170,7 @@ function updateTable(tests) {
     let number = 0;
 
     for (let test in tests) {
-        
+
         number++;
         let newElement = document.createElement("tr");
 
@@ -204,12 +220,12 @@ function updateCandidatesTable() {
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
-   
+
 
     //create table
     let table = document.createElement("table");
     table.classList.add("table", "table-bordered");
-    table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
+    table.classList.add("table-responsive-sm", "table-responsive-md", "table-responsive-lg")
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -228,7 +244,7 @@ function updateCandidatesTable() {
     table.appendChild(firstRow);
 
     for (let candidate in candidates) {
-        
+
         let newElement = document.createElement("tr");
 
         //add candidate title
@@ -265,7 +281,7 @@ function updateAssignedTable(assigns) {
     while (tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
     }
-    if(assigns.length==0) {
+    if (assigns == 0 || assigns == null) {
         let text = document.createTextNode("Currently nobody is assigned to your tests.");
         let h5 = document.createElement("h5");
         h5.classList.add("text-center");
@@ -277,7 +293,7 @@ function updateAssignedTable(assigns) {
     //create table
     let table = document.createElement("table");
     table.classList.add("table", "table-bordered");
-    table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
+    table.classList.add("table-responsive-sm", "table-responsive-md", "table-responsive-lg")
     table.classList.add("text", "text-center");
 
     //set first row of a column
@@ -296,7 +312,7 @@ function updateAssignedTable(assigns) {
     table.appendChild(firstRow);
 
     for (let assign in assigns) {
-        
+
         let newElement = document.createElement("tr");
 
         let testname;
@@ -326,13 +342,13 @@ function updateAssignedTable(assigns) {
 
 function assignModalPopUp() {
     $('#assignModal').modal('show');
-     
-    getCandidates().then( () => {
+
+    getCandidates().then(() => {
         hideSpinner();
         updateCandidatesTable();
     });
-    
-    
+
+
 }
 
 function assign() {
@@ -341,7 +357,7 @@ function assign() {
         testID: chosenTest,
         recruiter: getUserName()
     }
-    
+
     showSpinner();
     postAssign(newAssign).then(
         result => {
@@ -356,14 +372,14 @@ function assign() {
 
 function managePanel() {
     window.open("./manageTests.html", "_self");
-  }
+}
 
-  //Spinner Functions
+//Spinner Functions
 function showSpinner() {
     s = document.getElementById("spinner");
     s.style.display = "block";
-  }
-  function hideSpinner() {
+}
+function hideSpinner() {
     s = document.getElementById("spinner");
     s.style.display = "none";
-  }
+}
