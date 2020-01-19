@@ -18,3 +18,11 @@ body {
     display: block;
     text-align: center;
 }
+
+.newQuestionButton {
+    text-align: center;
+}
+
+#subTestDiv {
+    text-align: center;
+}

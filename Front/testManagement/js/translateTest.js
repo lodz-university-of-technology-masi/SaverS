@@ -62,7 +62,7 @@ function translateTest(test) {
     $.ajax({
       type: "POST",
       url:
-        "https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/translatetest",
+        "https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/translatetest",
       data: JSON.stringify(test),
       headers: {
         "Authorization": getToken(),

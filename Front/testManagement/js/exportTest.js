@@ -35,7 +35,7 @@ function getExportedTest(testID) {
         headers: {
           "Authorization": getToken()
       },
-        url: `https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/test/export/${testID}`,
+        url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test/export/${testID}`,
         success: (data) => {
             console.log(data);
             return resolve(data)
