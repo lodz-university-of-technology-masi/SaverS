@@ -11,8 +11,9 @@ function sendTest(test) {
     $.ajax({
       type: "POST",
       headers: {
-        "Authorization": getToken()
-    },
+        "Authorization": getToken(),
+        "Content-Type": "application/json",
+      },
       url:
         "https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/test",
       data: JSON.stringify(test),
@@ -37,14 +38,17 @@ function getTests() {
       url: `https://dj9pgircgf.execute-api.us-east-1.amazonaws.com/SaversAPI/tests/${myParam}`,
       type: "GET",
       headers: {
-        "Authorization": getToken()
-    },
+        "Authorization": getToken(),
+      },
+      contentType: "application/json",
       async: false,
       success: data => {
+        
         console.log(JSON.parse(data.body).message[0]);
         return resolve(JSON.parse(data.body));
       },
       error: err => {
+        console.log(err)
         console.log(err.responseJSON);
       }
     });
@@ -61,9 +65,9 @@ function translateTest(test) {
         "https://6g43np9o2g.execute-api.us-east-1.amazonaws.com/SaversAPIFinal/translatetest",
       data: JSON.stringify(test),
       headers: {
-        "Authorization": getToken()
-    },
-      contentType: "application/json",
+        "Authorization": getToken(),
+        "Content-Type": "application/json",
+      },
       success: data => {
         console.log(data);
 
@@ -84,7 +88,7 @@ function updateTable(tests) {
   while (tableDiv.firstChild) {
     tableDiv.removeChild(tableDiv.firstChild);
   }
-  if(tests.length==0) {
+  if (tests == 0 || tests == null) {
     let text = document.createTextNode("You haven't created any tests so far.");
     let h5 = document.createElement("h5");
     h5.classList.add("text-center");
@@ -101,7 +105,7 @@ function updateTable(tests) {
   //create table
   let table = document.createElement("table");
   table.classList.add("table", "table-bordered");
-  table.classList.add("table-responsive-sm", "table-responsive-md","table-responsive-lg")
+  table.classList.add("table-responsive-sm", "table-responsive-md", "table-responsive-lg")
   table.classList.add("text", "text-center");
 
   //set first row of a column
@@ -175,7 +179,7 @@ function updateTable(tests) {
     newAssignButton.classList.add("button", "btn");
     newAssignButton.classList.add("button", "btn-info");
     newAssignButton.value = "Translate";
-    newAssignButton.addEventListener("click", function() {
+    newAssignButton.addEventListener("click", function () {
       testToSend = tests[test];
       translateModalPopUp(testToSend);
     });
@@ -296,7 +300,7 @@ function createModalWithTest(test) {
   correctButton.setAttribute("onclick", `accept(test)`);
   correctButton.appendChild(document.createTextNode("Yes"));
   testDIV.appendChild(correctButton);
-  
+
 }
 function mainPanel() {
   window.open("recruiterMain.html", "_self");
@@ -324,7 +328,7 @@ accept = () => {
       hideSpinner();
       returnMessage(result.message);
       returnMessage("And has been added to the database");
-      setTimeout(function() {
+      setTimeout(function () {
         $("#assignModal").modal("hide");
       }, 2000);
     },
@@ -341,7 +345,7 @@ dismiss = () => {
   let incBut = document.getElementById(`inCorrectButton`);
   incBut.classList.add("btn-danger");
   incBut.classList.remove("btn-outline-danger");
-  setTimeout(function() {
+  setTimeout(function () {
     $("#assignModal").modal("hide");
     $("#test").empty();
   }, 1000);
