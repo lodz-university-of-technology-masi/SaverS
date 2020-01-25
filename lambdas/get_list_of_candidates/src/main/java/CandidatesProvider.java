@@ -3,6 +3,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,9 +32,16 @@ public class CandidatesProvider implements RequestHandler<GetListOfCandidatesReq
         ListUsersRequest request = new ListUsersRequest();
         request.setUserPoolId("us-east-1_HAV7sF97C");
 
-        /* Make request */
-        ListUsersResult result = cognito.listUsers(request);
-        List<String> userEmails = result.getUsers().stream()
+        /* Make requests to get all users */
+        List<UserType> users = new ArrayList<UserType>();
+        ListUsersResult result;
+        do{
+            result = cognito.listUsers(request);
+            users.addAll(result.getUsers());
+            request.setPaginationToken(result.getPaginationToken());
+        }while(result.getPaginationToken() != null);
+
+        List<String> userEmails = users.stream()
         /* select all candidates of passed recruiter */
         .filter(user -> {
             return user.getAttributes().stream()
@@ -56,6 +64,12 @@ public class CandidatesProvider implements RequestHandler<GetListOfCandidatesReq
         return userEmails;
     }
 
+    public static void main(String[] args){
+        /* Local test */
+        CandidatesProvider provider = new CandidatesProvider();
+        GetListOfCandidatesRequest request = new GetListOfCandidatesRequest("karwojan@gmail.com", "1");
+        provider.handleRequest(request, null);
+    }
 }
 
 class GetListOfCandidatesRequest{
@@ -80,4 +94,10 @@ class GetListOfCandidatesRequest{
     }
 
     public GetListOfCandidatesRequest() {}
+
+    public GetListOfCandidatesRequest(String username, String usertype) {
+        this.username = username;
+        this.usertype = usertype;
+    }
+
 }
